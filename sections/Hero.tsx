@@ -11,7 +11,7 @@ export default async function Hero() {
     >
       <div className="mx-auto w-full max-w-6xl">
         <Reveal>
-          <h1 className="text-[clamp(3.5rem,10vw,9rem)] font-semibold leading-none tracking-tight text-primary [text-shadow:0_0_60px_rgba(56,189,248,0.25)]">
+          <h1 className="text-[clamp(3.5rem,10vw,9rem)] font-semibold leading-none tracking-tight text-primary [text-shadow:0_0_60px_rgba(141,214,255,0.25)]">
             {t("greeting")}
           </h1>
         </Reveal>
@@ -26,7 +26,7 @@ export default async function Hero() {
       >
         <span>{t("scrollDown")}</span>
         <svg
-          className="h-4 w-4 animate-bounce transition-[filter] group-hover:[filter:drop-shadow(0_0_8px_rgba(56,189,248,0.7))]"
+          className="h-4 w-4 animate-bounce transition-[filter] group-hover:[filter:drop-shadow(0_0_8px_rgba(141,214,255,0.7))]"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

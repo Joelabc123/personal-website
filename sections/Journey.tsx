@@ -1,8 +1,11 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import Image from "next/image";
+import type { AnchorHTMLAttributes } from "react";
 import type { LucideIcon } from "lucide-react";
 import { formatDateRange } from "@/lib/dates";
 import Reveal from "@/components/Reveal";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 import {
   experience,
   education,
@@ -48,22 +51,32 @@ function EntryCard({
   locale: string;
 }) {
   return (
-    <Reveal className="flex gap-6 rounded-xl border-b border-tertiary px-4 py-8 transition-colors duration-300 last:border-b-0 hover:bg-white/[0.03]">
-      <IconTile logo={entry.logo} icon={entry.icon} label={entry.organization} />
-      <div className="min-w-0 flex-1">
-        <h4 className="text-lg font-semibold text-primary">{entry.organization}</h4>
-        <p className="mt-1 text-sm text-secondary">{entry.role}</p>
-        {entry.bullets && (
-          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-secondary">
-            {entry.bullets.map((bullet) => (
-              <li key={bullet}>{bullet}</li>
-            ))}
-          </ul>
-        )}
+    <Reveal className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
+      <GlowingEffect
+        spread={40}
+        glow
+        disabled={false}
+        proximity={64}
+        inactiveZone={0.01}
+        borderWidth={2}
+      />
+      <div className="relative flex gap-6 rounded-xl bg-white/5 p-6 backdrop-blur-sm">
+        <IconTile logo={entry.logo} icon={entry.icon} label={entry.organization} />
+        <div className="min-w-0 flex-1">
+          <h4 className="text-lg font-semibold text-primary">{entry.organization}</h4>
+          <p className="mt-1 text-sm text-secondary">{entry.role}</p>
+          {entry.bullets && (
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-secondary">
+              {entry.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <span className="w-24 shrink-0 text-right text-sm text-secondary md:w-40">
+          {formatDateRange(entry.from, entry.to, locale, presentLabel)}
+        </span>
       </div>
-      <span className="w-24 shrink-0 text-right text-sm text-secondary md:w-40">
-        {formatDateRange(entry.from, entry.to, locale, presentLabel)}
-      </span>
     </Reveal>
   );
 }
@@ -76,21 +89,31 @@ function ProjectCard({
   projectLinkLabel: string;
 }) {
   return (
-    <Reveal className="flex gap-6 rounded-xl border-b border-tertiary px-4 py-8 transition-colors duration-300 last:border-b-0 hover:bg-white/[0.03]">
-      <IconTile icon={project.icon} label={project.name} />
-      <div>
-        <h4 className="text-lg font-semibold text-primary">{project.name}</h4>
-        <p className="mt-2 max-w-prose text-sm leading-relaxed text-secondary">
-          {project.description}
-        </p>
-        {project.link && (
-          <a
-            href={project.link}
-            className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4 transition-colors hover:text-secondary"
-          >
-            {projectLinkLabel}
-          </a>
-        )}
+    <Reveal className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
+      <GlowingEffect
+        spread={40}
+        glow
+        disabled={false}
+        proximity={64}
+        inactiveZone={0.01}
+        borderWidth={2}
+      />
+      <div className="relative flex gap-6 rounded-xl bg-white/5 p-6 backdrop-blur-sm">
+        <IconTile icon={project.icon} label={project.name} />
+        <div>
+          <h4 className="text-lg font-semibold text-primary">{project.name}</h4>
+          <p className="mt-2 max-w-prose text-sm leading-relaxed text-secondary">
+            {project.description}
+          </p>
+          {project.link && (
+            <a
+              href={project.link}
+              className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4 transition-colors hover:text-secondary"
+            >
+              {projectLinkLabel}
+            </a>
+          )}
+        </div>
       </div>
     </Reveal>
   );
@@ -100,6 +123,11 @@ export default async function Journey() {
   const t = await getTranslations("journey");
   const locale = await getLocale();
   const presentLabel = t("present");
+  const pdfLinkProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
+    href: "/Lebenslauf.pdf",
+    target: "_blank",
+    rel: "noopener",
+  };
 
   return (
     <section
@@ -114,14 +142,13 @@ export default async function Journey() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <a
-              href="/Lebenslauf.pdf"
-              target="_blank"
-              rel="noopener"
-              className="inline-block rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-primary backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:bg-accent/10 hover:text-accent hover:shadow-[0_0_24px_rgba(56,189,248,0.25)]"
+            <HoverBorderGradient
+              as="a"
+              className="text-sm font-medium"
+              {...pdfLinkProps}
             >
               {t("pdfButton")}
-            </a>
+            </HoverBorderGradient>
           </Reveal>
         </div>
 
@@ -129,7 +156,7 @@ export default async function Journey() {
           <h3 className="text-sm uppercase tracking-[0.2em] text-secondary">
             {t("experience")}
           </h3>
-          <div className="mt-4">
+          <div className="mt-4 space-y-4">
             {experience.map((entry) => (
               <EntryCard
                 key={`${entry.organization}-${entry.from}`}
@@ -145,7 +172,7 @@ export default async function Journey() {
           <h3 className="text-sm uppercase tracking-[0.2em] text-secondary">
             {t("education")}
           </h3>
-          <div className="mt-4">
+          <div className="mt-4 space-y-4">
             {education.map((entry) => (
               <EntryCard
                 key={`${entry.organization}-${entry.from}`}
@@ -161,7 +188,7 @@ export default async function Journey() {
           <h3 className="text-sm uppercase tracking-[0.2em] text-secondary">
             {t("projects")}
           </h3>
-          <div className="mt-4">
+          <div className="mt-4 space-y-4">
             {projects.map((project) => (
               <ProjectCard
                 key={project.name}

@@ -2,8 +2,8 @@
 
 import type { FormEvent } from "react";
 import { useTranslations } from "next-intl";
-import { motion } from "framer-motion";
 import { siteConfig } from "@/lib/siteConfig";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 type ContactFormData = {
   name: string;
@@ -66,14 +66,13 @@ export default function ContactForm() {
         <textarea name="message" required rows={5} className={`resize-none ${inputClassName}`} />
       </label>
 
-      <motion.button
-        type="submit"
-        className="self-start rounded-full border border-white/15 bg-white/5 px-8 py-3 text-sm font-medium text-primary backdrop-blur-sm transition-all hover:border-accent/60 hover:bg-accent/10 hover:text-accent hover:shadow-[0_0_24px_rgba(56,189,248,0.25)]"
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.96 }}
+      <HoverBorderGradient
+        as="button"
+        containerClassName="self-start"
+        className="text-sm font-medium"
       >
         {t("submit")}
-      </motion.button>
+      </HoverBorderGradient>
     </form>
   );
 }

@@ -26,9 +26,9 @@ interface FluentGlassProps {
 }
 
 export default function FluentGlass({
-    baseColor = "#181d25",
-    glowColor = "#dbdfe6",
-    midColor = "#2c343f",
+    baseColor = "#0d1117",
+    glowColor = "#8dd6ff",
+    midColor = "#151a22",
     angle = 135,
     ribCount = 44,
     ribIntensity = 0.5,
@@ -133,20 +133,20 @@ export default function FluentGlass({
 
     const glowLayer = useMemo(
         () =>
-            `linear-gradient(${angle}deg, ${baseColor} 0%, #20262f 50%, rgba(44, 52, 63, ${Math.max(
+            `linear-gradient(${angle}deg, ${baseColor} 0%, #151a22 50%, rgba(21, 26, 34, ${Math.max(
                 0.5,
                 effectiveGlowStrength * 0.95
-            ).toFixed(3)}) 62%, #3c4552 71%, ${midColor} 80%, ${glowColor} 96%, ${glowColor} 100%)`,
+            ).toFixed(3)}) 62%, #24292f 71%, ${midColor} 80%, ${glowColor} 96%, ${glowColor} 100%)`,
         [angle, baseColor, midColor, glowColor, effectiveGlowStrength]
     );
 
     const tintLayer = useMemo(
         () =>
-            `linear-gradient(${angle}deg, rgba(24, 29, 37, 0.5) 0%, rgba(24, 29, 37, 0.42) 48%, rgba(44, 52, 63, ${(
+            `linear-gradient(${angle}deg, rgba(13, 17, 23, 0.5) 0%, rgba(13, 17, 23, 0.42) 48%, rgba(21, 26, 34, ${(
                 0.22 * effectiveGlowStrength
-            ).toFixed(3)}) 64%, rgba(101, 112, 129, ${(0.3 * effectiveGlowStrength).toFixed(
+            ).toFixed(3)}) 64%, rgba(145, 152, 161, ${(0.3 * effectiveGlowStrength).toFixed(
                 3
-            )}) 82%, rgba(219, 223, 230, ${(0.32 * effectiveGlowStrength).toFixed(3)}) 100%)`,
+            )}) 82%, rgba(141, 214, 255, ${(0.32 * effectiveGlowStrength).toFixed(3)}) 100%)`,
         [angle, effectiveGlowStrength]
     );
 
@@ -188,21 +188,21 @@ export default function FluentGlass({
 
     const darkeningLayer = useMemo(
         () =>
-            `linear-gradient(${angle}deg, rgba(24, 29, 37, ${Math.max(0.5, 0.78 - darkLift).toFixed(
+            `linear-gradient(${angle}deg, rgba(13, 17, 23, ${Math.max(0.5, 0.78 - darkLift).toFixed(
                 3
-            )}) 0%, rgba(24, 29, 37, ${Math.max(0.42, 0.68 - darkLift * 0.95).toFixed(
+            )}) 0%, rgba(13, 17, 23, ${Math.max(0.42, 0.68 - darkLift * 0.95).toFixed(
                 3
-            )}) 30%, rgba(24, 29, 37, ${Math.max(0.34, 0.58 - darkLift * 0.9).toFixed(
+            )}) 30%, rgba(13, 17, 23, ${Math.max(0.34, 0.58 - darkLift * 0.9).toFixed(
                 3
-            )}) 55%, rgba(24, 29, 37, ${Math.max(0.12, 0.32 - darkLift * 0.7).toFixed(
+            )}) 55%, rgba(13, 17, 23, ${Math.max(0.12, 0.32 - darkLift * 0.7).toFixed(
                 3
-            )}) 72%, rgba(24, 29, 37, ${Math.max(0, 0.05 - darkLift * 0.4).toFixed(3)}) 100%)`,
+            )}) 72%, rgba(13, 17, 23, ${Math.max(0, 0.05 - darkLift * 0.4).toFixed(3)}) 100%)`,
         [angle, darkLift]
     );
 
     const darkDepthLayer = useMemo(
         () =>
-            `radial-gradient(circle at 24% 12%, rgba(16, 19, 25, 0.16) 0%, rgba(16, 19, 25, 0.07) 24%, rgba(16, 19, 25, 0) 56%)`,
+            `radial-gradient(circle at 24% 12%, rgba(1, 4, 9, 0.16) 0%, rgba(1, 4, 9, 0.07) 24%, rgba(1, 4, 9, 0) 56%)`,
         []
     );
 
@@ -220,7 +220,7 @@ export default function FluentGlass({
 
     const vignetteLayer = useMemo(
         () =>
-            `radial-gradient(ellipse at center, rgba(0,0,0,0) 56%, rgba(2,2,3,0.06) 78%, rgba(2,2,3,0.14) 100%)`,
+            `radial-gradient(ellipse at center, rgba(0,0,0,0) 56%, rgba(0,0,0,0.06) 78%, rgba(0,0,0,0.14) 100%)`,
         []
     );
 
@@ -322,7 +322,7 @@ export default function FluentGlass({
                 style={{
                     position: "absolute",
                     inset: 0,
-                    background: `radial-gradient(circle at 100% 85%, ${glowColor} 0%, ${midColor} 34%, rgba(101,112,129,0.18) 48%, rgba(101,112,129,0) 55%)`,
+                    background: `radial-gradient(circle at 100% 85%, ${glowColor} 0%, ${midColor} 34%, rgba(145,152,161,0.18) 48%, rgba(145,152,161,0) 55%)`,
                     opacity: 0.08 + effectiveGlowStrength * 0.32,
                     mixBlendMode: "screen",
                 }}

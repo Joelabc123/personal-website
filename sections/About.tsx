@@ -35,7 +35,7 @@ export default async function About() {
 
           <Reveal
             delay={0.2}
-            className="mt-10 inline-flex flex-col gap-1 rounded-lg border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_0_28px_rgba(56,189,248,0.2)]"
+            className="mt-10 inline-flex flex-col gap-1 rounded-lg border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_0_28px_rgba(141,214,255,0.2)]"
           >
             <span className="text-3xl font-semibold text-primary">
               {t("statValue")}
@@ -49,12 +49,12 @@ export default async function About() {
         <div>
           <Reveal className="relative mx-auto hidden aspect-video w-full max-w-sm md:block">
             <div
-              className="absolute -inset-4 rounded-[1.75rem] bg-[radial-gradient(circle_at_30%_30%,rgba(56,189,248,0.22),transparent_70%)] blur-2xl"
+              className="absolute -inset-4 rounded-[1.75rem] bg-[radial-gradient(circle_at_30%_30%,rgba(141,214,255,0.22),transparent_70%)] blur-2xl"
               aria-hidden="true"
             />
-            <div className="relative h-full w-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-[0_18px_50px_-20px_rgba(56,189,248,0.4)] backdrop-blur-md">
+            <div className="relative h-full w-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-[0_18px_50px_-20px_rgba(141,214,255,0.4)] backdrop-blur-md">
               <div
-                className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(148,197,255,0.07)_0px,rgba(148,197,255,0.07)_1px,transparent_1px,transparent_18px)]"
+                className="absolute inset-0 bg-[repeating-linear-gradient(90deg,rgba(141,214,255,0.07)_0px,rgba(141,214,255,0.07)_1px,transparent_1px,transparent_18px)]"
                 aria-hidden="true"
               />
               <div
