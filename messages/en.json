@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "About Me",
+    "journey": "My Journey",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello",
+    "subtitle": "Hello - I'm Joel",
+    "scrollDown": "Scroll down"
+  },
+  "about": {
+    "heading": "About Me",
+    "body": "Placeholder text: a short introduction about me, my background and how I work will go here.",
+    "statValue": "3+ years",
+    "statLabel": "Experience",
+    "skillsHeading": "Skills"
+  },
+  "journey": {
+    "heading": "My Journey",
+    "experience": "Work Experience",
+    "education": "Education",
+    "projects": "Projects",
+    "languages": "Languages",
+    "present": "Present",
+    "pdfButton": "CV as PDF",
+    "projectLink": "View Project"
+  },
+  "contact": {
+    "heading": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "submit": "Send"
+  },
+  "footer": {
+    "openSource": "This website is open source",
+    "copyright": "© {year} Joel Bakirel",
+    "impressum": "Legal Notice",
+    "datenschutz": "Privacy Policy"
+  },
+  "legal": {
+    "impressumTitle": "Legal Notice",
+    "datenschutzTitle": "Privacy Policy",
+    "disclaimer": "Placeholder content — still needs to be reviewed legally.",
+    "privateNotice": "This website is operated privately and non-commercially."
+  }
+}
+

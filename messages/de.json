@@ -1,0 +1,50 @@
+{
+  "nav": {
+    "about": "Über mich",
+    "journey": "Mein Werdegang",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "greeting": "Hallo",
+    "subtitle": "Hallo - Ich bin Joel",
+    "scrollDown": "Scrollen"
+  },
+  "about": {
+    "heading": "Über mich",
+    "body": "Platzhaltertext: Hier steht bald eine kurze Vorstellung von mir, meinem Werdegang und meiner Arbeitsweise.",
+    "statValue": "3+ Jahre",
+    "statLabel": "Erfahrung",
+    "skillsHeading": "Skills"
+  },
+  "journey": {
+    "heading": "Mein Werdegang",
+    "experience": "Berufserfahrung",
+    "education": "Ausbildung",
+    "projects": "Projekte",
+    "languages": "Sprachkenntnisse",
+    "present": "Heute",
+    "pdfButton": "Lebenslauf als PDF",
+    "projectLink": "Zum Projekt"
+  },
+  "contact": {
+    "heading": "Kontakt",
+    "name": "Name",
+    "email": "E-Mail",
+    "subject": "Betreff",
+    "message": "Nachricht",
+    "submit": "Senden"
+  },
+  "footer": {
+    "openSource": "Diese Website ist Open Source",
+    "copyright": "© {year} Joel Bakirel",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz"
+  },
+  "legal": {
+    "impressumTitle": "Impressum",
+    "datenschutzTitle": "Datenschutz",
+    "disclaimer": "Platzhalterinhalt — muss noch rechtlich geprüft werden.",
+    "privateNotice": "Diese Website wird privat und nicht-kommerziell betrieben."
+  }
+}
+
