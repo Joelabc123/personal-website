@@ -38,6 +38,7 @@ function MailIcon(props: SVGProps<SVGSVGElement>) {
 
 export default async function Footer() {
   const t = await getTranslations("footer");
+  const tNav = await getTranslations("nav");
   const year = new Date().getFullYear();
 
   const socialLinks = [
@@ -46,44 +47,88 @@ export default async function Footer() {
     { href: `mailto:${siteConfig.email}`, label: "Email", Icon: MailIcon },
   ];
 
+  const pageLinks = [
+    { href: "/", label: tNav("home") },
+    { href: "/#ueber-mich", label: tNav("about") },
+    { href: "/#werdegang", label: tNav("journey") },
+    { href: "/#kontakt", label: tNav("contact") },
+  ];
+
   return (
-    <footer className="border-t border-tertiary px-6 py-12">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-5">
-          {socialLinks.map(({ href, label, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              aria-label={label}
-              className="inline-block text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary"
-            >
-              <Icon className="h-5 w-5" />
-            </a>
-          ))}
+    <footer className="relative border-t border-tertiary px-6 pt-16 pb-10 sm:px-10">
+      <div className="mx-auto flex w-full max-w-6xl flex-col">
+        {/* Brand + Pages/Support link columns */}
+        <div className="flex flex-col gap-12 sm:flex-row sm:justify-between">
+          <div className="max-w-xs">
+            <p className="text-sm font-semibold text-primary">{siteConfig.name}</p>
+            <p className="mt-2 text-sm text-secondary">{t("tagline")}</p>
+          </div>
+
+          <div className="flex flex-col gap-10">
+            <div>
+              <p className="text-sm font-semibold text-primary">{t("pagesHeading")}</p>
+              <ul className="mt-4 space-y-3 text-sm text-secondary">
+                {pageLinks.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="transition-colors hover:text-primary">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-sm font-semibold text-primary">{t("supportHeading")}</p>
+              <ul className="mt-4 space-y-3 text-sm text-secondary">
+                <li>
+                  <Link href="/impressum" className="transition-colors hover:text-primary">
+                    {t("impressum")}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/datenschutz" className="transition-colors hover:text-primary">
+                    {t("datenschutz")}
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href={siteConfig.social.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-primary"
+                  >
+                    {t("openSource")}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <a
-          href={siteConfig.social.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary"
-        >
-          <GithubIcon className="h-4 w-4" />
-          {t("openSource")}
-        </a>
+        {/* Empty spacer so the fixed scroll-driven background animation
+            (star/plume, see components/Background.tsx) has room to reveal
+            itself before the social/copyright row comes into view. */}
+        <div aria-hidden="true" className="h-[34vh] min-h-[200px] sm:h-[46vh]" />
 
-        <div className="flex items-center gap-6 text-sm text-secondary">
-          <Link href="/impressum" className="transition-colors hover:text-primary">
-            {t("impressum")}
-          </Link>
-          <Link href="/datenschutz" className="transition-colors hover:text-primary">
-            {t("datenschutz")}
-          </Link>
+        {/* Social icons + copyright */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-5">
+            {socialLinks.map(({ href, label, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                aria-label={label}
+                className="inline-block text-secondary transition-all duration-300 hover:-translate-y-1 hover:text-primary"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+          <p className="text-sm text-secondary">{t("copyright", { year })}</p>
         </div>
-
-        <p className="text-sm text-secondary">{t("copyright", { year })}</p>
       </div>
     </footer>
   );

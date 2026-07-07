@@ -9,7 +9,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Preloader from "@/components/Preloader";
-import FluentGlass from "@/components/FluentGlass";
+import Background from "@/components/Background";
 import CustomCursor from "@/components/CustomCursor";
 import "../globals.css";
 
@@ -59,7 +59,7 @@ export default async function LocaleLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>
-          <FluentGlass />
+          <Background />
           <CustomCursor />
           <Preloader />
           <Header />

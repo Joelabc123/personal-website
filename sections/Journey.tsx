@@ -35,7 +35,7 @@ function IconTile({
           className="h-11 w-11 object-contain"
         />
       ) : Icon ? (
-        <Icon className="h-8 w-8 text-sky-600" strokeWidth={1.5} aria-hidden="true" />
+        <Icon className="h-8 w-8 text-black" strokeWidth={1.5} aria-hidden="true" />
       ) : null}
     </div>
   );

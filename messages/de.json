@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Start",
     "about": "Über mich",
     "journey": "Mein Werdegang",
     "contact": "Kontakt"
@@ -35,6 +36,9 @@
     "submit": "Senden"
   },
   "footer": {
+    "tagline": "Portfolio & Lebenslauf von Joel Bakirel.",
+    "pagesHeading": "Seiten",
+    "supportHeading": "Support",
     "openSource": "Diese Website ist Open Source",
     "copyright": "© {year} Joel Bakirel",
     "impressum": "Impressum",

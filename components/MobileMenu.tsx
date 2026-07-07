@@ -38,7 +38,7 @@ export default function MobileMenu({ activeId }: MobileMenuProps) {
       </button>
 
       {isOpen && (
-        <div className="absolute inset-x-0 top-16 flex flex-col gap-8 border-t border-white/10 bg-[#0d1117]/95 px-6 py-8 shadow-lg shadow-black/30 backdrop-blur-md">
+        <div className="absolute inset-x-0 top-16 flex flex-col gap-8 border-t border-white/10 bg-black/95 px-6 py-8 shadow-lg shadow-black/30 backdrop-blur-md">
           <Nav
             activeId={activeId}
             listClassName="flex flex-col gap-6 text-base"

@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Home",
     "about": "About Me",
     "journey": "My Journey",
     "contact": "Contact"
@@ -35,6 +36,9 @@
     "submit": "Send"
   },
   "footer": {
+    "tagline": "Portfolio & CV of Joel Bakirel.",
+    "pagesHeading": "Pages",
+    "supportHeading": "Support",
     "openSource": "This website is open source",
     "copyright": "© {year} Joel Bakirel",
     "impressum": "Legal Notice",
