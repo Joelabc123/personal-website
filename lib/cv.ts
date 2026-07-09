@@ -1,15 +1,7 @@
 // Structured CV data (Berufserfahrung, Ausbildung, Projekte, Sprachkenntnisse — requirements §5.3).
 // Proper names, role titles and body copy stay untranslated (same convention as About's skills list).
 
-import {
-  Building2,
-  Dices,
-  Gamepad2,
-  GitBranch,
-  GraduationCap,
-  LineChart,
-  type LucideIcon,
-} from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
 export type CvEntry = {
   organization: string;
@@ -18,6 +10,7 @@ export type CvEntry = {
   to: string | null; // null = ongoing / present
   bullets?: string[];
   logo?: string; // image path under /public for org logos
+  logoScale?: number; // zoom factor for logos with excess whitespace/margin
   icon?: LucideIcon; // fallback vector icon when there is no logo
 };
 
@@ -25,7 +18,6 @@ export type ProjectEntry = {
   name: string;
   description: string;
   link?: string;
-  icon?: LucideIcon;
 };
 
 export type LanguageEntry = {
@@ -58,6 +50,7 @@ export const education: CvEntry[] = [
     from: "2026-10",
     to: null,
     logo: "/icons/tum.png",
+    logoScale: 1.4,
   },
   {
     organization: "Universität Mannheim",
@@ -75,7 +68,8 @@ export const education: CvEntry[] = [
     role: "Abitur | Köln-Weiden",
     from: "2013-09",
     to: "2021-06",
-    icon: GraduationCap,
+    logo: "/icons/georgbuechnericon.jpg",
+    logoScale: 1.4,
     bullets: ["Durchschnitt: 2,5"],
   },
 ];
@@ -85,32 +79,27 @@ export const projects: ProjectEntry[] = [
     name: "Immobilienverwaltungsplattform",
     description:
       "Vollautomatisierte Immobilienverwaltung von Bewerberauswahl bis Vertragsabwicklung, mit individuellem Dashboard für Finanzkontrolle und Aufgabenplanung.",
-    icon: Building2,
     link: "#",
   },
   {
     name: "Finanzverwaltungsplattform",
     description:
       "Datengesteuertes Portfoliomanagement unter Berücksichtigung moderner Finanztheorien.",
-    icon: LineChart,
   },
   {
     name: "Rot-Schwarz-Baum Lern- und Übungsmodul",
     description:
       "Für die E-Learning-Plattform der Universität Mannheim: Grapheneditor, automatische Fehlererkennung/-behebung, interaktive Tutorials, Algorithmen-Simulator.",
-    icon: GitBranch,
   },
   {
     name: "Quizduell",
     description:
       "Projektarbeit Client-Server-Architektur über TCP-Sockets in Java.",
-    icon: Gamepad2,
     link: "#",
   },
   {
     name: "Online-Brettspiel",
     description: "Kollaborativ in Java entwickelt.",
-    icon: Dices,
   },
 ];
 

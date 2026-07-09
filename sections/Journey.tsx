@@ -1,10 +1,8 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import Image from "next/image";
-import type { AnchorHTMLAttributes } from "react";
 import type { LucideIcon } from "lucide-react";
 import { formatDateRange } from "@/lib/dates";
 import Reveal from "@/components/Reveal";
-import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import {
   experience,
@@ -17,25 +15,28 @@ import {
 
 function IconTile({
   logo,
+  logoScale = 1,
   icon: Icon,
   label,
 }: {
   logo?: string;
+  logoScale?: number;
   icon?: LucideIcon;
   label: string;
 }) {
   return (
-    <div className="hidden h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm sm:flex">
+    <div className="hidden h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm sm:flex">
       {logo ? (
         <Image
           src={logo}
           alt={label}
-          width={44}
-          height={44}
-          className="h-11 w-11 object-contain"
+          width={56}
+          height={56}
+          className="h-14 w-14 object-contain"
+          style={logoScale !== 1 ? { transform: `scale(${logoScale})` } : undefined}
         />
       ) : Icon ? (
-        <Icon className="h-8 w-8 text-black" strokeWidth={1.5} aria-hidden="true" />
+        <Icon className="h-10 w-10 text-black" strokeWidth={1.5} aria-hidden="true" />
       ) : null}
     </div>
   );
@@ -53,6 +54,7 @@ function EntryCard({
   return (
     <Reveal className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
       <GlowingEffect
+        variant="white"
         spread={40}
         glow
         disabled={false}
@@ -61,7 +63,7 @@ function EntryCard({
         borderWidth={2}
       />
       <div className="relative flex gap-6 rounded-xl bg-white/5 p-6 backdrop-blur-sm">
-        <IconTile logo={entry.logo} icon={entry.icon} label={entry.organization} />
+        <IconTile logo={entry.logo} logoScale={entry.logoScale} icon={entry.icon} label={entry.organization} />
         <div className="min-w-0 flex-1">
           <h4 className="text-lg font-semibold text-primary">{entry.organization}</h4>
           <p className="mt-1 text-sm text-secondary">{entry.role}</p>
@@ -91,6 +93,7 @@ function ProjectCard({
   return (
     <Reveal className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
       <GlowingEffect
+        variant="white"
         spread={40}
         glow
         disabled={false}
@@ -99,7 +102,6 @@ function ProjectCard({
         borderWidth={2}
       />
       <div className="relative flex gap-6 rounded-xl bg-white/5 p-6 backdrop-blur-sm">
-        <IconTile icon={project.icon} label={project.name} />
         <div>
           <h4 className="text-lg font-semibold text-primary">{project.name}</h4>
           <p className="mt-2 max-w-prose text-sm leading-relaxed text-secondary">
@@ -123,11 +125,6 @@ export default async function Journey() {
   const t = await getTranslations("journey");
   const locale = await getLocale();
   const presentLabel = t("present");
-  const pdfLinkProps: AnchorHTMLAttributes<HTMLAnchorElement> = {
-    href: "/Lebenslauf.pdf",
-    target: "_blank",
-    rel: "noopener",
-  };
 
   return (
     <section
@@ -142,13 +139,25 @@ export default async function Journey() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <HoverBorderGradient
-              as="a"
-              className="text-sm font-medium"
-              {...pdfLinkProps}
-            >
-              {t("pdfButton")}
-            </HoverBorderGradient>
+            <div className="relative rounded-full border border-white/10 p-1">
+              <GlowingEffect
+                variant="white"
+                spread={40}
+                glow
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={2}
+              />
+              <a
+                href="/Lebenslauf.pdf"
+                target="_blank"
+                rel="noopener"
+                className="relative block rounded-full bg-white/5 px-5 py-2 text-sm font-medium text-primary backdrop-blur-sm transition-colors hover:text-accent"
+              >
+                {t("pdfButton")}
+              </a>
+            </div>
           </Reveal>
         </div>
 

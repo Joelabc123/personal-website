@@ -35,3 +35,12 @@ html.cursor-none,
 html.cursor-none * {
   cursor: none !important;
 }
+
+/* Google reCAPTCHA v3 badge is hidden per its usage policy: the required
+   attribution notice is shown inline near the contact form instead
+   (see ContactForm.tsx / messages.contact.recaptchaNotice). !important is
+   required: without it the rule loses to Tailwind's own cascade layers. */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}
+

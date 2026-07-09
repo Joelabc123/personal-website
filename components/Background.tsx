@@ -182,6 +182,55 @@ export default function Background({
                 return smoothstep(radius + softness, radius, d);
             }
 
+            // Wireframe globe/orb icon: outer circle ring + a straight
+            // equator line + a vertical "eye" (lens) made of two meridian
+            // arcs — the classic circle + equator + meridian glyph. Pure
+            // static geometry with no per-frame turbulence/flicker (unlike
+            // the old comet's flame edges) — "same effect, just without
+            // the fire" per the request that replaced the comet shape.
+            float ring(vec2 p, vec2 center, float radius, float halfWidth) {
+                float d = abs(length(p - center) - radius);
+                return smoothstep(halfWidth, halfWidth * 0.35, d);
+            }
+
+            // Same 4-point sparkle metric used elsewhere on the site
+            // (Header's StarLogo, the pre-comet Background star), but
+            // drawn as a thin OUTLINE (not a filled diamond) so it reads
+            // as a small sparkle accent right at the globe's crossing
+            // point instead of a big solid blob overwhelming the cross.
+            float starOutline(vec2 p, float targetRadius, float halfWidth) {
+                vec2 ap = abs(p);
+                float vertical = ap.x * 3.6 + ap.y * 0.95;
+                float horizontal = ap.x * 1.3 + ap.y * 2.4;
+                float field = min(vertical, horizontal);
+                float d = abs(field - targetRadius);
+                return smoothstep(halfWidth, halfWidth * 0.35, d);
+            }
+
+            float globeIcon(vec2 p, float radius, float strokeWidth) {
+                float insideDisc = smoothstep(radius + strokeWidth, radius - strokeWidth, length(p));
+
+                float outer = ring(p, vec2(0.0), radius, strokeWidth);
+                float equator = smoothstep(strokeWidth, strokeWidth * 0.35, abs(p.y)) * insideDisc;
+                float meridianCenter = smoothstep(strokeWidth, strokeWidth * 0.35, abs(p.x)) * insideDisc;
+
+                // Two meridian arcs: circles offset left/right that also
+                // pass through the top/bottom poles (0, ±radius) —
+                // clipping each ring to "inside the main disc" keeps only
+                // the near-side arc, which bulges toward the vertical axis
+                // and, together with its mirror, forms the vertical lens.
+                float offset = radius * 0.62;
+                float meridianRadius = sqrt(offset * offset + radius * radius);
+                float meridianRight = ring(p, vec2(offset, 0.0), meridianRadius, strokeWidth) * insideDisc;
+                float meridianLeft = ring(p, vec2(-offset, 0.0), meridianRadius, strokeWidth) * insideDisc;
+
+                float centerStar = starOutline(p, radius * 0.34, strokeWidth);
+
+                float lines = max(max(outer, equator), meridianCenter);
+                float meridians = max(meridianLeft, meridianRight);
+                return max(max(lines, meridians), centerStar);
+            }
+
             void main() {
                 vec2 uv = vUv;
                 vec2 centered = uv - 0.5;
@@ -198,26 +247,24 @@ export default function Background({
                 float heroDots = dotGrid(uv + vec2(nHero * 0.03, -nHero * 0.02), uGridDensity, 0.20 + nHero * 0.14, 0.10);
                 float hero = heroPattern * heroDots * (0.52 + 0.85 * nHero) * heroZone;
 
-                float x = abs(uv.x - 0.5);
                 float yFromBottom = 1.0 - uv.y;
-                float plumeWidth = mix(0.015, 0.07, yFromBottom);
-                float column = smoothstep(plumeWidth + 0.04, plumeWidth, x);
+                // Used only to jitter the bottom dot-grid slightly (kept
+                // from the old plume effect) — the plume column itself was
+                // removed since it trailed downward from the head, which
+                // conflicted with the comet's tail (must only be above it).
                 float plumeNoise = fbm(vec2((uv.x - 0.5) * 9.0, yFromBottom * 5.0 - t * 0.55));
-                float glitch = step(0.86, hash(vec2(floor(uv.y * 150.0), floor(t * 30.0)))) * 0.35;
-                float plumeCore = column * smoothstep(0.22, 0.96, plumeNoise + glitch) * smoothstep(0.0, 0.06, yFromBottom);
 
-                // 4-pointed sparkle/star: union (min) of two elongated
-                // diamonds — one stretched vertically (tall top/bottom
-                // points), one stretched horizontally (shorter left/right
-                // points) — gives the concave waist of a real star shape
-                // instead of a plain rhombus. Slightly bigger reach + a
-                // narrower smoothstep band than before for a larger, more
-                // clearly-defined (less blurry) star.
-                vec2 starUv = centered - vec2(0.0, -0.10);
-                float starVertical = abs(starUv.x) * 3.6 + abs(starUv.y) * 0.95;
-                float starHorizontal = abs(starUv.x) * 1.3 + abs(starUv.y) * 2.4;
-                float starField = min(starVertical, starHorizontal);
-                float star = smoothstep(0.33, 0.17, starField) * smoothstep(0.0, 0.22, yFromBottom);
+                // Wireframe globe/orb icon in place of the old comet (see
+                // globeIcon() helper) — same overall composition (dot-grid
+                // render, glow blend, scroll-reveal, verticalContain) kept
+                // as before, just a calmer, purely static silhouette with
+                // no fire/flicker distortion. Offset kept from the comet's
+                // final tuning so it sits at the same spot low in the
+                // footer's animated zone.
+                vec2 cp = centered - vec2(0.0, -0.13);
+                float globe = globeIcon(cp, 0.27, 0.018);
+
+                float star = globe * smoothstep(0.0, 0.22, yFromBottom);
 
                 // Contain the whole plume+star shape so it spreads wide
                 // rather than stretching all the way up above the footer.
@@ -226,13 +273,13 @@ export default function Background({
                 // outpaces how far the footer has actually scrolled into
                 // view — otherwise it would poke up over the footer's top
                 // edge into the Contact section while still transitioning in.
-                float maxReach = mix(0.04, 0.68, bottomReveal);
-                float verticalContain = 1.0 - smoothstep(maxReach - 0.14, maxReach, uv.y);
+                float maxReach = mix(0.04, 0.86, bottomReveal);
+                float verticalContain = 1.0 - smoothstep(maxReach - 0.16, maxReach, uv.y);
 
                 float bottomDots = dotGrid(uv + vec2(plumeNoise * 0.025, 0.0), uGridDensity * 1.1, 0.19, 0.09);
-                float bottom = (plumeCore * 0.55 + star * 1.5) * bottomDots * bottomZone * verticalContain;
+                float bottom = star * 1.5 * bottomDots * bottomZone * verticalContain;
 
-                float intensity = clamp(hero + bottom, 0.0, 1.0);
+                float intensity = clamp(hero + bottom, 0.0, 0.45); //Stellt helligkeit ein
                 float alpha = mix(0.24, 0.95, intensity) * step(0.001, intensity);
                 vec3 color = mix(uBackgroundColor, uParticleColor, intensity);
 

@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/siteConfig";
 import Header from "@/components/Header";
-import ScrollProgress from "@/components/ScrollProgress";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Preloader from "@/components/Preloader";
@@ -63,7 +62,6 @@ export default async function LocaleLayout({
           <CustomCursor />
           <Preloader />
           <Header />
-          <ScrollProgress />
           {children}
           <Footer />
           <BackToTop />

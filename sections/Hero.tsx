@@ -1,28 +1,60 @@
 import { getTranslations } from "next-intl/server";
+import AnchorLink from "@/components/AnchorLink";
 import Reveal from "@/components/Reveal";
 
 export default async function Hero() {
   const t = await getTranslations("hero");
+  const nameLines = t("greeting").split(" ");
 
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
-      <div className="mx-auto w-full max-w-6xl">
+      <div className="mx-auto w-full max-w-5xl">
         <Reveal>
-          <h1 className="text-[clamp(3.5rem,10vw,9rem)] font-semibold leading-none tracking-tight text-primary [text-shadow:0_0_60px_rgba(255,255,255,0.25)]">
-            {t("greeting")}
+          <h1 className="text-[clamp(3rem,12vw,8.5rem)] font-semibold uppercase leading-[0.95] tracking-tight text-primary [text-shadow:0_0_60px_rgba(255,255,255,0.3)]">
+            {nameLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
           </h1>
         </Reveal>
-        <Reveal delay={0.15}>
-          <p className="mt-6 text-lg text-secondary md:text-xl">{t("subtitle")}</p>
+        <Reveal delay={0.3}>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <AnchorLink
+              targetId="werdegang"
+              className="rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition-opacity hover:opacity-80"
+            >
+              {t("ctaJourney")}
+            </AnchorLink>
+            <AnchorLink
+              targetId="kontakt"
+              className="rounded-full border border-white bg-black px-5 py-3 text-sm font-medium text-white transition-opacity hover:opacity-80"
+            >
+              {t("ctaContact")}
+            </AnchorLink>
+          </div>
         </Reveal>
       </div>
 
-      <a
-        href="#ueber-mich"
-        className="group absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-[0.3em] text-secondary transition-colors hover:text-accent"
+      <Reveal
+        delay={0.45}
+        className="absolute bottom-6 left-6 max-w-[10rem] text-left text-[10px] uppercase tracking-[0.2em] text-secondary sm:bottom-10 sm:left-10 sm:max-w-none sm:text-xs"
+      >
+        {t("basedIn")}
+      </Reveal>
+      <Reveal
+        delay={0.45}
+        className="absolute bottom-6 right-6 max-w-[10rem] text-right text-[10px] uppercase tracking-[0.2em] text-secondary sm:bottom-10 sm:right-10 sm:max-w-none sm:text-xs"
+      >
+        {t("subtitle")}
+      </Reveal>
+
+      <AnchorLink
+        targetId="werdegang"
+        className="group absolute bottom-24 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-[0.3em] text-secondary transition-colors hover:text-accent sm:flex md:bottom-10"
       >
         <span>{t("scrollDown")}</span>
         <svg
@@ -35,7 +67,7 @@ export default async function Hero() {
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6" />
         </svg>
-      </a>
+      </AnchorLink>
     </section>
   );
 }
