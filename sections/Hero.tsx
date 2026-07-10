@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
-import AnchorLink from "@/components/AnchorLink";
 import Reveal from "@/components/Reveal";
+import GlowButton from "@/components/ui/glow-button";
+import AnchorLink from "@/components/AnchorLink";
 
 export default async function Hero() {
   const t = await getTranslations("hero");
@@ -23,18 +24,17 @@ export default async function Hero() {
         </Reveal>
         <Reveal delay={0.3}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <AnchorLink
+            <GlowButton
               targetId="werdegang"
-              className="rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition-opacity hover:opacity-80"
-            >
-              {t("ctaJourney")}
-            </AnchorLink>
-            <AnchorLink
-              targetId="kontakt"
-              className="rounded-full border border-white bg-black px-5 py-3 text-sm font-medium text-white transition-opacity hover:opacity-80"
-            >
-              {t("ctaContact")}
-            </AnchorLink>
+              label={t("ctaJourney")}
+              appearance="light"
+              textColor="#0A0A0A"
+              tint="#FFFFFF"
+              borderColor="#000000"
+              glowColor="rgba(0,0,0,0.25)"
+              flashColor="rgba(0,0,0,0.35)"
+            />
+            <GlowButton targetId="kontakt" label={t("ctaContact")} />
           </div>
         </Reveal>
       </div>

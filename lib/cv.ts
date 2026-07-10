@@ -34,10 +34,9 @@ export const experience: CvEntry[] = [
     to: null,
     logo: "/icons/speira.jpg",
     bullets: [
-      "Aktive Mitwirkung bei der Umsetzung von Digitalisierungsinitiativen",
-      "Koordination und Verwaltung externer IT-Dienstleister",
+      "Verwaltung externer IT-Dienstleister",
       "Eigenständige Abwicklung von IT-Beschaffungsprozessen und Bestellungen über SAP Logon und Coupa",
-      "Kollaborative Mitarbeit mit dem IT-PMO Team zur Realisierung von IT-Projekten",
+      "Mitarbeit mit dem IT-PMO Team zur Realisierung von IT-Projekten",
     ],
   },
 ];
@@ -46,7 +45,7 @@ export const experience: CvEntry[] = [
 export const education: CvEntry[] = [
   {
     organization: "Technische Universität München",
-    role: "M.Sc.",
+    role: "M.Sc. Information Systems",
     from: "2026-10",
     to: null,
     logo: "/icons/tum.png",
@@ -56,7 +55,7 @@ export const education: CvEntry[] = [
     organization: "Universität Mannheim",
     role: "B.Sc. Wirtschaftsinformatik",
     from: "2021-09",
-    to: null,
+    to: "2026-07",
     logo: "/icons/uni-mannheim.webp",
     bullets: [
       "Aktueller Durchschnitt: 2,4",
@@ -79,12 +78,7 @@ export const projects: ProjectEntry[] = [
     name: "Immobilienverwaltungsplattform",
     description:
       "Vollautomatisierte Immobilienverwaltung von Bewerberauswahl bis Vertragsabwicklung, mit individuellem Dashboard für Finanzkontrolle und Aufgabenplanung.",
-    link: "#",
-  },
-  {
-    name: "Finanzverwaltungsplattform",
-    description:
-      "Datengesteuertes Portfoliomanagement unter Berücksichtigung moderner Finanztheorien.",
+    link: "https://github.com/Joelabc123/immo-manager",
   },
   {
     name: "Rot-Schwarz-Baum Lern- und Übungsmodul",
@@ -95,11 +89,12 @@ export const projects: ProjectEntry[] = [
     name: "Quizduell",
     description:
       "Projektarbeit Client-Server-Architektur über TCP-Sockets in Java.",
-    link: "#",
+    link: "https://github.com/Joelabc123/Quizduell",
   },
   {
     name: "Online-Brettspiel",
     description: "Kollaborativ in Java entwickelt.",
+    link: "https://github.com/robert-kratz/capture-the-flag-multiplayer",
   },
 ];
 
