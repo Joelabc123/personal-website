@@ -83,15 +83,17 @@ function EntryCard({
   );
 }
 
-function ProjectCard({
-  project,
-  projectLinkLabel,
+function EntryGroup({
+  entries,
+  presentLabel,
+  locale,
 }: {
-  project: ProjectEntry;
-  projectLinkLabel: string;
+  entries: CvEntry[];
+  presentLabel: string;
+  locale: string;
 }) {
   return (
-    <Reveal className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
+    <div className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
       <GlowingEffect
         variant="white"
         spread={40}
@@ -101,23 +103,72 @@ function ProjectCard({
         inactiveZone={0.01}
         borderWidth={2}
       />
-      <div className="relative flex gap-6 rounded-xl bg-white/5 p-6 backdrop-blur-sm">
-        <div>
-          <h4 className="text-lg font-semibold text-primary">{project.name}</h4>
-          <p className="mt-2 max-w-prose text-sm leading-relaxed text-secondary">
-            {project.description}
-          </p>
-          {project.link && (
-            <a
-              href={project.link}
-              className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4 transition-colors hover:text-secondary"
-            >
-              {projectLinkLabel}
-            </a>
-          )}
-        </div>
+      <div className="relative divide-y divide-white/10 rounded-xl bg-white/5 px-6 backdrop-blur-sm">
+        {entries.map((entry, index) => (
+          <Reveal
+            key={`${entry.organization}-${entry.from}`}
+            delay={index * 0.05}
+            className="flex gap-6 py-6"
+          >
+            <IconTile logo={entry.logo} logoScale={entry.logoScale} icon={entry.icon} label={entry.organization} />
+            <div className="min-w-0 flex-1">
+              <h4 className="text-lg font-semibold text-primary">{entry.organization}</h4>
+              <p className="mt-1 text-sm text-secondary">{entry.role}</p>
+              {entry.bullets && (
+                <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-secondary">
+                  {entry.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <span className="w-24 shrink-0 text-right text-sm text-secondary md:w-40">
+              {formatDateRange(entry.from, entry.to, locale, presentLabel)}
+            </span>
+          </Reveal>
+        ))}
       </div>
-    </Reveal>
+    </div>
+  );
+}
+
+function ProjectGroup({
+  projects: projectEntries,
+  projectLinkLabel,
+}: {
+  projects: ProjectEntry[];
+  projectLinkLabel: string;
+}) {
+  return (
+    <div className="relative rounded-2xl border border-white/10 p-2 md:rounded-3xl md:p-3">
+      <GlowingEffect
+        variant="white"
+        spread={40}
+        glow
+        disabled={false}
+        proximity={64}
+        inactiveZone={0.01}
+        borderWidth={2}
+      />
+      <div className="relative divide-y divide-white/10 rounded-xl bg-white/5 px-6 backdrop-blur-sm">
+        {projectEntries.map((project, index) => (
+          <Reveal key={project.name} delay={index * 0.05} className="py-6">
+            <h4 className="text-lg font-semibold text-primary">{project.name}</h4>
+            <p className="mt-2 max-w-prose text-sm leading-relaxed text-secondary">
+              {project.description}
+            </p>
+            {project.link && (
+              <a
+                href={project.link}
+                className="mt-3 inline-block text-sm font-medium text-primary underline underline-offset-4 transition-colors hover:text-secondary"
+              >
+                {projectLinkLabel}
+              </a>
+            )}
+          </Reveal>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -181,15 +232,8 @@ export default async function Journey() {
           <h3 className="text-sm uppercase tracking-[0.2em] text-secondary">
             {t("education")}
           </h3>
-          <div className="mt-4 space-y-4">
-            {education.map((entry) => (
-              <EntryCard
-                key={`${entry.organization}-${entry.from}`}
-                entry={entry}
-                presentLabel={presentLabel}
-                locale={locale}
-              />
-            ))}
+          <div className="mt-4">
+            <EntryGroup entries={education} presentLabel={presentLabel} locale={locale} />
           </div>
         </div>
 
@@ -197,14 +241,8 @@ export default async function Journey() {
           <h3 className="text-sm uppercase tracking-[0.2em] text-secondary">
             {t("projects")}
           </h3>
-          <div className="mt-4 space-y-4">
-            {projects.map((project) => (
-              <ProjectCard
-                key={project.name}
-                project={project}
-                projectLinkLabel={t("projectLink")}
-              />
-            ))}
+          <div className="mt-4">
+            <ProjectGroup projects={projects} projectLinkLabel={t("projectLink")} />
           </div>
         </div>
 
