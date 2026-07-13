@@ -16,9 +16,7 @@ interface BackgroundProps {
     gridDensity?: number;
     animationSpeed?: number;
     heroIntensity?: number;
-    bottomIntensity?: number;
     heroFadeEnd?: number;
-    bottomFadeStart?: number;
 }
 
 function clamp(value: number, min: number, max: number): number {
@@ -56,9 +54,7 @@ export default function Background({
     gridDensity = 120,
     animationSpeed = 1,
     heroIntensity = 1,
-    bottomIntensity = 1,
     heroFadeEnd = 0.2,
-    bottomFadeStart = 0.8,
 }: BackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const rafRef = useRef<number>(0);
@@ -75,10 +71,6 @@ export default function Background({
         [backgroundColor]
     );
     const safeHeroFadeEnd = useMemo(() => clamp(heroFadeEnd, 0.01, 0.95), [heroFadeEnd]);
-    const safeBottomFadeStart = useMemo(
-        () => clamp(bottomFadeStart, safeHeroFadeEnd + 0.01, 0.99),
-        [bottomFadeStart, safeHeroFadeEnd]
-    );
 
     const updateScrollProgress = useCallback(() => {
         if (typeof window === "undefined" || typeof document === "undefined") return;
@@ -144,9 +136,7 @@ export default function Background({
             uniform float uGridDensity;
             uniform float uAnimationSpeed;
             uniform float uHeroIntensity;
-            uniform float uBottomIntensity;
             uniform float uHeroFadeEnd;
-            uniform float uBottomFadeStart;
 
             float hash(vec2 p) {
                 p = fract(p * vec2(123.34, 456.21));
@@ -182,55 +172,6 @@ export default function Background({
                 return smoothstep(radius + softness, radius, d);
             }
 
-            // Wireframe globe/orb icon: outer circle ring + a straight
-            // equator line + a vertical "eye" (lens) made of two meridian
-            // arcs — the classic circle + equator + meridian glyph. Pure
-            // static geometry with no per-frame turbulence/flicker (unlike
-            // the old comet's flame edges) — "same effect, just without
-            // the fire" per the request that replaced the comet shape.
-            float ring(vec2 p, vec2 center, float radius, float halfWidth) {
-                float d = abs(length(p - center) - radius);
-                return smoothstep(halfWidth, halfWidth * 0.35, d);
-            }
-
-            // Same 4-point sparkle metric used elsewhere on the site
-            // (Header's StarLogo, the pre-comet Background star), but
-            // drawn as a thin OUTLINE (not a filled diamond) so it reads
-            // as a small sparkle accent right at the globe's crossing
-            // point instead of a big solid blob overwhelming the cross.
-            float starOutline(vec2 p, float targetRadius, float halfWidth) {
-                vec2 ap = abs(p);
-                float vertical = ap.x * 3.6 + ap.y * 0.95;
-                float horizontal = ap.x * 1.3 + ap.y * 2.4;
-                float field = min(vertical, horizontal);
-                float d = abs(field - targetRadius);
-                return smoothstep(halfWidth, halfWidth * 0.35, d);
-            }
-
-            float globeIcon(vec2 p, float radius, float strokeWidth) {
-                float insideDisc = smoothstep(radius + strokeWidth, radius - strokeWidth, length(p));
-
-                float outer = ring(p, vec2(0.0), radius, strokeWidth);
-                float equator = smoothstep(strokeWidth, strokeWidth * 0.35, abs(p.y)) * insideDisc;
-                float meridianCenter = smoothstep(strokeWidth, strokeWidth * 0.35, abs(p.x)) * insideDisc;
-
-                // Two meridian arcs: circles offset left/right that also
-                // pass through the top/bottom poles (0, ±radius) —
-                // clipping each ring to "inside the main disc" keeps only
-                // the near-side arc, which bulges toward the vertical axis
-                // and, together with its mirror, forms the vertical lens.
-                float offset = radius * 0.62;
-                float meridianRadius = sqrt(offset * offset + radius * radius);
-                float meridianRight = ring(p, vec2(offset, 0.0), meridianRadius, strokeWidth) * insideDisc;
-                float meridianLeft = ring(p, vec2(-offset, 0.0), meridianRadius, strokeWidth) * insideDisc;
-
-                float centerStar = starOutline(p, radius * 0.34, strokeWidth);
-
-                float lines = max(max(outer, equator), meridianCenter);
-                float meridians = max(meridianLeft, meridianRight);
-                return max(max(lines, meridians), centerStar);
-            }
-
             void main() {
                 vec2 uv = vUv;
                 vec2 centered = uv - 0.5;
@@ -238,8 +179,6 @@ export default function Background({
                 float t = uTime * uAnimationSpeed;
 
                 float heroZone = (1.0 - smoothstep(uHeroFadeEnd * 0.5, uHeroFadeEnd, uScroll)) * uHeroIntensity;
-                float bottomReveal = smoothstep(uBottomFadeStart, min(1.0, uBottomFadeStart + 0.2), uScroll);
-                float bottomZone = bottomReveal * uBottomIntensity;
 
                 float nHero = fbm(centered * 2.6 + vec2(0.0, t * 0.18));
                 float cloudMask = smoothstep(0.92, 0.18, length(centered * vec2(1.15, 1.4) + vec2(0.0, 0.08)));
@@ -247,39 +186,7 @@ export default function Background({
                 float heroDots = dotGrid(uv + vec2(nHero * 0.03, -nHero * 0.02), uGridDensity, 0.20 + nHero * 0.14, 0.10);
                 float hero = heroPattern * heroDots * (0.52 + 0.85 * nHero) * heroZone;
 
-                float yFromBottom = 1.0 - uv.y;
-                // Used only to jitter the bottom dot-grid slightly (kept
-                // from the old plume effect) — the plume column itself was
-                // removed since it trailed downward from the head, which
-                // conflicted with the comet's tail (must only be above it).
-                float plumeNoise = fbm(vec2((uv.x - 0.5) * 9.0, yFromBottom * 5.0 - t * 0.55));
-
-                // Wireframe globe/orb icon in place of the old comet (see
-                // globeIcon() helper) — same overall composition (dot-grid
-                // render, glow blend, scroll-reveal, verticalContain) kept
-                // as before, just a calmer, purely static silhouette with
-                // no fire/flicker distortion. Offset kept from the comet's
-                // final tuning so it sits at the same spot low in the
-                // footer's animated zone.
-                vec2 cp = centered - vec2(0.0, -0.13);
-                float globe = globeIcon(cp, 0.27, 0.018);
-
-                float star = globe * smoothstep(0.0, 0.22, yFromBottom);
-
-                // Contain the whole plume+star shape so it spreads wide
-                // rather than stretching all the way up above the footer.
-                // The allowed height grows in step with scroll progress
-                // (not just opacity) so the shape's leading edge never
-                // outpaces how far the footer has actually scrolled into
-                // view — otherwise it would poke up over the footer's top
-                // edge into the Contact section while still transitioning in.
-                float maxReach = mix(0.04, 0.86, bottomReveal);
-                float verticalContain = 1.0 - smoothstep(maxReach - 0.16, maxReach, uv.y);
-
-                float bottomDots = dotGrid(uv + vec2(plumeNoise * 0.025, 0.0), uGridDensity * 1.1, 0.19, 0.09);
-                float bottom = star * 1.5 * bottomDots * bottomZone * verticalContain;
-
-                float intensity = clamp(hero + bottom, 0.0, 0.45); //Stellt helligkeit ein
+                float intensity = clamp(hero, 0.0, 0.45); //Stellt helligkeit ein
                 float alpha = mix(0.24, 0.95, intensity) * step(0.001, intensity);
                 vec3 color = mix(uBackgroundColor, uParticleColor, intensity);
 
@@ -353,9 +260,7 @@ export default function Background({
         const uGridDensity = glContext.getUniformLocation(program, "uGridDensity");
         const uAnimationSpeed = glContext.getUniformLocation(program, "uAnimationSpeed");
         const uHeroIntensity = glContext.getUniformLocation(program, "uHeroIntensity");
-        const uBottomIntensity = glContext.getUniformLocation(program, "uBottomIntensity");
         const uHeroFadeEnd = glContext.getUniformLocation(program, "uHeroFadeEnd");
-        const uBottomFadeStart = glContext.getUniformLocation(program, "uBottomFadeStart");
 
         const resize = () => {
             const dpr = window.devicePixelRatio || 1;
@@ -393,9 +298,7 @@ export default function Background({
             glContext.uniform1f(uGridDensity, clamp(gridDensity, 30, 240));
             glContext.uniform1f(uAnimationSpeed, clamp(animationSpeed, 0.05, 4));
             glContext.uniform1f(uHeroIntensity, clamp(heroIntensity, 0, 1));
-            glContext.uniform1f(uBottomIntensity, clamp(bottomIntensity, 0, 1));
             glContext.uniform1f(uHeroFadeEnd, safeHeroFadeEnd);
-            glContext.uniform1f(uBottomFadeStart, safeBottomFadeStart);
             glContext.drawArrays(glContext.TRIANGLE_STRIP, 0, 4);
             hasDrawnFirstFrame = true;
         };
@@ -415,11 +318,9 @@ export default function Background({
     }, [
         animationSpeed,
         backgroundRgb,
-        bottomIntensity,
         gridDensity,
         heroIntensity,
         particleRgb,
-        safeBottomFadeStart,
         safeHeroFadeEnd,
     ]);
 

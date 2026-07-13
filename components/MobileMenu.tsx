@@ -57,7 +57,7 @@ export default function MobileMenu() {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col justify-between overflow-y-auto bg-black/95 px-6 pb-10 pt-28 backdrop-blur-md sm:px-10">
+        <div className="fixed inset-y-0 right-0 z-40 flex w-[40%] min-w-[320px] max-w-full flex-col justify-between overflow-y-auto border-l border-white/10 bg-black/95 px-6 pb-10 pt-28 backdrop-blur-md sm:px-10">
           <nav aria-label="Main">
             <ul className="group/menu border-t border-white/10">
               {items.map((item, index) => (
@@ -65,7 +65,7 @@ export default function MobileMenu() {
                   <Link
                     href={item.href}
                     onClick={handleItemClick(item.id)}
-                    className="flex items-center justify-between py-5 text-4xl font-bold uppercase tracking-tight text-primary transition-colors duration-300 group-hover/menu:text-white/30 hover:!text-primary focus-visible:!text-primary sm:text-5xl md:text-6xl"
+                    className="flex items-center justify-between py-5 text-2xl font-bold uppercase tracking-tight text-primary transition-colors duration-300 group-hover/menu:text-white/30 hover:!text-primary focus-visible:!text-primary sm:text-3xl md:text-4xl"
                   >
                     <span>
                       <span className="mr-2 align-super text-base font-normal">+</span>
@@ -80,7 +80,7 @@ export default function MobileMenu() {
             </ul>
           </nav>
 
-          <div className="mt-12 flex flex-col gap-8 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-12 flex flex-col gap-8 border-t border-white/10 pt-8">
             <div className="flex flex-wrap items-center gap-6 text-sm uppercase tracking-widest text-secondary">
               <a
                 href={siteConfig.social.github}

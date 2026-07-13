@@ -65,11 +65,7 @@ export default function Footer() {
   };
 
   return (
-    <footer
-      className={`relative border-t border-tertiary px-6 sm:px-10 ${
-        isHomePage ? "pt-16 pb-10" : "pt-10 pb-8"
-      }`}
-    >
+    <footer className="relative border-t border-tertiary px-6 pt-10 pb-8 sm:px-10">
       <div className="mx-auto flex w-full max-w-6xl flex-col">
         {/* Brand + Pages/Support link columns */}
         <div className="flex flex-col gap-12 sm:flex-row sm:justify-between">
@@ -78,13 +74,7 @@ export default function Footer() {
             <p className="mt-2 text-sm text-secondary">{t("tagline")}</p>
           </div>
 
-          <div
-            className={
-              isHomePage
-                ? "flex flex-col gap-10"
-                : "flex flex-col gap-10 sm:flex-row sm:gap-16"
-            }
-          >
+          <div className="flex flex-col gap-10 sm:flex-row sm:gap-16">
             <div>
               <p className="text-sm font-semibold text-primary">{t("pagesHeading")}</p>
               <ul className="mt-4 space-y-3 text-sm text-secondary">
@@ -126,17 +116,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Empty spacer so the fixed scroll-driven background animation
-            (star/plume, see components/Background.tsx) has room to reveal
-            itself before the social/copyright row comes into view. Only
-            needed on the homepage — the legal pages have a solid black
-            backdrop and stay slim instead. */}
-        {isHomePage && (
-          <div aria-hidden="true" className="h-[34vh] min-h-[200px] sm:h-[46vh]" />
-        )}
-
         {/* Social icons + copyright */}
-        <div className={`flex flex-col gap-4 ${isHomePage ? "" : "-mt-10"}`}>
+        <div className="-mt-10 flex flex-col gap-4">
           <div className="flex items-center gap-5">
             {socialLinks.map(({ href, label, Icon }) => (
               <a
