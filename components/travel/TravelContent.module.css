@@ -13,7 +13,7 @@
 
 .eyebrow,
 .tripHeading p {
-  color: rgb(250 251 255 / 56%);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-2xs);
   line-height: 1.2;
   text-transform: uppercase;
@@ -30,7 +30,7 @@
 .detailHeader > p:last-child {
   max-width: 54ch;
   margin-top: var(--p-spacing-md);
-  color: rgb(250 251 255 / 68%);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-lg);
 }
 
@@ -41,11 +41,11 @@
   align-items: end;
   gap: var(--p-spacing-base);
   padding: clamp(24px, 4vw, 48px);
-  border: 1px solid rgb(250 251 255 / 14%);
+  border: 1px solid var(--p-color-hairline);
   border-radius: var(--p-radius-4xl);
   background:
     radial-gradient(circle at 30% 20%, rgb(26 68 234 / 20%), transparent 34%),
-    rgb(250 251 255 / 5%);
+    var(--p-color-canvas-elevated);
   overflow: hidden;
 }
 
@@ -56,9 +56,9 @@
 
 .emptyVisual span {
   position: absolute;
-  border: 1px solid rgb(250 251 255 / 18%);
+  border: 1px solid var(--p-color-hairline);
   border-radius: var(--p-radius-3xl);
-  background: rgb(250 251 255 / 6%);
+  background: color-mix(in srgb, var(--p-color-canvas-soft) 74%, transparent);
 }
 
 .emptyVisual span:nth-child(1) {
@@ -85,7 +85,7 @@
 
 .empty p {
   margin-top: var(--p-spacing-sm);
-  color: rgb(250 251 255 / 62%);
+  color: var(--p-color-ink-muted);
 }
 
 .years {
@@ -100,8 +100,8 @@
 
 .yearGroup > h2 {
   padding-bottom: var(--p-spacing-sm);
-  border-bottom: 1px solid rgb(250 251 255 / 16%);
-  color: rgb(250 251 255 / 52%);
+  border-bottom: 1px solid var(--p-color-hairline);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-sm);
 }
 
@@ -115,9 +115,9 @@
   position: relative;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid rgb(250 251 255 / 14%);
+  border: 1px solid var(--p-color-hairline);
   border-radius: var(--p-radius-4xl);
-  background: rgb(250 251 255 / 5%);
+  background: var(--p-color-canvas-elevated);
 }
 
 .collapsedCard {
@@ -176,7 +176,7 @@
 }
 
 .tripHeading > span {
-  color: rgb(250 251 255 / 56%);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-sm);
 }
 
@@ -197,6 +197,11 @@
   background: rgb(1 2 5 / 32%);
   font-size: var(--p-typescale-2xs);
   backdrop-filter: blur(10px);
+}
+
+.collapsedCard .tripHeading p,
+.collapsedCard .tripHeading > span {
+  color: rgb(250 251 255 / 72%);
 }
 
 .count svg,
@@ -241,7 +246,7 @@
   overflow: hidden;
   border: 0;
   border-radius: var(--p-radius-3xl);
-  background: rgb(250 251 255 / 8%);
+  background: var(--p-color-canvas-soft);
   cursor: pointer;
 }
 
@@ -275,9 +280,9 @@
   min-height: 42px;
   margin-top: var(--p-spacing-md);
   padding-inline: var(--p-spacing-sm);
-  border: 1px solid rgb(250 251 255 / 18%);
+  border: 1px solid var(--p-color-hairline);
   border-radius: var(--p-radius-full);
-  color: rgb(250 251 255 / 76%);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-sm);
   text-decoration: none;
 }
@@ -286,8 +291,8 @@
 .tripLink:focus-visible,
 .backLink:hover,
 .backLink:focus-visible {
-  border-color: rgb(250 251 255 / 42%);
-  color: #fafbff;
+  border-color: var(--p-color-focus);
+  color: var(--p-color-ink);
 }
 
 .backLink {

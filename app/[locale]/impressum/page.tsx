@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/siteConfig";
 
@@ -43,9 +45,14 @@ function LegalSection({
 export default async function ImpressumPage() {
   const t = await getTranslations("legal");
   const ti = await getTranslations("legal.impressum");
+  const shell = await getTranslations("detailRoutes.shell");
 
   return (
     <main className="legal-page">
+      <Link href="/" className="detail-home-link legal-home-link">
+        <ArrowLeft aria-hidden="true" />
+        <span>{shell("backHome")}</span>
+      </Link>
       <h1 className="legal-page__title">{t("impressumTitle")}</h1>
 
       <LegalSection heading={ti("providerHeading")}>

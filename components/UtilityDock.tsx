@@ -8,11 +8,13 @@ export default function UtilityDock() {
   const t = useTranslations("utility");
   const pathname = usePathname();
   const detailRoutes = ["/cv", "/projects", "/travel", "/contact"];
+  const legalRoutes = ["/datenschutz", "/impressum"];
   const isDetailRoute = detailRoutes.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
+  const isLegalRoute = legalRoutes.includes(pathname);
 
-  if (pathname === "/" || isDetailRoute) {
+  if (pathname === "/" || isDetailRoute || isLegalRoute) {
     return null;
   }
 

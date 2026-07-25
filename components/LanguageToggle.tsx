@@ -15,12 +15,19 @@ function LanguageFlag({ locale }: { locale: string }) {
       <svg
         className="language-flag"
         data-language="de"
-        viewBox="0 0 60 36"
+        viewBox="0 0 36 36"
         aria-hidden="true"
       >
-        <rect width="60" height="12" fill="#181818" />
-        <rect y="12" width="60" height="12" fill="#dd0000" />
-        <rect y="24" width="60" height="12" fill="#ffce00" />
+        <defs>
+          <clipPath id="language-flag-de">
+            <circle cx="18" cy="18" r="18" />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#language-flag-de)">
+          <rect width="36" height="12" fill="#181818" />
+          <rect y="12" width="36" height="12" fill="#dd0000" />
+          <rect y="24" width="36" height="12" fill="#ffce00" />
+        </g>
       </svg>
     );
   }
@@ -29,14 +36,25 @@ function LanguageFlag({ locale }: { locale: string }) {
     <svg
       className="language-flag"
       data-language="en"
-      viewBox="0 0 60 36"
+      viewBox="0 0 36 36"
       aria-hidden="true"
     >
-      <rect width="60" height="36" fill="#012169" />
-      <path d="M0 0 60 36M60 0 0 36" stroke="#fff" strokeWidth="8" />
-      <path d="M0 0 60 36M60 0 0 36" stroke="#c8102e" strokeWidth="3" />
-      <path d="M30 0v36M0 18h60" stroke="#fff" strokeWidth="12" />
-      <path d="M30 0v36M0 18h60" stroke="#c8102e" strokeWidth="6" />
+      <defs>
+        <clipPath id="language-flag-en">
+          <circle cx="18" cy="18" r="18" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#language-flag-en)">
+        <rect width="36" height="36" fill="#012169" />
+        <path d="M0 0 36 36M36 0 0 36" stroke="#fff" strokeWidth="7" />
+        <path
+          d="M0 0 36 36M36 0 0 36"
+          stroke="#c8102e"
+          strokeWidth="3"
+        />
+        <path d="M18 0v36M0 18h36" stroke="#fff" strokeWidth="11" />
+        <path d="M18 0v36M0 18h36" stroke="#c8102e" strokeWidth="6" />
+      </g>
     </svg>
   );
 }
@@ -63,11 +81,15 @@ export default function LanguageToggle({ className }: LanguageToggleProps) {
     <button
       type="button"
       onClick={switchLocale}
+      role="switch"
+      aria-checked={locale === "en"}
       aria-label={t("switchLanguage", { language: label })}
       title={t("switchLanguage", { language: label })}
       className={`utility-button${className ? ` ${className}` : ""}`}
     >
-      <LanguageFlag locale={otherLocale} />
+      <span className="language-switch" data-language={locale}>
+        <LanguageFlag locale={locale} />
+      </span>
     </button>
   );
 }

@@ -9,7 +9,8 @@ type ModalShellProps = {
   children: React.ReactNode;
   closeLabel: string;
   returnFocusHref: string;
-  titleId: string;
+  titleId?: string;
+  ariaLabel?: string;
 };
 
 export default function ModalShell({
@@ -17,6 +18,7 @@ export default function ModalShell({
   closeLabel,
   returnFocusHref,
   titleId,
+  ariaLabel,
 }: ModalShellProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -121,6 +123,7 @@ export default function ModalShell({
       ref={dialogRef}
       className="detail-dialog"
       aria-labelledby={titleId}
+      aria-label={ariaLabel}
       onCancel={(event) => {
         event.preventDefault();
         closeModal();

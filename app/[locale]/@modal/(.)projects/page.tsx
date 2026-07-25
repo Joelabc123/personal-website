@@ -23,16 +23,17 @@ export async function generateMetadata({
 }
 
 export default async function ProjectsModal() {
-  const [locale, t] = await Promise.all([
+  const [locale, t, projectsT] = await Promise.all([
     getLocale(),
     getTranslations("detailRoutes.shell"),
+    getTranslations("projects"),
   ]);
 
   return (
     <ModalShell
       closeLabel={t("close")}
       returnFocusHref={`/${locale}/projects`}
-      titleId="detail-title-projects"
+      ariaLabel={projectsT("title")}
     >
       <ProjectOverview />
     </ModalShell>

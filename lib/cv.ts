@@ -105,11 +105,11 @@ export const education: readonly CvEntry[] = [
     },
     bullets: {
       de: [
-        "Aktueller Durchschnitt: 2,4",
+        "Durchschnitt: 2,4",
         "Bachelorarbeit: Entwicklung eines interaktiven Lern- und Übungsmoduls zum Thema Rot-Schwarz-Bäume für die E-Learning-Plattform der Universität Mannheim · Note: 1,0",
       ],
       en: [
-        "Current grade average: 2.4",
+        "Grade: 2.4",
         "Bachelor’s thesis: Development of an interactive learning and practice module on red-black trees for the University of Mannheim’s e-learning platform · Grade: 1.0",
       ],
     },
@@ -135,7 +135,7 @@ export const education: readonly CvEntry[] = [
     },
     bullets: {
       de: ["Durchschnitt: 2,5"],
-      en: ["Final grade average: 2.5"],
+      en: ["Grade: 2.5"],
     },
   },
 ] as const;

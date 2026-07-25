@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Mail, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import LanguageToggle from "@/components/LanguageToggle";
 import ModalRouteLink from "@/components/detail/ModalRouteLink";
@@ -26,6 +26,33 @@ function LinkedInMark() {
       <path
         fill="currentColor"
         d="M5.34 7.76A2.35 2.35 0 1 0 5.3 3.05a2.35 2.35 0 0 0 .04 4.7ZM3.3 20.95h4.08V9.25H3.3v11.7Zm6.51 0h4.08v-6.53c0-1.72.33-3.39 2.47-3.39 2.1 0 2.13 1.97 2.13 3.5v6.42h4.08v-7.24c0-3.56-.77-6.3-4.93-6.3-2 0-3.33 1.1-3.88 2.14h-.06v-1.8H9.81v13.2Z"
+      />
+    </svg>
+  );
+}
+
+function EnvelopeMark() {
+  return (
+    <svg
+      className={styles.envelope}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        className={styles.envelopeFlap}
+        d="m3 7 9 6 9-6"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
       />
     </svg>
   );
@@ -98,7 +125,7 @@ export default function HomeUtilityGrid() {
       <div className={styles.menuWrap}>
         <button
           type="button"
-          className={`${styles.utilityCard} ${styles.utilityAction}`}
+          className={`${styles.utilityCard} ${styles.utilityAction} ${styles.menuButton}`}
           aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
           aria-expanded={menuOpen}
           aria-controls="home-bento-menu"
@@ -175,9 +202,9 @@ export default function HomeUtilityGrid() {
 
       <ModalRouteLink
         href="/contact"
-        className={`${styles.utilityCard} ${styles.utilityAction}`}
+        className={`${styles.utilityCard} ${styles.utilityAction} ${styles.contact}`}
       >
-        <Mail aria-hidden="true" />
+        <EnvelopeMark />
         <span className={styles.srOnly}>{t("mail")}</span>
       </ModalRouteLink>
     </aside>

@@ -10,7 +10,7 @@
 }
 
 .eyebrow {
-  color: rgb(250 251 255 / 56%);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-2xs);
   line-height: 1.2;
   text-transform: uppercase;
@@ -25,7 +25,7 @@
 .header > p:last-child {
   max-width: 54ch;
   margin-top: var(--p-spacing-md);
-  color: rgb(250 251 255 / 68%);
+  color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-lg);
 }
 

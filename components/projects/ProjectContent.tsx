@@ -2,7 +2,6 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import ModalRouteLink from "@/components/detail/ModalRouteLink";
-import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/lib/cv";
 import {
   localizeProjectText,
@@ -15,9 +14,7 @@ import {
 import styles from "./ProjectContent.module.css";
 
 type ProjectLabels = {
-  eyebrow: string;
   title: string;
-  description: string;
   openProject: string;
   comingSoon: string;
   published: string;
@@ -167,9 +164,7 @@ async function getLabels(): Promise<{
   return {
     locale: rawLocale === "en" ? "en" : "de",
     labels: {
-      eyebrow: t("eyebrow"),
       title: t("title"),
-      description: t("description"),
       openProject: t("openProject"),
       comingSoon: t("comingSoon"),
       published: t("published"),
@@ -192,13 +187,7 @@ export async function ProjectOverview() {
   const { labels, locale } = await getLabels();
 
   return (
-    <div className={styles.projects}>
-      <header className={styles.overviewHeader}>
-        <p className={styles.eyebrow}>{labels.eyebrow}</p>
-        <h1 id="detail-title-projects">{labels.title}</h1>
-        <p>{labels.description}</p>
-      </header>
-
+    <div className={`${styles.projects} project-overview`}>
       <section className={styles.grid} aria-label={labels.title}>
         {projects.map((project, index) => (
           <ProjectCard
@@ -220,14 +209,13 @@ export async function ProjectDetail({ project }: { project: Project }) {
   const description = localizeProjectText(project.description, locale);
 
   return (
-    <div className={styles.projectDetail}>
-      <Link className={styles.backLink} href="/projects">
+    <div className={`${styles.projectDetail} project-detail-view`}>
+      <ModalRouteLink className={styles.backLink} href="/projects">
         <ArrowLeft aria-hidden="true" />
         {labels.backToProjects}
-      </Link>
+      </ModalRouteLink>
 
       <header className={styles.detailHeader}>
-        <p className={styles.eyebrow}>{labels.eyebrow}</p>
         <h1 id={projectTitleId(project.slug)}>{title}</h1>
       </header>
 

@@ -58,9 +58,9 @@ const Globe: React.FC<GlobeProps> = ({
   diffuse = 1.2,
   mapSamples = 16000,
   mapBrightness = 6,
-  baseColor = "#ffffff",
-  markerColor = "#ffffff", // Removed default here
-  glowColor = "#ffffff", // Removed default here
+  baseColor = "#666b75",
+  markerColor = "#1a44ea",
+  glowColor = "#ffffff",
   
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

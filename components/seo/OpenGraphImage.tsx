@@ -26,8 +26,8 @@ export function renderOpenGraphImage({
           height: "100%",
           display: "flex",
           padding: "54px",
-          color: "#fafbff",
-          background: "#010205",
+          color: "#111318",
+          background: "#f4f4f0",
           fontFamily: "Arial, sans-serif",
         }}
       >
@@ -41,9 +41,9 @@ export function renderOpenGraphImage({
             justifyContent: "space-between",
             overflow: "hidden",
             padding: "56px",
-            border: "1px solid #2b2c2f",
+            border: "1px solid #d4d6d2",
             borderRadius: "42px",
-            background: "#1a1a1e",
+            background: "#ffffff",
           }}
         >
           <div
@@ -65,7 +65,7 @@ export function renderOpenGraphImage({
               fontSize: 24,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              color: "#d5d5d5",
+              color: "#62666e",
             }}
           >
             {eyebrow}
@@ -87,7 +87,7 @@ export function renderOpenGraphImage({
                 maxWidth: "820px",
                 fontSize: 28,
                 lineHeight: 1.35,
-                color: "#d5d5d5",
+                color: "#62666e",
               }}
             >
               {description}
