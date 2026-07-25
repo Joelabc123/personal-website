@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960" role="img" aria-labelledby="title description">
+  <title id="title">Neutraler Platzhalter</title>
+  <desc id="description">Abstrakte graue Flächen als Platzhalter für ein zukünftiges persönliches Foto.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d5d5d5"/>
+      <stop offset="1" stop-color="#707078"/>
+    </linearGradient>
+    <radialGradient id="light" cx="72%" cy="18%" r="72%">
+      <stop offset="0" stop-color="#fafbff" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#fafbff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="720" height="960" fill="url(#background)"/>
+  <rect width="720" height="960" fill="url(#light)"/>
+  <circle cx="384" cy="326" r="138" fill="#f1f1f4" fill-opacity=".62"/>
+  <path d="M99 960c25-224 132-355 285-355S645 736 670 960H99Z" fill="#2b2c2f" fill-opacity=".44"/>
+  <path d="M-65 706 365 80M86 879 516 253M256 982 686 356" stroke="#fafbff" stroke-opacity=".19" stroke-width="2"/>
+</svg>

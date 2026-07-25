@@ -23,7 +23,10 @@
     "projectLink": "Zum Projekt"
   },
   "contact": {
+    "eyebrow": "Direkter Austausch",
     "heading": "Kontakt",
+    "description": "Du hast eine Frage, eine Idee oder möchtest dich persönlich austauschen? Schreib mir eine Nachricht.",
+    "formLabel": "Kontaktformular",
     "name": "Name",
     "email": "E-Mail",
     "subject": "Betreff",
@@ -42,6 +45,176 @@
     "copyright": "© {year} Joel Bakirel",
     "impressum": "Impressum",
     "datenschutz": "Datenschutz"
+  },
+  "utility": {
+    "label": "Sprache",
+    "switchLanguage": "Zu {language} wechseln"
+  },
+  "homeBento": {
+    "gridLabel": "Portfolio-Übersicht",
+    "intro": {
+      "eyebrow": "Joel Bakirel",
+      "title": "Hallo, ich bin Joel Bakirel — M.Sc. Information Systems @ TUM",
+      "location": "Köln, Deutschland"
+    },
+    "cv": {
+      "eyebrow": "Werdegang",
+      "title": "Lebenslauf",
+      "description": "Erfahrung, Ausbildung und Sprachen im Überblick."
+    },
+    "projects": {
+      "eyebrow": "Ausgewählte Arbeiten",
+      "title": "Projekte",
+      "description": "Digitale Produkte, Lernmodule und Spiele.",
+      "codeLabel": "Animierter TypeScript-Code, der Lebenslauf, Projekte und Reisen zu einem Bento-Portfolio zusammensetzt."
+    },
+    "travel": {
+      "eyebrow": "Reisefotografie",
+      "title": "Galerie",
+      "description": "Orte, Begegnungen und Momente unterwegs."
+    },
+    "contact": {
+      "eyebrow": "Kontakt",
+      "title": "Schreib mir.",
+      "description": "Für Fragen, Ideen oder einen persönlichen Austausch."
+    },
+    "utilities": {
+      "label": "Schnellzugriff",
+      "openMenu": "Menü öffnen",
+      "closeMenu": "Menü schließen",
+      "navigationLabel": "Hauptnavigation",
+      "cv": "Lebenslauf",
+      "projects": "Projekte",
+      "travel": "Reisen",
+      "contact": "Kontakt",
+      "datenschutz": "Datenschutz",
+      "impressum": "Impressum",
+      "github": "GitHub-Profil von Joel Bakirel in einem neuen Tab öffnen",
+      "linkedin": "LinkedIn-Profil von Joel Bakirel in einem neuen Tab öffnen",
+      "mail": "Kontakt öffnen"
+    }
+  },
+  "detailRoutes": {
+    "shell": {
+      "close": "Vollbildansicht schließen",
+      "backHome": "Zurück zur Startseite",
+      "phaseStatus": "Die vollständigen Inhalte folgen in den nächsten Umsetzungspaketen."
+    },
+    "launcher": {
+      "eyebrow": "Neue Vollbildansichten",
+      "heading": "Direkte Wege zu den Inhalten",
+      "description": "Diese Übergangsnavigation verbindet die bestehenden Inhalte bereits mit ihrer neuen URL-basierten Detailansicht.",
+      "navigationLabel": "Vollbildansichten öffnen"
+    },
+    "cv": {
+      "eyebrow": "Werdegang",
+      "title": "Lebenslauf",
+      "description": "Berufserfahrung, Ausbildung und Sprachen erhalten hier ihre gemeinsame Detailansicht."
+    },
+    "projects": {
+      "eyebrow": "Ausgewählte Arbeiten",
+      "title": "Projekte",
+      "description": "Die Projektübersicht und ihre späteren Detailseiten werden an dieser Route gebündelt."
+    },
+    "travel": {
+      "eyebrow": "Persönliche Eindrücke",
+      "title": "Reisen",
+      "description": "Reiseziele und Galerien erhalten hier ihre gemeinsame, bildorientierte Übersicht."
+    },
+    "contact": {
+      "eyebrow": "Direkter Austausch",
+      "title": "Kontakt",
+      "description": "Das Kontaktformular ist als eigenständige und modale Vollbildansicht erreichbar."
+    }
+  },
+  "cv": {
+    "eyebrow": "Curriculum Vitae",
+    "title": "Lebenslauf",
+    "summary": "M.Sc. Information Systems @ TUM — mit Erfahrung in IT Governance, digitaler Produktentwicklung und Wirtschaftsinformatik.",
+    "experience": "Berufserfahrung",
+    "education": "Ausbildung",
+    "languages": "Sprachkenntnisse",
+    "present": "Heute",
+    "from": "ab",
+    "pdf": "Lebenslauf als PDF",
+    "printView": "Druckansicht"
+  },
+  "projects": {
+    "eyebrow": "Ausgewählte Arbeiten",
+    "title": "Projekte",
+    "description": "Vier veröffentlichte Projekte sowie ein Projekt in Entwicklung.",
+    "openProject": "Projekt ansehen",
+    "comingSoon": "Demnächst",
+    "published": "Veröffentlicht",
+    "status": "Status",
+    "descriptionHeading": "Beschreibung",
+    "mediaHeading": "Projektansicht",
+    "linksHeading": "Öffentliche Links",
+    "noPublicLink": "Kein öffentlicher Link",
+    "backToProjects": "Alle Projekte",
+    "links": {
+      "repository": "Repository öffnen",
+      "demo": "Demo öffnen",
+      "documentation": "Dokumentation öffnen"
+    }
+  },
+  "travel": {
+    "eyebrow": "Persönliche Eindrücke",
+    "title": "Reisen",
+    "description": "Orte, Begegnungen und farbige Momente unterwegs.",
+    "emptyTitle": "Die Reisegalerie wartet auf ihre ersten Bilder.",
+    "emptyDescription": "Private Aufnahmen werden vor dem Build lokal vorbereitet und erscheinen hier, ohne dass ihre Originale in Git gelangen.",
+    "openTrip": "Reise ansehen",
+    "imageCountOne": "%count% Bild",
+    "imageCountMany": "%count% Bilder",
+    "back": "Alle Reisen",
+    "gallery": "Reisegalerie",
+    "openImage": "Bild %index% in der Lightbox öffnen",
+    "closeLightbox": "Lightbox schließen",
+    "previousImage": "Vorheriges Bild",
+    "nextImage": "Nächstes Bild",
+    "imagePosition": "Bild %current% von %total%"
+  },
+  "metadata": {
+    "home": {
+      "title": "Joel Bakirel | Portfolio & Lebenslauf",
+      "description": "Portfolio und Lebenslauf von Joel Bakirel, M.Sc. Information Systems an der Technischen Universität München.",
+      "eyebrow": "Portfolio & Lebenslauf",
+      "ogTitle": "M.Sc. Information Systems @ TUM"
+    },
+    "cv": {
+      "title": "Lebenslauf | Joel Bakirel",
+      "description": "Berufserfahrung, Ausbildung und Sprachkenntnisse von Joel Bakirel im kompakten Lebenslauf.",
+      "eyebrow": "Lebenslauf",
+      "ogTitle": "Erfahrung, Ausbildung & Sprachen"
+    },
+    "projects": {
+      "title": "Projekte | Joel Bakirel",
+      "description": "Ausgewählte Softwareprojekte von Joel Bakirel: digitale Produkte, Lernmodule und Spiele.",
+      "detailTitle": "{title} | Joel Bakirel",
+      "eyebrow": "Ausgewählte Arbeiten",
+      "ogTitle": "Digitale Produkte, Lernmodule & Spiele"
+    },
+    "travel": {
+      "title": "Reisen | Joel Bakirel",
+      "description": "Persönliche Reiseeindrücke, Orte und farbige Momente von Joel Bakirel.",
+      "tripTitle": "{place} ({year}) | Joel Bakirel",
+      "tripDescription": "Reisefotografie aus {place}, {country}, aus dem Jahr {year}.",
+      "eyebrow": "Persönliche Eindrücke",
+      "ogTitle": "Orte, Begegnungen & Momente"
+    },
+    "contact": {
+      "title": "Kontakt | Joel Bakirel",
+      "description": "Kontaktformular für Fragen, Ideen und den persönlichen Austausch mit Joel Bakirel."
+    },
+    "impressum": {
+      "title": "Impressum | Joel Bakirel",
+      "description": "Impressum und Anbieterinformationen der persönlichen Website von Joel Bakirel."
+    },
+    "datenschutz": {
+      "title": "Datenschutz | Joel Bakirel",
+      "description": "Datenschutzerklärung der persönlichen Website von Joel Bakirel."
+    }
   },
   "legal": {
     "impressumTitle": "Impressum",

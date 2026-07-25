@@ -1,0 +1,86 @@
+.loop {
+  min-width: 0;
+  min-height: 146px;
+  padding: var(--p-spacing-sm);
+  border: 1px solid color-mix(in srgb, var(--p-color-hairline) 72%, transparent);
+  border-radius: var(--p-radius-2xl);
+  background: var(--p-color-canvas);
+  color: var(--p-color-ink);
+  font-family: var(--p-font-family);
+}
+
+.windowBar {
+  display: flex;
+  gap: 5px;
+  margin-bottom: var(--p-spacing-sm);
+}
+
+.windowBar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--p-color-hairline);
+}
+
+.windowBar span:first-child {
+  background: color-mix(in srgb, var(--p-color-error) 72%, transparent);
+}
+
+.loop pre {
+  min-height: 94px;
+  margin: 0;
+  overflow: hidden;
+  color: var(--p-color-ink-muted);
+  font: inherit;
+  font-size: clamp(0.62rem, 0.68vw, 0.74rem);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.52em;
+  height: 1.05em;
+  margin-left: 2px;
+  background: var(--p-color-focus);
+  vertical-align: -0.15em;
+  animation: cursor-blink 900ms steps(1, end) infinite;
+}
+
+.loop[data-phase="holding"] .cursor,
+.loop[data-phase="waiting"] .cursor {
+  opacity: 0;
+}
+
+.loop[data-paused="true"] .cursor {
+  animation-play-state: paused;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes cursor-blink {
+  0%,
+  52% {
+    opacity: 1;
+  }
+
+  53%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    display: none;
+  }
+}

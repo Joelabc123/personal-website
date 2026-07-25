@@ -1,0 +1,24 @@
+{
+  "country": {
+    "de": "Japan",
+    "en": "Japan"
+  },
+  "place": {
+    "de": "Tokio",
+    "en": "Tokyo"
+  },
+  "date": "2026-04",
+  "cover": "01-cover.jpg",
+  "order": 10,
+  "collapsed": "auto",
+  "layout": {
+    "01-cover.jpg": "wide",
+    "02-shibuya.avif": "tall"
+  },
+  "alt": {
+    "01-cover.jpg": {
+      "de": "Blick über Tokio",
+      "en": "View across Tokyo"
+    }
+  }
+}

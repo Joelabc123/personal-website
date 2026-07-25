@@ -1,22 +1,57 @@
-/** Formats a "YYYY-MM" (or full ISO) date string as a localized "MMM YYYY" label, e.g. "Okt 2026" / "Oct 2026". */
-export function formatMonthYear(date: string, locale: string): string {
-  const [year, month] = date.split("-").map(Number);
-  const parsed = new Date(Date.UTC(year, (month ?? 1) - 1, 1));
-  return new Intl.DateTimeFormat(locale, {
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(parsed);
+import type { Locale, YearMonth } from "./cv";
+
+function parseYearMonth(value: string): { year: number; month: number } {
+  const [year, month = 1] = value.split("-").map(Number);
+
+  if (!Number.isInteger(year) || !Number.isInteger(month) || month < 1 || month > 12) {
+    throw new RangeError(`Invalid year-month value: ${value}`);
+  }
+
+  return { year, month };
 }
 
-/** Formats a date range for CV entries, e.g. "03/2025 – Present" -> "Mär 2025 – Heute". */
-export function formatDateRange(
-  from: string,
-  to: string | null,
+export function formatMonthYear(
+  date: string,
   locale: string,
-  presentLabel: string
+  month: "short" | "long" = "short",
 ): string {
+  const parsed = parseYearMonth(date);
+  const value = new Date(Date.UTC(parsed.year, parsed.month - 1, 1));
+
+  return new Intl.DateTimeFormat(locale, {
+    month,
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(value);
+}
+
+export function isFutureYearMonth(date: string, now = new Date()): boolean {
+  const parsed = parseYearMonth(date);
+
+  return (
+    parsed.year > now.getFullYear() ||
+    (parsed.year === now.getFullYear() && parsed.month > now.getMonth() + 1)
+  );
+}
+
+export type DateRangeLabels = {
+  present: string;
+  from: string;
+};
+
+export function formatDateRange(
+  from: YearMonth,
+  to: YearMonth | null,
+  locale: Locale,
+  labels: DateRangeLabels,
+  now = new Date(),
+): string {
+  if (!to && isFutureYearMonth(from, now)) {
+    return `${labels.from} ${formatMonthYear(from, locale, "long")}`;
+  }
+
   const start = formatMonthYear(from, locale);
-  const end = to ? formatMonthYear(to, locale) : presentLabel;
+  const end = to ? formatMonthYear(to, locale) : labels.present;
+
   return `${start} – ${end}`;
 }

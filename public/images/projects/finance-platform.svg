@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title">
+  <title id="title">Abstract finance dashboard placeholder</title>
+  <rect width="1600" height="900" fill="#e8e8eb"/>
+  <rect x="100" y="86" width="1400" height="728" rx="42" fill="#fafbff" stroke="#c7c7cc" stroke-width="4"/>
+  <rect x="100" y="86" width="1400" height="96" rx="42" fill="#2b2c2f"/>
+  <rect x="166" y="124" width="226" height="20" rx="10" fill="#fafbff" opacity=".72"/>
+  <rect x="164" y="234" width="392" height="214" rx="28" fill="#f1f1f4"/>
+  <rect x="604" y="234" width="392" height="214" rx="28" fill="#f1f1f4"/>
+  <rect x="1044" y="234" width="392" height="214" rx="28" fill="#f1f1f4"/>
+  <rect x="164" y="500" width="1272" height="248" rx="28" fill="#f1f1f4"/>
+  <g fill="#707078">
+    <rect x="220" y="286" width="152" height="16" rx="8"/>
+    <rect x="660" y="286" width="152" height="16" rx="8"/>
+    <rect x="1100" y="286" width="152" height="16" rx="8"/>
+  </g>
+  <g fill="#9b9ba1">
+    <rect x="236" y="650" width="52" height="50" rx="8"/>
+    <rect x="320" y="610" width="52" height="90" rx="8"/>
+    <rect x="404" y="570" width="52" height="130" rx="8"/>
+    <rect x="488" y="628" width="52" height="72" rx="8"/>
+    <rect x="572" y="548" width="52" height="152" rx="8"/>
+    <rect x="656" y="590" width="52" height="110" rx="8"/>
+    <rect x="740" y="532" width="52" height="168" rx="8"/>
+    <rect x="824" y="620" width="52" height="80" rx="8"/>
+    <rect x="908" y="566" width="52" height="134" rx="8"/>
+    <rect x="992" y="604" width="52" height="96" rx="8"/>
+    <rect x="1076" y="548" width="52" height="152" rx="8"/>
+    <rect x="1160" y="584" width="52" height="116" rx="8"/>
+    <rect x="1244" y="522" width="52" height="178" rx="8"/>
+  </g>
+  <circle cx="360" cy="370" r="42" fill="#d5d5d5"/>
+  <path d="M360 328a42 42 0 0 1 36 63l-36-21Z" fill="#707078"/>
+  <rect x="660" y="342" width="278" height="24" rx="12" fill="#d5d5d5"/>
+  <rect x="660" y="342" width="184" height="24" rx="12" fill="#707078"/>
+  <path d="m1100 388 74-66 76 42 128-92" fill="none" stroke="#707078" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

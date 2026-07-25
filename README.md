@@ -16,6 +16,25 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+The `predev` hook prepares private travel photos automatically. If
+`content/gallery` contains no trips, it creates an empty manifest and the site
+uses its travel placeholder.
+
+## Private gallery deployment
+
+Travel originals are intentionally excluded from Git. Before a production
+build or deployment:
+
+1. Sync the privately backed-up folders into `content/gallery/<year>/<country>/<trip>`.
+2. Keep one valid `_meta.json` and at least one supported image in every trip.
+3. Run `npm run gallery:prepare` to validate and preview the generated output.
+4. Run `npm run build`; the `prebuild` hook prepares the gallery again.
+
+Generated WebP files under `public/generated/gallery` and
+`lib/generated/gallery-manifest.json` are deployment artifacts, not source
+files. A server or CI runner therefore needs the private photo sync before each
+build. See `content/gallery/README.md` for the authoring contract.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

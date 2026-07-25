@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title">
+  <title id="title">Abstract quiz interface placeholder</title>
+  <rect width="1600" height="900" fill="#e8e8eb"/>
+  <rect x="340" y="68" width="920" height="764" rx="52" fill="#fafbff" stroke="#c7c7cc" stroke-width="4"/>
+  <rect x="408" y="132" width="784" height="112" rx="28" fill="#2b2c2f"/>
+  <circle cx="478" cy="188" r="28" fill="#fafbff" opacity=".72"/>
+  <rect x="540" y="172" width="362" height="18" rx="9" fill="#fafbff" opacity=".72"/>
+  <rect x="540" y="204" width="232" height="12" rx="6" fill="#fafbff" opacity=".4"/>
+  <path d="M800 328c-68 0-122 47-122 108h82c0-20 18-36 40-36s40 16 40 36c0 16-10 26-35 42-34 22-46 52-46 94h82c0-20 4-28 25-42 35-24 56-52 56-96 0-60-54-106-122-106Z" fill="#707078"/>
+  <circle cx="800" cy="640" r="42" fill="#2b2c2f"/>
+  <g fill="#d5d5d5">
+    <rect x="408" y="724" width="174" height="52" rx="26"/>
+    <rect x="610" y="724" width="174" height="52" rx="26"/>
+    <rect x="812" y="724" width="174" height="52" rx="26"/>
+    <rect x="1018" y="724" width="174" height="52" rx="26"/>
+  </g>
+</svg>

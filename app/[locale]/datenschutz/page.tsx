@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/siteConfig";
 
 export async function generateMetadata({
@@ -7,9 +8,19 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "legal" });
-  return { title: t("datenschutzTitle") };
+  const { locale: rawLocale } = await params;
+  const locale = asLocale(rawLocale);
+  const t = await getTranslations({
+    locale,
+    namespace: "metadata.datenschutz",
+  });
+
+  return createLocalizedMetadata({
+    locale,
+    path: "/datenschutz",
+    title: t("title"),
+    description: t("description"),
+  });
 }
 
 function LegalSection({
@@ -21,10 +32,8 @@ function LegalSection({
 }) {
   return (
     <section className="mt-12 first:mt-10">
-      <h2 className="text-xl font-semibold tracking-tight text-primary md:text-2xl">
-        {heading}
-      </h2>
-      <div className="mt-4 space-y-4 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-sm leading-relaxed text-secondary backdrop-blur-sm">
+      <h2 className="legal-section__title">{heading}</h2>
+      <div className="legal-card">
         {children}
       </div>
     </section>
@@ -36,16 +45,12 @@ export default async function DatenschutzPage() {
   const td = await getTranslations("legal.datenschutz");
 
   return (
-    <>
-      <div className="fixed inset-0 -z-10 bg-black" />
-      <main className="mx-auto max-w-2xl px-6 pb-24 pt-32 md:pt-40">
-        <h1 className="text-3xl font-semibold tracking-tight text-primary md:text-4xl">
-          {t("datenschutzTitle")}
-        </h1>
+    <main className="legal-page">
+      <h1 className="legal-page__title">{t("datenschutzTitle")}</h1>
 
-        <LegalSection heading={td("generalInfoHeading")}>
-          <p>{td("generalInfoText")}</p>
-        </LegalSection>
+      <LegalSection heading={td("generalInfoHeading")}>
+        <p>{td("generalInfoText")}</p>
+      </LegalSection>
 
         <LegalSection heading={td("responsibleShortHeading")}>
           <p>{td("responsibleShortText")}</p>
@@ -59,9 +64,7 @@ export default async function DatenschutzPage() {
           <p>{td("dataUsageText")}</p>
         </LegalSection>
 
-        <h2 className="mt-14 text-lg font-semibold tracking-tight text-primary">
-          {td("mandatoryInfoHeading")}
-        </h2>
+      <h2 className="legal-divider-title">{td("mandatoryInfoHeading")}</h2>
 
         <LegalSection heading={td("responsiblePartyHeading")}>
           <p>{td("responsiblePartyIntro")}</p>
@@ -88,9 +91,7 @@ export default async function DatenschutzPage() {
           <p>{td("sslText")}</p>
         </LegalSection>
 
-        <h2 className="mt-14 text-lg font-semibold tracking-tight text-primary">
-          {td("hostingCdnHeading")}
-        </h2>
+      <h2 className="legal-divider-title">{td("hostingCdnHeading")}</h2>
 
         <LegalSection heading={td("hostingProviderHeading")}>
           <p>{td("hostingProviderText1")}</p>
@@ -103,9 +104,7 @@ export default async function DatenschutzPage() {
           <p>{td("cloudflareText2")}</p>
         </LegalSection>
 
-        <h2 className="mt-14 text-lg font-semibold tracking-tight text-primary">
-          {td("dataCollectionHeading")}
-        </h2>
+      <h2 className="legal-divider-title">{td("dataCollectionHeading")}</h2>
 
         <LegalSection heading={td("serverLogHeading")}>
           <p>{td("serverLogIntro")}</p>
@@ -126,9 +125,7 @@ export default async function DatenschutzPage() {
           <p>{td("contactFormText3")}</p>
         </LegalSection>
 
-        <h2 className="mt-14 text-lg font-semibold tracking-tight text-primary">
-          {td("pluginsToolsHeading")}
-        </h2>
+      <h2 className="legal-divider-title">{td("pluginsToolsHeading")}</h2>
 
         <LegalSection heading={td("recaptchaHeading")}>
           <p>{td("recaptchaText1")}</p>
@@ -136,10 +133,7 @@ export default async function DatenschutzPage() {
           <p>{td("recaptchaText3")}</p>
         </LegalSection>
 
-        <p className="mt-14 max-w-prose text-sm leading-relaxed text-secondary">
-          {t("privateNotice")}
-        </p>
-      </main>
-    </>
+      <p className="legal-notice">{t("privateNotice")}</p>
+    </main>
   );
 }

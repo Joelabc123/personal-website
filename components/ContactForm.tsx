@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Script from "next/script";
 import { useLocale, useTranslations } from "next-intl";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
+import styles from "./ContactForm.module.css";
 
 type ContactFormData = {
   name: string;
@@ -54,16 +54,25 @@ async function submitContactForm(data: ContactFormData) {
   }
 }
 
-const inputClassName =
-  "rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-primary outline-none backdrop-blur-sm transition-colors placeholder:text-secondary focus:border-accent focus:bg-white/10";
-
 export default function ContactForm() {
   const t = useTranslations("contact");
   const locale = useLocale();
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const statusRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (status === "success" || status === "error") {
+      statusRef.current?.focus({ preventScroll: true });
+    }
+  }, [status]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (status === "sending") {
+      return;
+    }
+
     const form = event.currentTarget;
     const formData = new FormData(form);
 
@@ -88,65 +97,101 @@ export default function ContactForm() {
     <>
       {RECAPTCHA_SITE_KEY && (
         <Script
+          id="contact-recaptcha-v3"
           src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
           strategy="afterInteractive"
         />
       )}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <div className="grid gap-6 sm:grid-cols-2">
-          <label className="flex flex-col gap-2 text-sm text-secondary">
-            {t("name")}
-            <input type="text" name="name" required className={inputClassName} />
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
+        aria-busy={status === "sending"}
+      >
+        <div className={styles.fieldGrid}>
+          <label className={styles.field}>
+            <span>{t("name")}</span>
+            <input
+              type="text"
+              name="name"
+              autoComplete="name"
+              required
+              className={styles.control}
+            />
           </label>
-          <label className="flex flex-col gap-2 text-sm text-secondary">
-            {t("email")}
-            <input type="email" name="email" required className={inputClassName} />
+          <label className={styles.field}>
+            <span>{t("email")}</span>
+            <input
+              type="email"
+              name="email"
+              autoComplete="email"
+              required
+              className={styles.control}
+            />
           </label>
         </div>
 
-        <label className="flex flex-col gap-2 text-sm text-secondary">
-          {t("subject")}
-          <input type="text" name="subject" required className={inputClassName} />
+        <label className={styles.field}>
+          <span>{t("subject")}</span>
+          <input
+            type="text"
+            name="subject"
+            autoComplete="off"
+            required
+            className={styles.control}
+          />
         </label>
 
-        <label className="flex flex-col gap-2 text-sm text-secondary">
-          {t("message")}
-          <textarea name="message" required rows={5} className={`resize-none ${inputClassName}`} />
+        <label className={styles.field}>
+          <span>{t("message")}</span>
+          <textarea
+            name="message"
+            required
+            rows={6}
+            className={`${styles.control} ${styles.textarea}`}
+          />
         </label>
 
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="relative self-start rounded-full border border-white/10 p-1">
-            <GlowingEffect
-              variant="white"
-              spread={40}
-              glow
-              disabled={false}
-              proximity={64}
-              inactiveZone={0.01}
-              borderWidth={2}
-            />
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="relative block rounded-full bg-white/5 px-5 py-2 text-sm font-medium text-primary backdrop-blur-sm transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {status === "sending" ? t("sending") : t("submit")}
-            </button>
-          </div>
+        <div className={styles.actions}>
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className={styles.submit}
+          >
+            {status === "sending" ? t("sending") : t("submit")}
+          </button>
 
-          {status === "success" && <p className="text-sm text-accent">{t("success")}</p>}
-          {status === "error" && <p className="text-sm text-red-400">{t("error")}</p>}
+          <p
+            ref={statusRef}
+            className={[
+              styles.status,
+              status === "success" ? styles.success : "",
+              status === "error" ? styles.error : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            role={status === "error" ? "alert" : "status"}
+            aria-live={status === "error" ? "assertive" : "polite"}
+            aria-atomic="true"
+            tabIndex={status === "success" || status === "error" ? -1 : undefined}
+          >
+            {status === "sending"
+              ? t("sending")
+              : status === "success"
+                ? t("success")
+                : status === "error"
+                  ? t("error")
+                  : ""}
+          </p>
         </div>
 
         {RECAPTCHA_SITE_KEY && (
-          <p className="text-xs text-secondary">
+          <p className={styles.recaptchaNotice}>
             {t.rich("recaptchaNotice", {
               privacy: (chunks) => (
                 <a
                   href="https://policies.google.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-accent"
                 >
                   {chunks}
                 </a>
@@ -156,7 +201,6 @@ export default function ContactForm() {
                   href="https://policies.google.com/terms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline hover:text-accent"
                 >
                   {chunks}
                 </a>

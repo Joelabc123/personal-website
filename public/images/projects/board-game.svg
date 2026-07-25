@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title">
+  <title id="title">Abstract online board game placeholder</title>
+  <rect width="1600" height="900" fill="#ececef"/>
+  <rect x="182" y="74" width="1236" height="752" rx="46" fill="#fafbff" stroke="#c7c7cc" stroke-width="4"/>
+  <g transform="translate(392 102)">
+    <g fill="#2b2c2f">
+      <rect x="0" y="0" width="204" height="174"/>
+      <rect x="408" y="0" width="204" height="174"/>
+      <rect x="204" y="174" width="204" height="174"/>
+      <rect x="612" y="174" width="204" height="174"/>
+      <rect x="0" y="348" width="204" height="174"/>
+      <rect x="408" y="348" width="204" height="174"/>
+      <rect x="204" y="522" width="204" height="174"/>
+      <rect x="612" y="522" width="204" height="174"/>
+    </g>
+    <g fill="#d5d5d5">
+      <rect x="204" y="0" width="204" height="174"/>
+      <rect x="612" y="0" width="204" height="174"/>
+      <rect x="0" y="174" width="204" height="174"/>
+      <rect x="408" y="174" width="204" height="174"/>
+      <rect x="204" y="348" width="204" height="174"/>
+      <rect x="612" y="348" width="204" height="174"/>
+      <rect x="0" y="522" width="204" height="174"/>
+      <rect x="408" y="522" width="204" height="174"/>
+    </g>
+    <circle cx="102" cy="87" r="48" fill="#fafbff"/>
+    <circle cx="714" cy="261" r="48" fill="#9b9ba1"/>
+    <circle cx="306" cy="435" r="48" fill="#fafbff"/>
+    <circle cx="714" cy="609" r="48" fill="#9b9ba1"/>
+  </g>
+</svg>

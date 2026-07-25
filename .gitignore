@@ -40,3 +40,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Private gallery sources: keep documentation and metadata, never originals.
+/content/gallery/**/*
+!/content/gallery/**/
+!/content/gallery/README.md
+!/content/gallery/_meta.example.json
+!/content/gallery/**/_meta.json
+
+# Gallery output is rebuilt from private sources before dev/build.
+/public/generated/gallery/
+/lib/generated/gallery-manifest.json

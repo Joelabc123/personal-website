@@ -1,0 +1,96 @@
+.root {
+  isolation: isolate;
+}
+
+.defaultContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 2vw, 32px);
+  gap: var(--p-spacing-md);
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--p-spacing-md);
+  color: var(--p-color-ink-muted);
+  font-size: var(--p-typescale-2xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.topline svg {
+  width: 21px;
+  height: 21px;
+  flex: none;
+}
+
+.marquee {
+  width: calc(100% + (2 * clamp(20px, 2vw, 32px)));
+  margin-inline: calc(-1 * clamp(20px, 2vw, 32px));
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.logoGroup {
+  display: flex;
+  flex: none;
+  gap: clamp(16px, 1.8vw, 28px);
+  padding-right: clamp(16px, 1.8vw, 28px);
+}
+
+.logoTile {
+  display: grid;
+  width: clamp(84px, 7vw, 108px);
+  aspect-ratio: 1;
+  flex: none;
+  place-items: center;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.copy h2 {
+  font-size: clamp(1.55rem, 2.4vw, 2.7rem);
+  line-height: 1.08;
+}
+
+.copy p {
+  max-width: 38ch;
+  margin-top: var(--p-spacing-xs);
+  color: var(--p-color-ink-muted);
+  font-size: var(--p-typescale-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow: visible;
+  }
+
+  .track {
+    width: 100%;
+    transform: none !important;
+  }
+
+  .logoGroup {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+  .clone {
+    display: none;
+  }
+}
