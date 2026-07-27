@@ -15,7 +15,6 @@ type MarqueeLogo = {
 type CvBentoLinkProps = {
   className: string;
   description: string;
-  eyebrow: string;
   logos: readonly MarqueeLogo[];
   title: string;
 };
@@ -27,7 +26,6 @@ const INITIAL_GROUP_COUNT = 4;
 export default function CvBentoLink({
   className,
   description,
-  eyebrow,
   logos,
   title,
 }: CvBentoLinkProps) {
@@ -169,7 +167,9 @@ export default function CvBentoLink({
               width={108}
               height={108}
               sizes="(min-width: 1200px) 108px, 84px"
-              className={styles.logo}
+              className={`${styles.logo} ${
+                logo.id === "speira-it-governance" ? styles.speiraLogo : ""
+              }`}
             />
           </span>
         ))}
@@ -189,7 +189,6 @@ export default function CvBentoLink({
     >
       <div className={styles.defaultContent}>
         <div className={styles.topline}>
-          <span>{eyebrow}</span>
           <ArrowUpRight aria-hidden="true" />
         </div>
 

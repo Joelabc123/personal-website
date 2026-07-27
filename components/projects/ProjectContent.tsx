@@ -2,11 +2,17 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import ModalRouteLink from "@/components/detail/ModalRouteLink";
+import {
+  ProjectModalController,
+  ProjectModalEntry,
+  ProjectModalLink,
+} from "@/components/projects/ProjectModalController";
 import type { Locale } from "@/lib/cv";
 import {
   localizeProjectText,
   projectPlaceholderSources,
   projects,
+  publishedProjects,
   type Project,
   type ProjectLinkKind,
   type ProjectMedia,
@@ -15,6 +21,7 @@ import styles from "./ProjectContent.module.css";
 
 type ProjectLabels = {
   title: string;
+  close: string;
   openProject: string;
   comingSoon: string;
   published: string;
@@ -143,12 +150,13 @@ function ProjectCard({
   }
 
   return (
-    <ModalRouteLink
-      href={`/projects/${project.slug}`}
+    <ProjectModalLink
+      href={`/${locale}/projects/${project.slug}`}
+      slug={project.slug}
       className={className}
     >
       {content}
-    </ModalRouteLink>
+    </ProjectModalLink>
   );
 }
 
@@ -156,15 +164,17 @@ async function getLabels(): Promise<{
   labels: ProjectLabels;
   locale: Locale;
 }> {
-  const [rawLocale, t] = await Promise.all([
+  const [rawLocale, t, shellT] = await Promise.all([
     getLocale(),
     getTranslations("projects"),
+    getTranslations("detailRoutes.shell"),
   ]);
 
   return {
     locale: rawLocale === "en" ? "en" : "de",
     labels: {
       title: t("title"),
+      close: shellT("close"),
       openProject: t("openProject"),
       comingSoon: t("comingSoon"),
       published: t("published"),
@@ -185,88 +195,129 @@ async function getLabels(): Promise<{
 
 export async function ProjectOverview() {
   const { labels, locale } = await getLabels();
+  const localizedProjectsPath = `/${locale}/projects`;
 
   return (
-    <div className={`${styles.projects} project-overview`}>
-      <section className={styles.grid} aria-label={labels.title}>
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={project.slug}
-            project={project}
-            index={index}
-            labels={labels}
-            locale={locale}
-          />
-        ))}
-      </section>
-    </div>
+    <ProjectModalController>
+      <div className={`${styles.projects} project-overview`}>
+        <section className={styles.grid} aria-label={labels.title}>
+          {projects.map((project, index) => (
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+              labels={labels}
+              locale={locale}
+            />
+          ))}
+        </section>
+      </div>
+
+      {publishedProjects.map((project) => (
+        <ProjectModalEntry
+          key={project.slug}
+          slug={project.slug}
+          closeLabel={labels.close}
+          returnFocusHref={`${localizedProjectsPath}/${project.slug}`}
+          titleId={projectTitleId(project.slug)}
+        >
+          <ProjectDetail project={project} showBackLink={false} />
+        </ProjectModalEntry>
+      ))}
+    </ProjectModalController>
   );
 }
 
-export async function ProjectDetail({ project }: { project: Project }) {
+export async function ProjectDetail({
+  project,
+  showBackLink = false,
+}: {
+  project: Project;
+  showBackLink?: boolean;
+}) {
   const { labels, locale } = await getLabels();
   const title = localizeProjectText(project.title, locale);
   const description = localizeProjectText(project.description, locale);
 
   return (
     <div className={`${styles.projectDetail} project-detail-view`}>
-      <ModalRouteLink className={styles.backLink} href="/projects">
-        <ArrowLeft aria-hidden="true" />
-        {labels.backToProjects}
-      </ModalRouteLink>
-
-      <header className={styles.detailHeader}>
-        <h1 id={projectTitleId(project.slug)}>{title}</h1>
-      </header>
-
-      <div className={styles.detailGrid}>
-        <aside className={styles.metaCard}>
-          <dl>
-            <div>
-              <dt>{labels.status}</dt>
-              <dd>{labels.published}</dd>
-            </div>
-            <div>
-              <dt>{labels.linksHeading}</dt>
-              <dd>
-                {project.links.length > 0 ? (
-                  <span className={styles.externalLinks}>
-                    {project.links.map((link) => (
-                      <a
-                        key={`${link.kind}-${link.href}`}
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {labels.links[link.kind]}
-                        <ArrowUpRight aria-hidden="true" />
-                      </a>
-                    ))}
-                  </span>
-                ) : (
-                  labels.noPublicLink
-                )}
-              </dd>
-            </div>
-          </dl>
-        </aside>
-
-        <article className={styles.descriptionCard}>
-          <p className={styles.cardLabel}>{labels.descriptionHeading}</p>
-          <p>{description}</p>
-        </article>
-      </div>
-
-      <section className={styles.mediaSection} aria-labelledby="project-media">
-        <h2 id="project-media">{labels.mediaHeading}</h2>
-        <div className={styles.mediaGrid}>
-          {project.media.map((media, index) => (
-            <figure key={`${project.slug}-media-${index}`}>
-              <Media media={media} locale={locale} />
-            </figure>
-          ))}
-        </div>
+      <section
+        className={styles.heroMedia}
+        aria-labelledby={`project-media-${project.slug}`}
+      >
+        <h2
+          className={styles.visuallyHidden}
+          id={`project-media-${project.slug}`}
+        >
+          {labels.mediaHeading}
+        </h2>
+        <figure>
+          <Media media={project.media[0]!} locale={locale} preload />
+        </figure>
       </section>
+
+      <div className={styles.detailBody}>
+        <header className={styles.detailHeader}>
+          <span className={styles.detailStatus}>{labels.published}</span>
+          <h1 id={projectTitleId(project.slug)}>{title}</h1>
+        </header>
+
+        <div className={styles.detailDivider} aria-hidden="true" />
+
+        <section
+          className={styles.descriptionSection}
+          aria-labelledby={`project-description-${project.slug}`}
+        >
+          <h2
+            className={styles.visuallyHidden}
+            id={`project-description-${project.slug}`}
+          >
+            {labels.descriptionHeading}
+          </h2>
+          <p>{description}</p>
+        </section>
+
+        {project.media.length > 1 ? (
+          <section
+            className={styles.additionalMedia}
+            aria-label={labels.mediaHeading}
+          >
+            {project.media.slice(1).map((media, index) => (
+              <figure key={`${project.slug}-media-${index + 1}`}>
+                <Media media={media} locale={locale} />
+              </figure>
+            ))}
+          </section>
+        ) : null}
+
+        <footer className={styles.detailFooter}>
+          <p className={styles.cardLabel}>{labels.linksHeading}</p>
+          {project.links.length > 0 ? (
+            <span className={styles.externalLinks}>
+              {project.links.map((link) => (
+                <a
+                  key={`${link.kind}-${link.href}`}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {labels.links[link.kind]}
+                  <ArrowUpRight aria-hidden="true" />
+                </a>
+              ))}
+            </span>
+          ) : (
+            <p className={styles.noPublicLink}>{labels.noPublicLink}</p>
+          )}
+
+          {showBackLink ? (
+            <ModalRouteLink className={styles.backLink} href="/projects">
+              <ArrowLeft aria-hidden="true" />
+              {labels.backToProjects}
+            </ModalRouteLink>
+          ) : null}
+        </footer>
+      </div>
     </div>
   );
 }

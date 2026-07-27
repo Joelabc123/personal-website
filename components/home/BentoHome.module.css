@@ -56,18 +56,11 @@
   line-height: 1.08;
 }
 
-.linkCard p:not(.eyebrow) {
+.linkCard p {
   max-width: 38ch;
   margin-top: var(--p-spacing-xs);
   color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-sm);
-}
-
-.eyebrow {
-  color: var(--p-color-ink-muted);
-  font-size: var(--p-typescale-2xs);
-  line-height: 1.2;
-  text-transform: uppercase;
 }
 
 .cardTopline {
@@ -83,6 +76,7 @@
   width: 21px;
   height: 21px;
   flex: none;
+  margin-left: auto;
   transition: transform var(--p-motion-duration-base) var(--p-motion-easing-base);
 }
 
@@ -169,8 +163,9 @@
 .travelGlobe {
   position: relative;
   z-index: 1 !important;
-  width: 210px;
-  height: 210px;
+  width: min(420px, 100%);
+  height: auto;
+  aspect-ratio: 1;
   flex: none;
   pointer-events: none;
 }
@@ -233,6 +228,8 @@
 }
 
 .languageAction :global(.language-switch) {
+  --language-switch-inset: clamp(3px, 0.3vw, 4px);
+
   width: clamp(64px, 6vw, 82px);
   height: clamp(34px, 3.2vw, 42px);
   padding: clamp(3px, 0.3vw, 4px);
@@ -472,7 +469,6 @@
     justify-content: center;
   }
 
-  .intro .eyebrow,
   .intro .location {
     display: none;
   }
@@ -495,8 +491,8 @@
   }
 
   .travelGlobe {
-    width: 150px;
-    height: 150px;
+    width: 300px;
+    height: auto;
   }
 
   .utilities {

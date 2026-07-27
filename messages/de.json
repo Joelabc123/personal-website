@@ -54,7 +54,7 @@
     "gridLabel": "Portfolio-Übersicht",
     "intro": {
       "eyebrow": "Joel Bakirel",
-      "title": "Hallo, ich bin Joel Bakirel — M.Sc. Information Systems @ TUM",
+      "title": "Joel Bakirel<br></br>M.Sc. Information Systems @ TUM",
       "location": "Köln, Deutschland"
     },
     "cv": {
@@ -301,4 +301,3 @@
     }
   }
 }
-

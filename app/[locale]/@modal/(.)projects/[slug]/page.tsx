@@ -65,7 +65,7 @@ export default async function ProjectModal({
       returnFocusHref={`/${locale}/projects/${slug}`}
       titleId={projectTitleId(slug)}
     >
-      <ProjectDetail project={project} />
+      <ProjectDetail project={project} showBackLink={false} />
     </ModalShell>
   );
 }

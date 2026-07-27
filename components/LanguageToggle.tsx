@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { useState, useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
@@ -68,27 +69,46 @@ export default function LanguageToggle({ className }: LanguageToggleProps) {
   const t = useTranslations("utility");
   const pathname = usePathname();
   const router = useRouter();
+  const [pendingLocale, setPendingLocale] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const otherLocale = routing.locales.find((l) => l !== locale) ?? locale;
   const { label } = languageMeta[otherLocale];
+  const visibleLocale = isPending && pendingLocale ? pendingLocale : locale;
+
+  const prefetchLocale = () => {
+    router.prefetch(pathname, { locale: otherLocale });
+  };
 
   const switchLocale = () => {
     const hash = typeof window !== "undefined" ? window.location.hash : "";
-    router.replace(`${pathname}${hash}`, { locale: otherLocale });
+    setPendingLocale(otherLocale);
+
+    startTransition(() => {
+      router.replace(`${pathname}${hash}`, {
+        locale: otherLocale,
+        scroll: false,
+        transitionTypes: ["locale-change"],
+      });
+    });
   };
 
   return (
     <button
       type="button"
       onClick={switchLocale}
+      onPointerEnter={prefetchLocale}
+      onFocus={prefetchLocale}
+      disabled={isPending}
       role="switch"
-      aria-checked={locale === "en"}
+      aria-checked={visibleLocale === "en"}
+      aria-busy={isPending}
       aria-label={t("switchLanguage", { language: label })}
       title={t("switchLanguage", { language: label })}
       className={`utility-button${className ? ` ${className}` : ""}`}
     >
-      <span className="language-switch" data-language={locale}>
-        <LanguageFlag locale={locale} />
+      <span className="language-switch" data-language={visibleLocale}>
+        <LanguageFlag locale={visibleLocale} />
       </span>
     </button>
   );

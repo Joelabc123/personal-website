@@ -15,7 +15,7 @@
 .topline {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--p-spacing-md);
   color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-2xs);
@@ -44,8 +44,8 @@
 .logoGroup {
   display: flex;
   flex: none;
-  gap: clamp(16px, 1.8vw, 28px);
-  padding-right: clamp(16px, 1.8vw, 28px);
+  gap: clamp(20px, 2vw, 32px);
+  padding-right: clamp(20px, 2vw, 32px);
 }
 
 .logoTile {
@@ -60,6 +60,10 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.speiraLogo {
+  transform: scale(1.08);
 }
 
 .copy h2 {

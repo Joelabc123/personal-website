@@ -44,7 +44,7 @@ function EnvelopeMark() {
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
+        strokeWidth="1.5"
       />
       <path
         className={styles.envelopeFlap}
@@ -52,7 +52,7 @@ function EnvelopeMark() {
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="2"
+        strokeWidth="1.5"
       />
     </svg>
   );
@@ -131,7 +131,11 @@ export default function HomeUtilityGrid() {
           aria-controls="home-bento-menu"
           onClick={() => setMenuOpen((open) => !open)}
         >
-          {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          {menuOpen ? (
+            <X aria-hidden="true" strokeWidth={1.5} />
+          ) : (
+            <Menu aria-hidden="true" strokeWidth={1.5} />
+          )}
         </button>
 
         {menuOpen ? (
@@ -151,7 +155,7 @@ export default function HomeUtilityGrid() {
                 aria-label={t("closeMenu")}
                 onClick={() => setMenuOpen(false)}
               >
-                <X aria-hidden="true" />
+                <X aria-hidden="true" strokeWidth={1.5} />
               </button>
             </div>
 

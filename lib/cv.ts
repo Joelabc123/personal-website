@@ -80,7 +80,7 @@ export const education: readonly CvEntry[] = [
       en: "Munich",
     },
     logo: {
-      src: "/icons/TUM.png",
+      src: "/icons/tum-transparent.png",
       alt: "Technische Universität München",
       scale: 1.4,
     },
@@ -100,7 +100,7 @@ export const education: readonly CvEntry[] = [
       en: "Mannheim",
     },
     logo: {
-      src: "/icons/UniMannheim.webp",
+      src: "/icons/UniMannheim.png",
       alt: "Universität Mannheim",
     },
     bullets: {

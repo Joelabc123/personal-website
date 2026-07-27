@@ -56,12 +56,16 @@ export default async function ProjectPage({
     notFound();
   }
 
-  const t = await getTranslations("detailRoutes.shell");
+  const t = await getTranslations("projects");
 
   return (
-    <StandaloneShell homeLabel={t("backHome")}>
+    <StandaloneShell
+      documentNavigation
+      homeHref={`/${locale}/projects`}
+      homeLabel={t("backToProjects")}
+    >
       <JsonLd data={projectJsonLd(project, locale)} />
-      <ProjectDetail project={project} />
+      <ProjectDetail project={project} showBackLink={false} />
     </StandaloneShell>
   );
 }

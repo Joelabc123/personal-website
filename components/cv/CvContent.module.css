@@ -18,6 +18,7 @@
   align-items: flex-end;
   justify-content: flex-start;
   gap: var(--p-spacing-xs);
+  margin-bottom: clamp(1.25rem, 3vh, 2.5rem);
   margin-top: -4rem;
   pointer-events: none;
   text-align: right;
@@ -247,6 +248,28 @@
 .detailDocument .entryIdentity p,
 .detailDocument .entryIdentity span {
   margin-top: 0.1rem;
+}
+
+.detailDocument .educationGroup .entryCard {
+  padding-block: 20px;
+}
+
+.detailDocument .educationGroup .entryHeader {
+  grid-template-columns: 68px minmax(0, 1fr) auto;
+  gap: 1rem;
+}
+
+.detailDocument .educationGroup .logoTile {
+  width: 68px;
+  height: 68px;
+}
+
+.detailDocument .educationGroup .entryIdentity p {
+  margin-top: 0.35rem;
+}
+
+.detailDocument .educationGroup .bullets {
+  margin-left: 84px;
 }
 
 .detailDocument .date {
@@ -493,6 +516,14 @@
 }
 
 @media (max-width: 460px) {
+  .detailDocument .educationGroup .entryHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .detailDocument .educationGroup .bullets {
+    margin-left: 0;
+  }
+
   .detailDocument .entryHeader {
     grid-template-columns: 1fr;
   }

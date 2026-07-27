@@ -118,6 +118,31 @@ body {
     color var(--p-motion-duration-base) var(--p-motion-easing-base);
 }
 
+::view-transition-old(.locale-content) {
+  animation: locale-content-out 140ms ease-out both;
+}
+
+::view-transition-new(.locale-content) {
+  animation: locale-content-in var(--p-motion-duration-base)
+    var(--p-motion-easing-base) both;
+}
+
+@keyframes locale-content-out {
+  to {
+    opacity: 0;
+    filter: blur(2px);
+    transform: scale(0.997);
+  }
+}
+
+@keyframes locale-content-in {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: scale(1.003);
+  }
+}
+
 h1,
 h2,
 h3,
@@ -206,7 +231,13 @@ section[id] {
   background: var(--p-color-canvas-soft);
 }
 
+.utility-button:disabled {
+  cursor: wait;
+}
+
 .language-flag {
+  position: absolute;
+  left: var(--language-switch-inset);
   display: block;
   width: 28px;
   height: 28px;
@@ -214,11 +245,16 @@ section[id] {
   border: 1px solid rgb(17 19 24 / 14%);
   border-radius: 50%;
   box-shadow: 0 2px 5px rgb(17 19 24 / 20%);
+  translate: 0;
   transition:
+    left var(--p-motion-duration-base) var(--p-motion-easing-base),
+    translate var(--p-motion-duration-base) var(--p-motion-easing-base),
     transform var(--p-motion-duration-fast) var(--p-motion-easing-base);
 }
 
 .language-switch {
+  --language-switch-inset: 3px;
+
   position: relative;
   display: flex;
   width: 64px;
@@ -243,8 +279,9 @@ section[id] {
     0 1px 3px rgb(17 19 24 / 7%);
 }
 
-.language-switch[data-language="en"] {
-  justify-content: flex-end;
+.language-switch[data-language="en"] .language-flag {
+  left: calc(100% - var(--language-switch-inset));
+  translate: -100% 0;
 }
 
 .utility-button:hover .language-flag,
@@ -534,30 +571,123 @@ section[id] {
 
 .detail-surface__content:has(> .project-overview) {
   padding-top: 0;
-  padding-inline: 0;
+  padding-inline: var(--p-spacing-fluid-md);
   padding-bottom: var(--p-spacing-md);
 }
 
 .detail-surface__content:has(> .project-detail-view) {
-  padding:
-    0
-    var(--p-spacing-fluid-md)
-    var(--p-spacing-md);
+  padding: 0;
 }
 
-.detail-page:has(.project-detail-view),
-.detail-dialog:has(.project-detail-view) {
-  overflow: hidden;
+.detail-page:has(
+    > .detail-surface > .detail-surface__content > .project-detail-view
+  ) {
+  display: grid;
+  min-height: 100dvh;
+  height: auto;
+  place-items: center;
+  padding: clamp(16px, 3vw, 42px);
+  overflow: auto;
+  background: var(--p-color-canvas-soft);
 }
 
-.detail-page:has(.project-detail-view) {
-  height: 100dvh;
+.detail-page:has(
+    > .detail-surface > .detail-surface__content > .project-detail-view
+  )
+  > .detail-surface {
+  width: min(56rem, 100%);
   min-height: 0;
+  border-radius: clamp(var(--p-radius-xl), 2vw, var(--p-radius-3xl));
+  background: var(--p-color-canvas-elevated);
+  box-shadow: var(--p-shadow-lg);
+}
+
+.detail-page:has(
+    > .detail-surface > .detail-surface__content > .project-detail-view
+  )
+  > .detail-surface
+  > .detail-surface__topbar {
+  min-height: 68px;
+  padding: var(--p-spacing-sm) var(--p-spacing-md);
+}
+
+.detail-dialog[open]:has(.project-detail-view) {
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 48px);
+  overflow: hidden;
+  background: transparent;
+}
+
+.project-inline-dialog:has(.project-detail-view) {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  isolation: isolate;
+  touch-action: manipulation;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 48px);
+  overflow: hidden;
+  background: rgb(17 19 24 / 58%);
+  backdrop-filter: blur(10px);
+}
+
+.detail-dialog:has(.project-detail-view)::backdrop {
+  background: rgb(17 19 24 / 58%);
+  backdrop-filter: blur(10px);
+}
+
+.detail-dialog:has(.project-detail-view) .detail-surface {
+  position: relative;
+  width: min(56rem, 100%);
+  min-height: 0;
+  max-height: calc(100dvh - 32px);
+  border: 0;
+  border-radius: var(--p-radius-2xl);
+  background: var(--p-color-canvas-elevated);
+  box-shadow: 0 28px 80px rgb(1 2 5 / 28%);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.detail-dialog:has(.project-detail-view) .detail-surface__topbar {
+  position: absolute;
+  z-index: 5;
+  top: calc(clamp(176px, 28.4vw, 266px) + 14px);
+  right: 0;
+  left: 0;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 14px;
+  pointer-events: none;
+}
+
+.detail-dialog:has(.project-detail-view) .detail-close {
+  width: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--p-color-ink-muted);
+  box-shadow: none;
+  pointer-events: auto;
+}
+
+.detail-dialog:has(.project-detail-view) .detail-close:hover,
+.detail-dialog:has(.project-detail-view) .detail-close:focus-visible {
+  border-color: transparent;
+  background: var(--p-color-canvas-soft);
+  color: var(--p-color-ink);
+}
+
+.detail-dialog:has(.project-detail-view) .detail-dialog__utility {
+  display: none;
 }
 
 .detail-page:has(.project-overview),
 .detail-dialog:has(.project-overview) {
-  padding-inline: 0;
+  padding-inline: var(--p-spacing-md);
 }
 
 .cv-print-page {
@@ -603,10 +733,6 @@ section[id] {
 }
 
 @media (max-width: 639px) {
-  .detail-dialog .project-detail-view {
-    height: calc(100dvh - 138px);
-  }
-
   .detail-route-nav__links {
     grid-template-columns: 1fr;
   }
@@ -638,6 +764,47 @@ section[id] {
     padding-top: var(--p-spacing-md);
   }
 
+  .detail-dialog:has(.project-detail-view) {
+    padding: 12px;
+  }
+
+  .detail-dialog:has(.project-detail-view) .detail-surface {
+    width: 100%;
+    min-height: 0;
+    max-height: calc(100dvh - 24px);
+    border-radius: var(--p-radius-2xl);
+  }
+
+  .detail-dialog:has(.project-detail-view) .detail-surface__topbar {
+    top: 50vw;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 12px;
+  }
+
+  .detail-dialog:has(.project-detail-view) .detail-close {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .detail-page:has(
+      > .detail-surface > .detail-surface__content > .project-detail-view
+    ) {
+    padding: 0;
+  }
+
+  .detail-page:has(
+      > .detail-surface > .detail-surface__content > .project-detail-view
+    )
+    > .detail-surface {
+    width: 100%;
+    min-height: 100dvh;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
   .site-footer__inner {
     align-items: flex-start;
     flex-direction: column;
@@ -657,6 +824,13 @@ section[id] {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
   }
 
   *,

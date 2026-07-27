@@ -38,6 +38,7 @@ const hexToRgbNormalized = (hex: string): [number, number, number] => {
 
 interface GlobeProps {
   className?: string;
+  slowOnHover?: boolean;
   theta?: number;
   dark?: number;
   scale?: number;
@@ -52,6 +53,7 @@ interface GlobeProps {
 
 const Globe: React.FC<GlobeProps> = ({
   className,
+  slowOnHover = false,
   theta = 0.25,
   dark = 0,
   scale = 1,
@@ -74,10 +76,15 @@ const Globe: React.FC<GlobeProps> = ({
   const lastMouseX = useRef(0);
   const lastMouseY = useRef(0);
   const autoRotateSpeed = 0.003; // Define auto-rotation speed
+  const currentAutoRotateSpeed = useRef(autoRotateSpeed);
+  const targetAutoRotateSpeed = useRef(autoRotateSpeed);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    currentAutoRotateSpeed.current = autoRotateSpeed;
+    targetAutoRotateSpeed.current = autoRotateSpeed;
 
     // Resolve color props to the [R, G, B] format required by cobe
     const resolvedBaseColor: [number, number, number] =
@@ -180,9 +187,22 @@ const Globe: React.FC<GlobeProps> = ({
 
     initGlobe();
 
+    const hoverTarget = slowOnHover ? canvas.closest<HTMLElement>("a") : null;
+    const slowRotation = () => {
+      targetAutoRotateSpeed.current = autoRotateSpeed * 0.15;
+    };
+    const restoreRotation = () => {
+      targetAutoRotateSpeed.current = autoRotateSpeed;
+    };
+
+    hoverTarget?.addEventListener("pointerenter", slowRotation);
+    hoverTarget?.addEventListener("pointerleave", restoreRotation);
+
     const animate = () => {
       if (!isDragging.current) {
-        phiRef.current += autoRotateSpeed;
+        currentAutoRotateSpeed.current +=
+          (targetAutoRotateSpeed.current - currentAutoRotateSpeed.current) * 0.08;
+        phiRef.current += currentAutoRotateSpeed.current;
       }
 
       globeRef.current?.update({
@@ -220,6 +240,8 @@ const Globe: React.FC<GlobeProps> = ({
         canvas.removeEventListener("mouseup", onMouseUp);
         canvas.removeEventListener("mouseleave", onMouseLeave);
       }
+      hoverTarget?.removeEventListener("pointerenter", slowRotation);
+      hoverTarget?.removeEventListener("pointerleave", restoreRotation);
       if (globeRef.current) {
         globeRef.current.destroy();
         globeRef.current = null;
@@ -235,6 +257,7 @@ const Globe: React.FC<GlobeProps> = ({
     baseColor, // Include color props in dependency array so globe re-initializes if they change
     markerColor,
     glowColor,
+    slowOnHover,
   ]);
 
   return (
