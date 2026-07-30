@@ -54,24 +54,24 @@
     "gridLabel": "Portfolio-Übersicht",
     "intro": {
       "eyebrow": "Joel Bakirel",
-      "title": "Joel Bakirel<br></br>M.Sc. Information Systems @ TUM",
+      "title": "Joel Bakirel<br></br> M.Sc. Information Systems @ TUM",
       "location": "Köln, Deutschland"
     },
     "cv": {
       "eyebrow": "Werdegang",
       "title": "Lebenslauf",
-      "description": "Erfahrung, Ausbildung und Sprachen im Überblick."
+      "description": "Ausbildung und berufliche Erfahrung."
     },
     "projects": {
       "eyebrow": "Ausgewählte Arbeiten",
       "title": "Projekte",
-      "description": "Digitale Produkte, Lernmodule und Spiele.",
+      "description": "Eine Auswahl meiner Arbeiten.",
       "codeLabel": "Animierter TypeScript-Code, der Lebenslauf, Projekte und Reisen zu einem Bento-Portfolio zusammensetzt."
     },
     "travel": {
       "eyebrow": "Reisefotografie",
       "title": "Galerie",
-      "description": "Orte, Begegnungen und Momente unterwegs."
+      "description": "Erinnerungen aus aller Welt."
     },
     "contact": {
       "eyebrow": "Kontakt",
@@ -161,7 +161,7 @@
   "travel": {
     "eyebrow": "Persönliche Eindrücke",
     "title": "Reisen",
-    "description": "Orte, Begegnungen und farbige Momente unterwegs.",
+    "description": "Orte, die in Erinnerung bleiben.",
     "emptyTitle": "Die Reisegalerie wartet auf ihre ersten Bilder.",
     "emptyDescription": "Private Aufnahmen werden vor dem Build lokal vorbereitet und erscheinen hier, ohne dass ihre Originale in Git gelangen.",
     "openTrip": "Reise ansehen",
@@ -301,3 +301,4 @@
     }
   }
 }
+

@@ -48,6 +48,14 @@ next-env.d.ts
 !/content/gallery/_meta.example.json
 !/content/gallery/**/_meta.json
 
+# Unsorted private gallery uploads: keep instructions, never original images.
+/content/gallery-upload/**/*
+!/content/gallery-upload/README.md
+
+# Unsorted project image uploads: keep instructions, never original images.
+/content/projects-upload/**/*
+!/content/projects-upload/README.md
+
 # Gallery output is rebuilt from private sources before dev/build.
 /public/generated/gallery/
 /lib/generated/gallery-manifest.json

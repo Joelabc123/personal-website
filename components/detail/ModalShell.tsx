@@ -88,6 +88,10 @@ export default function ModalShell({
       dialog.removeEventListener("toggle", focusCloseButton);
 
       if (dialog.open) {
+        // A route change unmounts the old modal and closes its dialog. Mark
+        // that lifecycle close as handled so onClose does not undo the new
+        // navigation with router.back().
+        closeRequested.current = true;
         dialog.close();
       }
 

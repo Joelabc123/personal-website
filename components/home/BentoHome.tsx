@@ -1,5 +1,7 @@
+"use client";
+
 import { ArrowUpRight, MapPin } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import CvBentoLink from "@/components/cv/CvBentoLink";
 import ModalRouteLink from "@/components/detail/ModalRouteLink";
 import EarthGlobe from "@/components/home/EarthGlobe";
@@ -8,8 +10,8 @@ import ProjectCodeLoop from "@/components/home/ProjectCodeLoop";
 import { cvEntries } from "@/lib/cv";
 import styles from "./BentoHome.module.css";
 
-export default async function BentoHome() {
-  const t = await getTranslations("homeBento");
+export default function BentoHome() {
+  const t = useTranslations("homeBento");
 
   return (
     <main className={styles.home}>

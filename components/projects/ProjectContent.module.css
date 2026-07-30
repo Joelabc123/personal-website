@@ -127,6 +127,8 @@
 .cardMedia .media {
   position: absolute;
   inset: 0;
+  background: var(--project-media-background, #ffffff);
+  object-position: var(--project-card-position, 50% 50%);
   transition: transform var(--p-motion-duration-slow)
     var(--p-motion-easing-base);
 }
@@ -232,12 +234,14 @@
 
 .heroMedia figure {
   width: 100%;
-  aspect-ratio: 16 / 4.75;
+  aspect-ratio: 2 / 1;
   margin: 0;
   overflow: hidden;
 }
 
 .heroMedia .media {
+  background: var(--project-media-background, #ffffff);
+  object-fit: contain;
   object-position: center;
 }
 
@@ -299,12 +303,19 @@
 }
 
 .additionalMedia figure {
+  aspect-ratio: 2 / 1;
   min-height: 180px;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--p-color-hairline);
   border-radius: var(--p-radius-xl);
   background: #e6e7e9;
+}
+
+.additionalMedia .media {
+  background: var(--project-media-background, #ffffff);
+  object-fit: contain;
+  object-position: center;
 }
 
 .detailFooter {
@@ -410,6 +421,13 @@
     min-height: 230px;
   }
 
+  .cardMedia .media {
+    object-position: var(
+      --project-card-position-mobile,
+      var(--project-card-position, 50% 50%)
+    );
+  }
+
   .cardHeading {
     flex-direction: column;
   }
@@ -438,10 +456,6 @@
   .cardBody > p {
     display: block;
     overflow: visible;
-  }
-
-  .heroMedia figure {
-    aspect-ratio: 16 / 8;
   }
 
   .detailBody {

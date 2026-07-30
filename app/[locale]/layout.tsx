@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import LocaleProvider, {
+  type AppLocale,
+} from "@/components/LocaleProvider";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/siteConfig";
 import ModalFocusManager from "@/components/detail/ModalFocusManager";
 import UtilityDock from "@/components/UtilityDock";
+import deMessages from "@/messages/de.json";
+import enMessages from "@/messages/en.json";
 import "../globals.css";
 
 const inter = Inter({
@@ -41,15 +46,23 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const messages = {
+    de: deMessages,
+    en: enMessages,
+  };
+
   return (
     <html lang={locale} className={`${inter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
-        <NextIntlClientProvider>
+        <LocaleProvider
+          initialLocale={locale as AppLocale}
+          messages={messages}
+        >
           <ModalFocusManager />
           <UtilityDock />
           {children}
           {modal}
-        </NextIntlClientProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
+import type { CSSProperties } from "react";
 import ModalRouteLink from "@/components/detail/ModalRouteLink";
 import {
   ProjectModalController,
@@ -38,13 +39,30 @@ export function projectTitleId(slug: string) {
   return `detail-title-project-${slug}`;
 }
 
+type MediaLayout = "featured-card" | "card" | "hero" | "gallery";
+
+type ProjectMediaStyle = CSSProperties & {
+  "--project-card-position"?: string;
+  "--project-card-position-mobile"?: string;
+  "--project-media-background"?: string;
+};
+
+const mediaSizes: Record<MediaLayout, string> = {
+  "featured-card": "(max-width: 760px) 100vw, 64vw",
+  card: "(max-width: 760px) 100vw, 26vw",
+  hero: "(max-width: 760px) 100vw, 896px",
+  gallery: "(max-width: 760px) 100vw, 448px",
+};
+
 function Media({
   media,
   locale,
+  layout,
   preload = false,
 }: {
   media: ProjectMedia;
   locale: Locale;
+  layout: MediaLayout;
   preload?: boolean;
 }) {
   const alt = localizeProjectText(media.alt, locale);
@@ -67,21 +85,36 @@ function Media({
     media.type === "placeholder"
       ? projectPlaceholderSources[media.variant]
       : media.src;
+  const rasterProps =
+    media.type === "placeholder"
+      ? {
+          height: 900,
+          unoptimized: true,
+          width: 1600,
+        }
+      : {
+          height: media.height,
+          quality: 90,
+          width: media.width,
+        };
+  const positionStyle: ProjectMediaStyle | undefined =
+    media.type === "placeholder"
+      ? undefined
+      : {
+          "--project-card-position": media.cardPosition,
+          "--project-card-position-mobile": media.cardPositionMobile,
+          "--project-media-background": media.frameBackground,
+        };
 
   return (
     <Image
       className={styles.media}
       src={src}
       alt={alt}
-      width={1600}
-      height={900}
-      sizes={
-        preload
-          ? "(max-width: 760px) 100vw, 820px"
-          : "(max-width: 760px) 100vw, 420px"
-      }
+      sizes={mediaSizes[layout]}
       preload={preload}
-      unoptimized={media.type === "placeholder"}
+      style={positionStyle}
+      {...rasterProps}
     />
   );
 }
@@ -112,6 +145,7 @@ function ProjectCard({
         <Media
           media={project.media[0]!}
           locale={locale}
+          layout={project.featured ? "featured-card" : "card"}
           preload={project.featured}
         />
         <span className={styles.cardIndex} aria-hidden="true">
@@ -221,7 +255,11 @@ export async function ProjectOverview() {
           returnFocusHref={`${localizedProjectsPath}/${project.slug}`}
           titleId={projectTitleId(project.slug)}
         >
-          <ProjectDetail project={project} showBackLink={false} />
+          <ProjectDetail
+            project={project}
+            showBackLink={false}
+            preloadMedia={false}
+          />
         </ProjectModalEntry>
       ))}
     </ProjectModalController>
@@ -231,9 +269,11 @@ export async function ProjectOverview() {
 export async function ProjectDetail({
   project,
   showBackLink = false,
+  preloadMedia = true,
 }: {
   project: Project;
   showBackLink?: boolean;
+  preloadMedia?: boolean;
 }) {
   const { labels, locale } = await getLabels();
   const title = localizeProjectText(project.title, locale);
@@ -252,7 +292,12 @@ export async function ProjectDetail({
           {labels.mediaHeading}
         </h2>
         <figure>
-          <Media media={project.media[0]!} locale={locale} preload />
+          <Media
+            media={project.media[0]!}
+            locale={locale}
+            layout="hero"
+            preload={preloadMedia}
+          />
         </figure>
       </section>
 
@@ -284,7 +329,7 @@ export async function ProjectDetail({
           >
             {project.media.slice(1).map((media, index) => (
               <figure key={`${project.slug}-media-${index + 1}`}>
-                <Media media={media} locale={locale} />
+                <Media media={media} locale={locale} layout="gallery" />
               </figure>
             ))}
           </section>

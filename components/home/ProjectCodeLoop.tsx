@@ -6,15 +6,21 @@ import {
   codeLoopTiming,
   getVisibleProjectCode,
   initialCodeLoopState,
-  projectCode,
+  projectCodeSnippets,
   shouldAdvanceCodeLoop,
   type CodeLoopState,
 } from "@/lib/project-code-loop";
 import styles from "./ProjectCodeLoop.module.css";
 
+// Keep the loop position across genuine page remounts, such as returning to
+// the homepage after visiting a detail page.
+let preservedCodeLoopState = initialCodeLoopState;
+
 export default function ProjectCodeLoop({ label }: { label: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [state, setState] = useState<CodeLoopState>(initialCodeLoopState);
+  const [state, setState] = useState<CodeLoopState>(
+    () => preservedCodeLoopState,
+  );
   const [isVisible, setIsVisible] = useState(true);
   const [isDocumentVisible, setIsDocumentVisible] = useState(true);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -71,7 +77,17 @@ export default function ProjectCodeLoop({ label }: { label: string }) {
     }
 
     const timer = window.setTimeout(() => {
-      setState((current) => advanceCodeLoop(current, projectCode.length));
+      setState((current) => {
+        const currentCode =
+          projectCodeSnippets[current.snippetIndex] ?? projectCodeSnippets[0];
+        const next = advanceCodeLoop(
+          current,
+          currentCode.length,
+          projectCodeSnippets.length,
+        );
+        preservedCodeLoopState = next;
+        return next;
+      });
     }, codeLoopTiming[state.phase]);
 
     return () => window.clearTimeout(timer);
@@ -80,6 +96,7 @@ export default function ProjectCodeLoop({ label }: { label: string }) {
     isVisible,
     prefersReducedMotion,
     state.phase,
+    state.snippetIndex,
     state.visibleCharacters,
   ]);
 
@@ -91,6 +108,7 @@ export default function ProjectCodeLoop({ label }: { label: string }) {
       className={styles.loop}
       data-phase={prefersReducedMotion ? "static" : state.phase}
       data-paused={!isVisible || !isDocumentVisible ? "true" : undefined}
+      data-snippet={state.snippetIndex + 1}
     >
       <span className={styles.srOnly}>{label}</span>
       <div className={styles.windowBar} aria-hidden="true">

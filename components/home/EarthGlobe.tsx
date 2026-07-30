@@ -6,6 +6,10 @@ import { cn } from "@/lib/utils";
 const AUTO_ROTATE_SPEED = 0.28;
 const HOVER_ROTATE_SPEED = 0.12;
 
+// Retain the last angle across genuine page remounts, such as returning to
+// the homepage after visiting a detail page.
+let preservedPhi = 0;
+
 // COBE's MIT-licensed world mask, originally based on the borderless
 // Wikimedia world map. Keeping the tiny mask local avoids an extra request.
 const LAND_MASK =
@@ -378,7 +382,7 @@ export default function EarthGlobe({
     const renderer = createEarthRenderer(canvas);
     if (!renderer) return;
 
-    let phi = 0;
+    let phi = preservedPhi;
     let animationFrame: number | null = null;
     let previousTime: number | null = null;
     let currentSpeed = AUTO_ROTATE_SPEED;
@@ -400,6 +404,7 @@ export default function EarthGlobe({
       const easing = 1 - Math.exp(-elapsed * 5);
       currentSpeed += (targetSpeed - currentSpeed) * easing;
       phi += currentSpeed * elapsed;
+      preservedPhi = phi;
       renderer.render(phi, theta);
 
       if (!reducedMotion) {

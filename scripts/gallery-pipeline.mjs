@@ -280,7 +280,7 @@ async function scanTrip({
           fit: "inside",
           withoutEnlargement: true,
         })
-        .webp({ quality: 84, effort: 5 });
+        .webp({ quality: 92, effort: 5 });
       const result = await pipeline.toBuffer({ resolveWithObject: true });
       info = result.info;
       const hash = createHash("sha256")

@@ -60,18 +60,18 @@
     "cv": {
       "eyebrow": "Experience",
       "title": "CV",
-      "description": "Experience, education, and languages at a glance."
+      "description": "Education and professional experience."
     },
     "projects": {
       "eyebrow": "Selected work",
       "title": "Projects",
-      "description": "Digital products, learning modules, and games.",
+      "description": "A selection of my work",
       "codeLabel": "Animated TypeScript code composing CV, projects, and travel into a Bento portfolio."
     },
     "travel": {
       "eyebrow": "Travel photography",
       "title": "Gallery",
-      "description": "Places, encounters, and moments along the way."
+      "description": "Memories from around the world"
     },
     "contact": {
       "eyebrow": "Contact",
@@ -161,9 +161,10 @@
   "travel": {
     "eyebrow": "Personal impressions",
     "title": "Travel",
-    "description": "Places, encounters, and colourful moments along the way.",
+    "description": "Places worth remembering.",
     "emptyTitle": "The travel gallery is waiting for its first images.",
     "emptyDescription": "Private photos are prepared locally before each build and appear here without adding their originals to Git.",
+    "cardDescription": "View all pictures from %place%.",
     "openTrip": "View trip",
     "imageCountOne": "%count% image",
     "imageCountMany": "%count% images",
@@ -301,4 +302,3 @@
     }
   }
 }
-

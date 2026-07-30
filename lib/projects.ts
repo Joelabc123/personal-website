@@ -13,6 +13,11 @@ export type ProjectMedia =
   | {
       type: "image" | "gif";
       src: string;
+      width: number;
+      height: number;
+      cardPosition?: string;
+      cardPositionMobile?: string;
+      frameBackground?: string;
       alt: LocalizedText;
     }
   | {
@@ -65,11 +70,16 @@ export const projects: readonly Project[] = [
     featured: true,
     media: [
       {
-        type: "placeholder",
-        variant: "property",
+        type: "image",
+        src: "/images/projects/property-management.png",
+        width: 2559,
+        height: 1267,
+        cardPosition: "50% 0%",
+        cardPositionMobile: "18% 0%",
+        frameBackground: "#ffffff",
         alt: {
-          de: "Neutraler Platzhalter für die Immobilienverwaltungsplattform",
-          en: "Neutral placeholder for the property management platform",
+          de: "Dashboard der Immobilienverwaltungsplattform mit Kennzahlen und offenen Aufgaben",
+          en: "Property management platform dashboard with metrics and open tasks",
         },
       },
     ],
@@ -94,11 +104,15 @@ export const projects: readonly Project[] = [
     featured: false,
     media: [
       {
-        type: "placeholder",
-        variant: "learning",
+        type: "image",
+        src: "/images/projects/red-black-tree-learning-module.png",
+        width: 2239,
+        height: 1104,
+        cardPosition: "40% 50%",
+        frameBackground: "#ffffff",
         alt: {
-          de: "Neutraler Platzhalter für das Rot-Schwarz-Baum-Lernmodul",
-          en: "Neutral placeholder for the red-black tree learning module",
+          de: "Grapheneditor des Rot-Schwarz-Baum-Lernmoduls mit einem Beispielbaum",
+          en: "Graph editor of the red-black tree learning module showing an example tree",
         },
       },
     ],
@@ -118,11 +132,16 @@ export const projects: readonly Project[] = [
     featured: false,
     media: [
       {
-        type: "placeholder",
-        variant: "quiz",
+        type: "image",
+        src: "/images/projects/quiz-duel.png",
+        width: 2105,
+        height: 1110,
+        cardPosition: "52% 50%",
+        frameBackground:
+          "linear-gradient(180deg, #0496c6 0%, #92e0f1 100%)",
         alt: {
-          de: "Neutraler Platzhalter für Quizduell",
-          en: "Neutral placeholder for Quiz Duel",
+          de: "Quizduell-Spielansicht mit Punktestand und Kategorieauswahl",
+          en: "Quiz Duel game screen with score and category selection",
         },
       },
     ],
@@ -147,11 +166,16 @@ export const projects: readonly Project[] = [
     featured: false,
     media: [
       {
-        type: "placeholder",
-        variant: "board-game",
+        type: "image",
+        src: "/images/projects/online-board-game.png",
+        width: 1810,
+        height: 1096,
+        cardPosition: "50% 50%",
+        frameBackground:
+          "linear-gradient(90deg, #071d2d 0%, #231322 100%)",
         alt: {
-          de: "Neutraler Platzhalter für das Online-Brettspiel",
-          en: "Neutral placeholder for the online board game",
+          de: "Spielansicht des Online-Brettspiels mit blau-roten Spielfiguren",
+          en: "Online board game screen with blue and red game pieces",
         },
       },
     ],

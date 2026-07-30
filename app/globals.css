@@ -118,31 +118,6 @@ body {
     color var(--p-motion-duration-base) var(--p-motion-easing-base);
 }
 
-::view-transition-old(.locale-content) {
-  animation: locale-content-out 140ms ease-out both;
-}
-
-::view-transition-new(.locale-content) {
-  animation: locale-content-in var(--p-motion-duration-base)
-    var(--p-motion-easing-base) both;
-}
-
-@keyframes locale-content-out {
-  to {
-    opacity: 0;
-    filter: blur(2px);
-    transform: scale(0.997);
-  }
-}
-
-@keyframes locale-content-in {
-  from {
-    opacity: 0;
-    filter: blur(2px);
-    transform: scale(1.003);
-  }
-}
-
 h1,
 h2,
 h3,
@@ -654,7 +629,7 @@ section[id] {
 .detail-dialog:has(.project-detail-view) .detail-surface__topbar {
   position: absolute;
   z-index: 5;
-  top: calc(clamp(176px, 28.4vw, 266px) + 14px);
+  top: calc(min(28rem, 50vw - clamp(16px, 3vw, 48px)) + 14px);
   right: 0;
   left: 0;
   min-height: 44px;

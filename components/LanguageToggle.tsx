@@ -1,8 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { useLocaleSwitcher } from "@/components/LocaleProvider";
 import { routing } from "@/i18n/routing";
 
 const languageMeta: Record<string, { label: string }> = {
@@ -67,48 +66,29 @@ type LanguageToggleProps = {
 export default function LanguageToggle({ className }: LanguageToggleProps) {
   const locale = useLocale();
   const t = useTranslations("utility");
-  const pathname = usePathname();
-  const router = useRouter();
-  const [pendingLocale, setPendingLocale] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
+  const { setLocale } = useLocaleSwitcher();
 
-  const otherLocale = routing.locales.find((l) => l !== locale) ?? locale;
+  const otherLocale =
+    routing.locales.find((supported) => supported !== locale) ??
+    routing.defaultLocale;
   const { label } = languageMeta[otherLocale];
-  const visibleLocale = isPending && pendingLocale ? pendingLocale : locale;
-
-  const prefetchLocale = () => {
-    router.prefetch(pathname, { locale: otherLocale });
-  };
 
   const switchLocale = () => {
-    const hash = typeof window !== "undefined" ? window.location.hash : "";
-    setPendingLocale(otherLocale);
-
-    startTransition(() => {
-      router.replace(`${pathname}${hash}`, {
-        locale: otherLocale,
-        scroll: false,
-        transitionTypes: ["locale-change"],
-      });
-    });
+    setLocale(otherLocale);
   };
 
   return (
     <button
       type="button"
       onClick={switchLocale}
-      onPointerEnter={prefetchLocale}
-      onFocus={prefetchLocale}
-      disabled={isPending}
       role="switch"
-      aria-checked={visibleLocale === "en"}
-      aria-busy={isPending}
+      aria-checked={locale === "en"}
       aria-label={t("switchLanguage", { language: label })}
       title={t("switchLanguage", { language: label })}
       className={`utility-button${className ? ` ${className}` : ""}`}
     >
-      <span className="language-switch" data-language={visibleLocale}>
-        <LanguageFlag locale={visibleLocale} />
+      <span className="language-switch" data-language={locale}>
+        <LanguageFlag locale={locale} />
       </span>
     </button>
   );

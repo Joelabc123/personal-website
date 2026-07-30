@@ -8,7 +8,6 @@ import {
   useState,
   type PointerEvent,
 } from "react";
-import type { GalleryLayout } from "@/lib/gallery-types";
 import styles from "./TravelContent.module.css";
 
 export type LightboxImage = {
@@ -17,7 +16,6 @@ export type LightboxImage = {
   width: number;
   height: number;
   alt: string;
-  layout: GalleryLayout;
 };
 
 type GalleryLightboxProps = {
@@ -91,7 +89,7 @@ export default function GalleryLightbox({
           <button
             key={image.id}
             type="button"
-            className={`${styles.galleryButton} ${styles[image.layout]}`}
+            className={styles.galleryButton}
             onClick={(event) => open(index, event.currentTarget)}
             aria-label={labels.openImage.replace(
               "%index%",
@@ -103,7 +101,8 @@ export default function GalleryLightbox({
               alt={image.alt}
               width={image.width}
               height={image.height}
-              sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 420px"
+              sizes="(max-width: 680px) calc(100vw - 40px), (max-width: 1040px) 46vw, 444px"
+              quality={90}
             />
           </button>
         ))}
@@ -152,6 +151,8 @@ export default function GalleryLightbox({
               width={activeImage.width}
               height={activeImage.height}
               sizes="100vw"
+              quality={90}
+              unoptimized
               draggable={false}
             />
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import StandaloneShell from "@/components/detail/StandaloneShell";
 import { TravelDetail } from "@/components/travel/TravelContent";
 import type { Locale } from "@/lib/cv";
@@ -65,11 +65,18 @@ export default async function TravelTripPage({
 
   if (!trip) notFound();
 
-  const t = await getTranslations("detailRoutes.shell");
+  const [locale, t] = await Promise.all([
+    getLocale(),
+    getTranslations("travel"),
+  ]);
 
   return (
-    <StandaloneShell homeLabel={t("backHome")}>
-      <TravelDetail trip={trip} />
+    <StandaloneShell
+      homeLabel={t("back")}
+      homeHref={`/${locale}/travel`}
+      documentNavigation
+    >
+      <TravelDetail trip={trip} showBackLink={false} />
     </StandaloneShell>
   );
 }

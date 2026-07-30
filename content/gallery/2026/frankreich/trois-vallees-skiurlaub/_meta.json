@@ -1,0 +1,42 @@
+{
+  "country": {
+    "de": "Frankreich",
+    "en": "France"
+  },
+  "place": {
+    "de": "Les Trois Vallées",
+    "en": "Les Trois Vallées"
+  },
+  "date": "2026-03",
+  "cover": "01-alpenpanorama.jpeg",
+  "collapsed": "auto",
+  "layout": {
+    "01-alpenpanorama.jpeg": "wide",
+    "02-courchevel-altiport.jpeg": "wide",
+    "03-skiabfahrt-bergkulisse.jpeg": "wide",
+    "04-sessellift-hochalpin.jpeg": "tall",
+    "05-handstand-im-schnee.jpeg": "tall"
+  },
+  "alt": {
+    "01-alpenpanorama.jpeg": {
+      "de": "Weites Alpenpanorama über den verschneiten Pisten von Les Trois Vallées",
+      "en": "Wide Alpine panorama above the snow-covered slopes of Les Trois Vallées"
+    },
+    "02-courchevel-altiport.jpeg": {
+      "de": "Blick über den Altiport von Courchevel auf die verschneiten Alpen",
+      "en": "View across Courchevel Altiport towards the snow-covered Alps"
+    },
+    "03-skiabfahrt-bergkulisse.jpeg": {
+      "de": "Skifahrer auf einer Piste vor schroffen verschneiten Berggipfeln",
+      "en": "Skiers on a slope beneath rugged snow-covered mountain peaks"
+    },
+    "04-sessellift-hochalpin.jpeg": {
+      "de": "Sessellift über einer hochalpinen Schneelandschaft",
+      "en": "Chairlift above a high-Alpine snow landscape"
+    },
+    "05-handstand-im-schnee.jpeg": {
+      "de": "Handstand im Schnee neben einer hölzernen Hahnfigur",
+      "en": "Handstand in the snow beside a wooden rooster figure"
+    }
+  }
+}
