@@ -2,17 +2,17 @@
 
 import { useLocale } from "next-intl";
 
-type ModalRouteLinkProps = {
+type LocalizedRouteLinkProps = {
   children: React.ReactNode;
   className?: string;
   href: string;
 };
 
-export default function ModalRouteLink({
+export default function LocalizedRouteLink({
   children,
   className,
   href,
-}: ModalRouteLinkProps) {
+}: LocalizedRouteLinkProps) {
   const locale = useLocale();
   const localizedHref = `/${locale}${href === "/" ? "" : href}`;
 

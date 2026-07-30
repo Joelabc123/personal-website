@@ -7,7 +7,6 @@ import LocaleProvider, {
 } from "@/components/LocaleProvider";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/siteConfig";
-import ModalFocusManager from "@/components/detail/ModalFocusManager";
 import UtilityDock from "@/components/UtilityDock";
 import deMessages from "@/messages/de.json";
 import enMessages from "@/messages/en.json";
@@ -33,11 +32,9 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  modal,
   params,
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
@@ -58,10 +55,8 @@ export default async function LocaleLayout({
           initialLocale={locale as AppLocale}
           messages={messages}
         >
-          <ModalFocusManager />
           <UtilityDock />
           {children}
-          {modal}
         </LocaleProvider>
       </body>
     </html>

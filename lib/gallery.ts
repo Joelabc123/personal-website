@@ -13,7 +13,7 @@ const manifestPath = path.join(
 
 let cachedManifest: GalleryManifest | undefined;
 
-export function getGalleryManifest(): GalleryManifest {
+function getGalleryManifest(): GalleryManifest {
   if (cachedManifest) return cachedManifest;
 
   let source: string;

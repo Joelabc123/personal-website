@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
-import ModalRouteLink from "@/components/detail/ModalRouteLink";
+import LocalizedRouteLink from "@/components/detail/LocalizedRouteLink";
 import GalleryLightbox, {
   type LightboxImage,
 } from "@/components/travel/GalleryLightbox";
@@ -112,7 +112,7 @@ function TripCard({
   return (
     <article className={styles.tripEntry}>
       <TripHeading trip={trip} locale={locale} />
-      <ModalRouteLink href={tripHref(trip)} className={styles.tripCard}>
+      <LocalizedRouteLink href={tripHref(trip)} className={styles.tripCard}>
         <div className={styles.tripCardMedia}>
           <Image
             src={trip.cover.src}
@@ -139,7 +139,7 @@ function TripCard({
             </span>
           </div>
         </div>
-      </ModalRouteLink>
+      </LocalizedRouteLink>
     </article>
   );
 }
@@ -203,10 +203,10 @@ export async function TravelDetail({
   return (
     <div className={`${styles.travelDetail} travel-detail-view`}>
       {showBackLink ? (
-        <ModalRouteLink href="/travel" className={styles.backLink}>
+        <LocalizedRouteLink href="/travel" className={styles.backLink}>
           <ArrowLeft aria-hidden="true" />
           {labels.back}
-        </ModalRouteLink>
+        </LocalizedRouteLink>
       ) : null}
 
       <header className={styles.detailHeader}>

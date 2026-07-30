@@ -18,7 +18,7 @@ export type CvEntry = {
   };
 };
 
-export type LanguageEntry = {
+type LanguageEntry = {
   id: string;
   name: LocalizedText;
   level: LocalizedText;

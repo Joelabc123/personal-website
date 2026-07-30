@@ -2,7 +2,7 @@ import Handlebars from "handlebars";
 import { siteConfig } from "@/lib/siteConfig";
 import { layoutTemplate } from "@/lib/email/layout";
 
-export type ContactEmailData = {
+type ContactEmailData = {
   name: string;
   email: string;
   subject: string;
@@ -10,7 +10,7 @@ export type ContactEmailData = {
   submittedAt: string;
 };
 
-export type EmailContent = {
+type EmailContent = {
   subject: string;
   html: string;
   text: string;

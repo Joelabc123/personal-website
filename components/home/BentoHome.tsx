@@ -3,7 +3,7 @@
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import CvBentoLink from "@/components/cv/CvBentoLink";
-import ModalRouteLink from "@/components/detail/ModalRouteLink";
+import LocalizedRouteLink from "@/components/detail/LocalizedRouteLink";
 import EarthGlobe from "@/components/home/EarthGlobe";
 import HomeUtilityGrid from "@/components/home/HomeUtilityGrid";
 import ProjectCodeLoop from "@/components/home/ProjectCodeLoop";
@@ -41,7 +41,7 @@ export default function BentoHome() {
           }))}
         />
 
-        <ModalRouteLink
+        <LocalizedRouteLink
           href="/projects"
           className={`${styles.card} ${styles.linkCard} ${styles.projects}`}
         >
@@ -53,9 +53,9 @@ export default function BentoHome() {
             <h2>{t("projects.title")}</h2>
             <p>{t("projects.description")}</p>
           </div>
-        </ModalRouteLink>
+        </LocalizedRouteLink>
 
-        <ModalRouteLink
+        <LocalizedRouteLink
           href="/travel"
           className={`${styles.card} ${styles.linkCard} ${styles.travel}`}
         >
@@ -69,7 +69,7 @@ export default function BentoHome() {
             <h2>{t("travel.title")}</h2>
             <p>{t("travel.description")}</p>
           </div>
-        </ModalRouteLink>
+        </LocalizedRouteLink>
 
         <HomeUtilityGrid />
       </section>

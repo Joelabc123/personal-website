@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { CSSProperties } from "react";
-import ModalRouteLink from "@/components/detail/ModalRouteLink";
+import LocalizedRouteLink from "@/components/detail/LocalizedRouteLink";
 import {
   ProjectModalController,
   ProjectModalEntry,
@@ -26,7 +26,6 @@ type ProjectLabels = {
   openProject: string;
   comingSoon: string;
   published: string;
-  status: string;
   descriptionHeading: string;
   mediaHeading: string;
   linksHeading: string;
@@ -212,7 +211,6 @@ async function getLabels(): Promise<{
       openProject: t("openProject"),
       comingSoon: t("comingSoon"),
       published: t("published"),
-      status: t("status"),
       descriptionHeading: t("descriptionHeading"),
       mediaHeading: t("mediaHeading"),
       linksHeading: t("linksHeading"),
@@ -356,10 +354,10 @@ export async function ProjectDetail({
           )}
 
           {showBackLink ? (
-            <ModalRouteLink className={styles.backLink} href="/projects">
+            <LocalizedRouteLink className={styles.backLink} href="/projects">
               <ArrowLeft aria-hidden="true" />
               {labels.backToProjects}
-            </ModalRouteLink>
+            </LocalizedRouteLink>
           ) : null}
         </footer>
       </div>

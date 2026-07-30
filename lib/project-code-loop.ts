@@ -1,4 +1,4 @@
-export type CodeLoopPhase = "typing" | "holding" | "deleting" | "waiting";
+type CodeLoopPhase = "typing" | "holding" | "deleting" | "waiting";
 
 export type CodeLoopState = {
   phase: CodeLoopPhase;

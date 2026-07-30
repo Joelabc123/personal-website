@@ -59,86 +59,86 @@ export default async function DatenschutzPage() {
         <p>{td("generalInfoText")}</p>
       </LegalSection>
 
-        <LegalSection heading={td("responsibleShortHeading")}>
-          <p>{td("responsibleShortText")}</p>
-        </LegalSection>
+      <LegalSection heading={td("responsibleShortHeading")}>
+        <p>{td("responsibleShortText")}</p>
+      </LegalSection>
 
-        <LegalSection heading={td("collectionMethodHeading")}>
-          <p>{td("collectionMethodText")}</p>
-        </LegalSection>
+      <LegalSection heading={td("collectionMethodHeading")}>
+        <p>{td("collectionMethodText")}</p>
+      </LegalSection>
 
-        <LegalSection heading={td("dataUsageHeading")}>
-          <p>{td("dataUsageText")}</p>
-        </LegalSection>
+      <LegalSection heading={td("dataUsageHeading")}>
+        <p>{td("dataUsageText")}</p>
+      </LegalSection>
 
       <h2 className="legal-divider-title">{td("mandatoryInfoHeading")}</h2>
 
-        <LegalSection heading={td("responsiblePartyHeading")}>
-          <p>{td("responsiblePartyIntro")}</p>
-          <p>
-            {siteConfig.name}
-            <br />
-            {siteConfig.address.street}
-            <br />
-            {siteConfig.address.zipCity}
-            <br />
-            {siteConfig.address.country}
-          </p>
-          <p>
-            {td("responsiblePartyEmailLabel")}: {siteConfig.email}
-          </p>
-          <p>{td("responsiblePartyOutro")}</p>
-        </LegalSection>
+      <LegalSection heading={td("responsiblePartyHeading")}>
+        <p>{td("responsiblePartyIntro")}</p>
+        <p>
+          {siteConfig.name}
+          <br />
+          {siteConfig.address.street}
+          <br />
+          {siteConfig.address.zipCity}
+          <br />
+          {siteConfig.address.country}
+        </p>
+        <p>
+          {td("responsiblePartyEmailLabel")}: {siteConfig.email}
+        </p>
+        <p>{td("responsiblePartyOutro")}</p>
+      </LegalSection>
 
-        <LegalSection heading={td("rightsHeading")}>
-          <p>{td("rightsText")}</p>
-        </LegalSection>
+      <LegalSection heading={td("rightsHeading")}>
+        <p>{td("rightsText")}</p>
+      </LegalSection>
 
-        <LegalSection heading={td("sslHeading")}>
-          <p>{td("sslText")}</p>
-        </LegalSection>
+      <LegalSection heading={td("sslHeading")}>
+        <p>{td("sslText")}</p>
+      </LegalSection>
 
       <h2 className="legal-divider-title">{td("hostingCdnHeading")}</h2>
 
-        <LegalSection heading={td("hostingProviderHeading")}>
-          <p>{td("hostingProviderText1")}</p>
-          <p>{td("hostingProviderText2")}</p>
-          <p>{td("hostingProviderText3")}</p>
-        </LegalSection>
+      <LegalSection heading={td("hostingProviderHeading")}>
+        <p>{td("hostingProviderText1")}</p>
+        <p>{td("hostingProviderText2")}</p>
+        <p>{td("hostingProviderText3")}</p>
+      </LegalSection>
 
-        <LegalSection heading={td("cloudflareHeading")}>
-          <p>{td("cloudflareText1")}</p>
-          <p>{td("cloudflareText2")}</p>
-        </LegalSection>
+      <LegalSection heading={td("cloudflareHeading")}>
+        <p>{td("cloudflareText1")}</p>
+        <p>{td("cloudflareText2")}</p>
+      </LegalSection>
 
       <h2 className="legal-divider-title">{td("dataCollectionHeading")}</h2>
 
-        <LegalSection heading={td("serverLogHeading")}>
-          <p>{td("serverLogIntro")}</p>
-          <ul className="list-disc space-y-1 pl-5">
-            <li>{td("serverLogItem1")}</li>
-            <li>{td("serverLogItem2")}</li>
-            <li>{td("serverLogItem3")}</li>
-            <li>{td("serverLogItem4")}</li>
-            <li>{td("serverLogItem5")}</li>
-            <li>{td("serverLogItem6")}</li>
-          </ul>
-          <p>{td("serverLogOutro")}</p>
-        </LegalSection>
+      <LegalSection heading={td("serverLogHeading")}>
+        <p>{td("serverLogIntro")}</p>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>{td("serverLogItem1")}</li>
+          <li>{td("serverLogItem2")}</li>
+          <li>{td("serverLogItem3")}</li>
+          <li>{td("serverLogItem4")}</li>
+          <li>{td("serverLogItem5")}</li>
+          <li>{td("serverLogItem6")}</li>
+        </ul>
+        <p>{td("serverLogOutro")}</p>
+      </LegalSection>
 
-        <LegalSection heading={td("contactFormHeading")}>
-          <p>{td("contactFormText1")}</p>
-          <p>{td("contactFormText2")}</p>
-          <p>{td("contactFormText3")}</p>
-        </LegalSection>
+      <LegalSection heading={td("contactFormHeading")}>
+        <p>{td("contactFormText1")}</p>
+        <p>{td("contactFormText2")}</p>
+        <p>{td("contactFormText3")}</p>
+      </LegalSection>
 
       <h2 className="legal-divider-title">{td("pluginsToolsHeading")}</h2>
 
-        <LegalSection heading={td("recaptchaHeading")}>
-          <p>{td("recaptchaText1")}</p>
-          <p>{td("recaptchaText2")}</p>
-          <p>{td("recaptchaText3")}</p>
-        </LegalSection>
+      <LegalSection heading={td("recaptchaHeading")}>
+        <p>{td("recaptchaText1")}</p>
+        <p>{td("recaptchaText2")}</p>
+        <p>{td("recaptchaText3")}</p>
+      </LegalSection>
 
       <p className="legal-notice">{t("privateNotice")}</p>
     </main>

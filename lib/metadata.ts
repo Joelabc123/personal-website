@@ -12,7 +12,7 @@ export function asLocale(locale: string): Locale {
   return locale === "en" ? "en" : "de";
 }
 
-export function localizedPath(locale: Locale, path = ""): string {
+function localizedPath(locale: Locale, path = ""): string {
   const normalizedPath =
     path === "/" || path === "" ? "" : path.startsWith("/") ? path : `/${path}`;
 

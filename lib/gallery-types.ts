@@ -1,8 +1,8 @@
 import type { Locale, LocalizedText, YearMonth } from "@/lib/cv";
 
-export type GalleryLayout = "wide" | "tall" | "square";
+type GalleryLayout = "wide" | "tall" | "square";
 
-export type GalleryMeta = {
+type GalleryMeta = {
   country: LocalizedText;
   place: LocalizedText;
   date?: YearMonth;
@@ -12,7 +12,7 @@ export type GalleryMeta = {
   layout?: Readonly<Record<string, GalleryLayout>>;
 };
 
-export type GalleryImage = {
+type GalleryImage = {
   id: string;
   src: string;
   width: number;

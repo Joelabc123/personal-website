@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import LanguageToggle from "@/components/LanguageToggle";
-import ModalRouteLink from "@/components/detail/ModalRouteLink";
+import LocalizedRouteLink from "@/components/detail/LocalizedRouteLink";
 import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/lib/siteConfig";
 import styles from "./BentoHome.module.css";
@@ -165,12 +165,16 @@ export default function HomeUtilityGrid() {
               onClick={() => setMenuOpen(false)}
             >
               <div className={styles.menuMainLinks}>
-                <ModalRouteLink href="/cv">{t("cv")}</ModalRouteLink>
-                <ModalRouteLink href="/projects">
+                <LocalizedRouteLink href="/cv">{t("cv")}</LocalizedRouteLink>
+                <LocalizedRouteLink href="/projects">
                   {t("projects")}
-                </ModalRouteLink>
-                <ModalRouteLink href="/travel">{t("travel")}</ModalRouteLink>
-                <ModalRouteLink href="/contact">{t("contact")}</ModalRouteLink>
+                </LocalizedRouteLink>
+                <LocalizedRouteLink href="/travel">
+                  {t("travel")}
+                </LocalizedRouteLink>
+                <LocalizedRouteLink href="/contact">
+                  {t("contact")}
+                </LocalizedRouteLink>
               </div>
 
               <div className={styles.menuLegalLinks}>
@@ -204,13 +208,13 @@ export default function HomeUtilityGrid() {
         <LinkedInMark />
       </a>
 
-      <ModalRouteLink
+      <LocalizedRouteLink
         href="/contact"
         className={`${styles.utilityCard} ${styles.utilityAction} ${styles.contact}`}
       >
         <EnvelopeMark />
         <span className={styles.srOnly}>{t("mail")}</span>
-      </ModalRouteLink>
+      </LocalizedRouteLink>
     </aside>
   );
 }

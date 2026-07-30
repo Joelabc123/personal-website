@@ -83,11 +83,7 @@ function getTransporter() {
 }
 
 function getAdminEmail() {
-  const adminEmail = process.env.CONTACT_ADMIN_EMAIL || siteConfig.email;
-  if (!adminEmail) {
-    throw new Error("CONTACT_ADMIN_EMAIL is not configured");
-  }
-  return adminEmail;
+  return process.env.CONTACT_ADMIN_EMAIL || siteConfig.email;
 }
 
 export async function POST(request: Request) {

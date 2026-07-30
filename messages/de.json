@@ -1,27 +1,4 @@
 {
-  "nav": {
-    "home": "Start",
-    "journey": "Mein Werdegang",
-    "contact": "Kontakt"
-  },
-  "hero": {
-    "greeting": "Joel Bakirel",
-    "subtitle": "M.Sc. Information Systems @ TUM",
-    "basedIn": "Based in CGN, Germany",
-    "scrollDown": "Scrollen",
-    "ctaJourney": "Mein Werdegang",
-    "ctaContact": "Kontakt aufnehmen"
-  },
-  "journey": {
-    "heading": "Mein Werdegang",
-    "experience": "Berufserfahrung",
-    "education": "Ausbildung",
-    "projects": "Projekte",
-    "languages": "Sprachkenntnisse",
-    "present": "Heute",
-    "pdfButton": "Lebenslauf als PDF",
-    "projectLink": "Zum Projekt"
-  },
   "contact": {
     "eyebrow": "Direkter Austausch",
     "heading": "Kontakt",
@@ -37,15 +14,6 @@
     "error": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
     "recaptchaNotice": "Dieses Formular ist durch reCAPTCHA geschützt. Es gelten die <privacy>Datenschutzerklärung</privacy> und die <terms>Nutzungsbedingungen</terms> von Google."
   },
-  "footer": {
-    "tagline": "Portfolio & Lebenslauf von Joel Bakirel.",
-    "pagesHeading": "Seiten",
-    "supportHeading": "Support",
-    "openSource": "Diese Website ist Open Source",
-    "copyright": "© {year} Joel Bakirel",
-    "impressum": "Impressum",
-    "datenschutz": "Datenschutz"
-  },
   "utility": {
     "label": "Sprache",
     "switchLanguage": "Zu {language} wechseln"
@@ -53,30 +21,21 @@
   "homeBento": {
     "gridLabel": "Portfolio-Übersicht",
     "intro": {
-      "eyebrow": "Joel Bakirel",
       "title": "Joel Bakirel<br></br> M.Sc. Information Systems @ TUM",
       "location": "Köln, Deutschland"
     },
     "cv": {
-      "eyebrow": "Werdegang",
       "title": "Lebenslauf",
       "description": "Ausbildung und berufliche Erfahrung."
     },
     "projects": {
-      "eyebrow": "Ausgewählte Arbeiten",
       "title": "Projekte",
       "description": "Eine Auswahl meiner Arbeiten.",
       "codeLabel": "Animierter TypeScript-Code, der Lebenslauf, Projekte und Reisen zu einem Bento-Portfolio zusammensetzt."
     },
     "travel": {
-      "eyebrow": "Reisefotografie",
       "title": "Galerie",
       "description": "Erinnerungen aus aller Welt."
-    },
-    "contact": {
-      "eyebrow": "Kontakt",
-      "title": "Schreib mir.",
-      "description": "Für Fragen, Ideen oder einen persönlichen Austausch."
     },
     "utilities": {
       "label": "Schnellzugriff",
@@ -97,56 +56,24 @@
   "detailRoutes": {
     "shell": {
       "close": "Vollbildansicht schließen",
-      "backHome": "Zurück zur Startseite",
-      "phaseStatus": "Die vollständigen Inhalte folgen in den nächsten Umsetzungspaketen."
-    },
-    "launcher": {
-      "eyebrow": "Neue Vollbildansichten",
-      "heading": "Direkte Wege zu den Inhalten",
-      "description": "Diese Übergangsnavigation verbindet die bestehenden Inhalte bereits mit ihrer neuen URL-basierten Detailansicht.",
-      "navigationLabel": "Vollbildansichten öffnen"
-    },
-    "cv": {
-      "eyebrow": "Werdegang",
-      "title": "Lebenslauf",
-      "description": "Berufserfahrung, Ausbildung und Sprachen erhalten hier ihre gemeinsame Detailansicht."
-    },
-    "projects": {
-      "eyebrow": "Ausgewählte Arbeiten",
-      "title": "Projekte",
-      "description": "Die Projektübersicht und ihre späteren Detailseiten werden an dieser Route gebündelt."
-    },
-    "travel": {
-      "eyebrow": "Persönliche Eindrücke",
-      "title": "Reisen",
-      "description": "Reiseziele und Galerien erhalten hier ihre gemeinsame, bildorientierte Übersicht."
-    },
-    "contact": {
-      "eyebrow": "Direkter Austausch",
-      "title": "Kontakt",
-      "description": "Das Kontaktformular ist als eigenständige und modale Vollbildansicht erreichbar."
+      "backHome": "Zurück zur Startseite"
     }
   },
   "cv": {
     "eyebrow": "Curriculum Vitae",
     "title": "Lebenslauf",
-    "summary": "M.Sc. Information Systems @ TUM — mit Erfahrung in IT Governance, digitaler Produktentwicklung und Wirtschaftsinformatik.",
     "experience": "Berufserfahrung",
     "education": "Ausbildung",
     "languages": "Sprachkenntnisse",
     "present": "Heute",
     "from": "ab",
-    "pdf": "Lebenslauf als PDF",
-    "printView": "Druckansicht"
+    "pdf": "Lebenslauf als PDF"
   },
   "projects": {
-    "eyebrow": "Ausgewählte Arbeiten",
     "title": "Projekte",
-    "description": "Vier veröffentlichte Projekte sowie ein Projekt in Entwicklung.",
     "openProject": "Projekt ansehen",
     "comingSoon": "Demnächst",
     "published": "Veröffentlicht",
-    "status": "Status",
     "descriptionHeading": "Beschreibung",
     "mediaHeading": "Projektansicht",
     "linksHeading": "Öffentliche Links",
@@ -159,7 +86,6 @@
     }
   },
   "travel": {
-    "eyebrow": "Persönliche Eindrücke",
     "title": "Reisen",
     "description": "Orte, die in Erinnerung bleiben.",
     "emptyTitle": "Die Reisegalerie wartet auf ihre ersten Bilder.",
@@ -219,17 +145,12 @@
   "legal": {
     "impressumTitle": "Impressum",
     "datenschutzTitle": "Datenschutz",
-    "disclaimer": "Platzhalterinhalt — muss noch rechtlich geprüft werden.",
     "privateNotice": "Diese Website wird privat und nicht-kommerziell betrieben.",
     "impressum": {
-      "providerLabel": "Anbieter",
       "providerHeading": "Angaben gemäß § 5 DDG",
-      "contactLabel": "Erreichbarkeit",
       "contactHeading": "Kontakt",
       "contactEmailLabel": "E-Mail",
-      "responsibleLabel": "Verantwortlich",
       "responsibleHeading": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
-      "hostingLabel": "Hosting",
       "hostingHeading": "Hosting-Anbieter",
       "hostingWebHeading": "Webhosting",
       "hostingEmailHeading": "E-Mail-Versand",
@@ -239,21 +160,17 @@
       "hostingEmailLabel": "E-Mail",
       "hostingRegisterLabel": "Handelsregister",
       "hostingManagementLabel": "Geschäftsführung",
-      "liabilityContentLabel": "Haftung",
       "liabilityContentHeading": "Haftung für Inhalte",
       "liabilityContentText1": "Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.",
       "liabilityContentText2": "Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.",
-      "liabilityLinksLabel": "Externe Links",
       "liabilityLinksHeading": "Haftung für Links",
       "liabilityLinksText1": "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar.",
       "liabilityLinksText2": "Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung unzumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.",
-      "copyrightLabel": "Urheberrecht",
       "copyrightHeading": "Urheberrecht",
       "copyrightText1": "Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet.",
       "copyrightText2": "Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Solltest du trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen."
     },
     "datenschutz": {
-      "overviewHeading": "Datenschutz auf einen Blick",
       "generalInfoHeading": "Allgemeine Hinweise",
       "generalInfoText": "Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.",
       "responsibleShortHeading": "Wer ist verantwortlich für die Datenerfassung auf dieser Website?",
@@ -301,4 +218,3 @@
     }
   }
 }
-

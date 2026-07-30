@@ -1,13 +1,13 @@
 import type { Locale, LocalizedText } from "@/lib/cv";
 
-export type ProjectStatus = "published" | "coming-soon";
+type ProjectStatus = "published" | "coming-soon";
 export type ProjectLinkKind = "repository" | "demo" | "documentation";
-export type ProjectPlaceholderVariant =
-  | "property"
-  | "learning"
-  | "quiz"
-  | "board-game"
-  | "finance";
+
+export const projectPlaceholderSources = {
+  finance: "/images/projects/finance-platform.svg",
+} as const;
+
+type ProjectPlaceholderVariant = keyof typeof projectPlaceholderSources;
 
 export type ProjectMedia =
   | {
@@ -43,16 +43,6 @@ export type Project = {
     kind: ProjectLinkKind;
     href: string;
   }[];
-};
-
-export const projectPlaceholderSources: Readonly<
-  Record<ProjectPlaceholderVariant, string>
-> = {
-  property: "/images/projects/property-management.svg",
-  learning: "/images/projects/learning-module.svg",
-  quiz: "/images/projects/quiz-duel.svg",
-  "board-game": "/images/projects/board-game.svg",
-  finance: "/images/projects/finance-platform.svg",
 };
 
 export const projects: readonly Project[] = [

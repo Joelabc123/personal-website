@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
 
 const AUTO_ROTATE_SPEED = 0.28;
 const HOVER_ROTATE_SPEED = 0.12;
@@ -471,10 +470,9 @@ export default function EarthGlobe({
 
   return (
     <div
-      className={cn(
-        "mx-auto flex w-full items-center justify-center",
-        className,
-      )}
+      className={`mx-auto flex w-full items-center justify-center${
+        className ? ` ${className}` : ""
+      }`}
       style={{ overflow: "hidden" }}
     >
       <canvas
