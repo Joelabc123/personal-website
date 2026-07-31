@@ -1,6 +1,6 @@
-# Private travel gallery
+# Travel gallery
 
-Store private originals in this structure:
+Store and commit originals in this structure:
 
 ```text
 content/gallery/
@@ -22,8 +22,8 @@ least one image. Copy `_meta.example.json` as a starting point.
 
 `npm run gallery:prepare` validates the tree, auto-rotates images, removes
 metadata, limits the long edge to 2400 px without upscaling, and writes hashed
-WebP derivatives plus a manifest. Originals and generated files are ignored by
-Git; `_meta.json`, this README, and the example metadata remain versionable.
+WebP derivatives plus a manifest. Originals and `_meta.json` files are
+versioned in Git; generated derivatives and the manifest stay ignored.
 
 Default ordering is newest year first, then newest trip date, then place name.
 Images use their numeric prefix and filename. The first image is the default

@@ -12,6 +12,8 @@
     "sending": "Sending …",
     "success": "Thanks! Your message has been sent.",
     "error": "Something went wrong. Please try again later.",
+    "recaptchaUnavailable": "The contact form is temporarily unavailable because spam protection could not be loaded. Please email me directly instead.",
+    "recaptchaLoading": "Loading spam protection …",
     "recaptchaConsentRequired": "Google reCAPTCHA is required for the contact form. Enable optional services through the cookie settings or use direct email contact.",
     "openCookieSettings": "Open cookie settings",
     "recaptchaNotice": "This form is protected by reCAPTCHA and the Google <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms> apply."
@@ -105,7 +107,7 @@
     "title": "Travel",
     "description": "Places worth remembering.",
     "emptyTitle": "The travel gallery is waiting for its first images.",
-    "emptyDescription": "Private photos are prepared locally before each build and appear here without adding their originals to Git.",
+    "emptyDescription": "The first travel photos will appear here automatically once they are added to the repository.",
     "cardDescription": "View all pictures from %place%.",
     "openTrip": "View trip",
     "imageCountOne": "%count% image",

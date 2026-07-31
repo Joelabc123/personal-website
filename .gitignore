@@ -41,13 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Private gallery sources: keep documentation and metadata, never originals.
-/content/gallery/**/*
-!/content/gallery/**/
-!/content/gallery/README.md
-!/content/gallery/_meta.example.json
-!/content/gallery/**/_meta.json
-
 # Unsorted private gallery uploads: keep instructions, never original images.
 /content/gallery-upload/**/*
 !/content/gallery-upload/README.md

@@ -18,6 +18,11 @@ type ContactFormData = {
 };
 
 type SubmitStatus = "idle" | "sending" | "success" | "error";
+type RecaptchaStatus = "idle" | "ready" | "error";
+
+type ContactFormProps = {
+  recaptchaSiteKey: string;
+};
 
 declare global {
   interface Window {
@@ -28,24 +33,25 @@ declare global {
   }
 }
 
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-
-function getRecaptchaToken(): Promise<string> {
-  if (!RECAPTCHA_SITE_KEY || !window.grecaptcha) {
+function getRecaptchaToken(siteKey: string): Promise<string> {
+  if (!siteKey || !window.grecaptcha) {
     return Promise.reject(new Error("reCAPTCHA is not available"));
   }
-  const siteKey = RECAPTCHA_SITE_KEY;
+
   return new Promise((resolve, reject) => {
     window.grecaptcha!.ready(() => {
-      window.grecaptcha!.execute(siteKey, { action: "contact" }).then(resolve).catch(reject);
+      window.grecaptcha!
+        .execute(siteKey, { action: "contact" })
+        .then(resolve)
+        .catch(reject);
     });
   });
 }
 
 // Isolated on purpose: this is the single place that talks to the API route,
 // keeping the reCAPTCHA + fetch details out of the form markup/handler below.
-async function submitContactForm(data: ContactFormData) {
-  const recaptchaToken = await getRecaptchaToken();
+async function submitContactForm(data: ContactFormData, recaptchaSiteKey: string) {
+  const recaptchaToken = await getRecaptchaToken(recaptchaSiteKey);
 
   const response = await fetch("/api/contact", {
     method: "POST",
@@ -58,14 +64,24 @@ async function submitContactForm(data: ContactFormData) {
   }
 }
 
-export default function ContactForm() {
+export default function ContactForm({ recaptchaSiteKey }: ContactFormProps) {
   const t = useTranslations("contact");
   const locale = useLocale();
   const cookieConsent = useCookieConsent();
   const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [recaptchaStatus, setRecaptchaStatus] =
+    useState<RecaptchaStatus>("idle");
   const statusRef = useRef<HTMLParagraphElement>(null);
+  const hasRecaptchaSiteKey = Boolean(recaptchaSiteKey);
   const recaptchaNeedsConsent =
-    Boolean(RECAPTCHA_SITE_KEY) && cookieConsent !== "accepted";
+    hasRecaptchaSiteKey && cookieConsent !== "accepted";
+  const recaptchaUnavailable =
+    !hasRecaptchaSiteKey ||
+    (cookieConsent === "accepted" && recaptchaStatus === "error");
+  const canSubmit =
+    hasRecaptchaSiteKey &&
+    cookieConsent === "accepted" &&
+    recaptchaStatus === "ready";
 
   useEffect(() => {
     if (status === "success" || status === "error") {
@@ -76,7 +92,7 @@ export default function ContactForm() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (status === "sending") {
+    if (status === "sending" || !canSubmit) {
       return;
     }
 
@@ -85,13 +101,16 @@ export default function ContactForm() {
 
     setStatus("sending");
     try {
-      await submitContactForm({
-        name: String(formData.get("name") ?? ""),
-        email: String(formData.get("email") ?? ""),
-        subject: String(formData.get("subject") ?? ""),
-        message: String(formData.get("message") ?? ""),
-        locale,
-      });
+      await submitContactForm(
+        {
+          name: String(formData.get("name") ?? ""),
+          email: String(formData.get("email") ?? ""),
+          subject: String(formData.get("subject") ?? ""),
+          message: String(formData.get("message") ?? ""),
+          locale,
+        },
+        recaptchaSiteKey,
+      );
       setStatus("success");
       form.reset();
     } catch (error) {
@@ -102,11 +121,15 @@ export default function ContactForm() {
 
   return (
     <>
-      {RECAPTCHA_SITE_KEY && cookieConsent === "accepted" && (
+      {hasRecaptchaSiteKey && cookieConsent === "accepted" && (
         <Script
           id="contact-recaptcha-v3"
-          src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+          src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}
           strategy="afterInteractive"
+          onReady={() =>
+            setRecaptchaStatus(window.grecaptcha ? "ready" : "error")
+          }
+          onError={() => setRecaptchaStatus("error")}
         />
       )}
       <form
@@ -161,7 +184,7 @@ export default function ContactForm() {
         <div className={styles.actions}>
           <button
             type="submit"
-            disabled={status === "sending" || recaptchaNeedsConsent}
+            disabled={status === "sending" || !canSubmit}
             className={styles.submit}
           >
             {status === "sending" ? t("sending") : t("submit")}
@@ -191,7 +214,18 @@ export default function ContactForm() {
           </p>
         </div>
 
-        {RECAPTCHA_SITE_KEY && cookieConsent === "accepted" ? (
+        {recaptchaUnavailable ? (
+          <div className={styles.consentNotice} role="status">
+            <p>{t("recaptchaUnavailable")}</p>
+          </div>
+        ) : recaptchaNeedsConsent ? (
+          <div className={styles.consentNotice}>
+            <p>{t("recaptchaConsentRequired")}</p>
+            <button type="button" onClick={resetCookieConsent}>
+              {t("openCookieSettings")}
+            </button>
+          </div>
+        ) : recaptchaStatus === "ready" ? (
           <p className={styles.recaptchaNotice}>
             {t.rich("recaptchaNotice", {
               privacy: (chunks) => (
@@ -214,14 +248,9 @@ export default function ContactForm() {
               ),
             })}
           </p>
-        ) : RECAPTCHA_SITE_KEY ? (
-          <div className={styles.consentNotice}>
-            <p>{t("recaptchaConsentRequired")}</p>
-            <button type="button" onClick={resetCookieConsent}>
-              {t("openCookieSettings")}
-            </button>
-          </div>
-        ) : null}
+        ) : (
+          <p className={styles.recaptchaNotice}>{t("recaptchaLoading")}</p>
+        )}
       </form>
     </>
   );

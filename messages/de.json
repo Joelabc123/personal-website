@@ -12,6 +12,8 @@
     "sending": "Wird gesendet …",
     "success": "Danke! Deine Nachricht wurde gesendet.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
+    "recaptchaUnavailable": "Das Kontaktformular ist vorübergehend nicht verfügbar, weil der Spam-Schutz nicht geladen werden konnte. Schreib mir bitte direkt per E-Mail.",
+    "recaptchaLoading": "Spam-Schutz wird geladen …",
     "recaptchaConsentRequired": "Für das Kontaktformular wird Google reCAPTCHA benötigt. Aktiviere optionale Dienste über die Cookie-Einstellungen oder nutze den direkten E-Mail-Kontakt.",
     "openCookieSettings": "Cookie-Einstellungen öffnen",
     "recaptchaNotice": "Dieses Formular ist durch reCAPTCHA geschützt. Es gelten die <privacy>Datenschutzerklärung</privacy> und die <terms>Nutzungsbedingungen</terms> von Google."
@@ -105,7 +107,8 @@
     "title": "Reisen",
     "description": "Orte, die in Erinnerung bleiben.",
     "emptyTitle": "Die Reisegalerie wartet auf ihre ersten Bilder.",
-    "emptyDescription": "Private Aufnahmen werden vor dem Build lokal vorbereitet und erscheinen hier, ohne dass ihre Originale in Git gelangen.",
+    "emptyDescription": "Sobald die ersten Reisebilder im Repository liegen, erscheinen sie automatisch hier.",
+    "cardDescription": "Alle Bilder aus %place% ansehen.",
     "openTrip": "Reise ansehen",
     "imageCountOne": "%count% Bild",
     "imageCountMany": "%count% Bilder",
