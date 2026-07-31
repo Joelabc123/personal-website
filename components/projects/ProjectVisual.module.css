@@ -1,0 +1,500 @@
+.visual {
+  --visual-accent: #275efe;
+  --visual-accent-soft: #b8c8ff;
+  --visual-ink: #172039;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(rgb(255 255 255 / 58%), rgb(255 255 255 / 58%)),
+    radial-gradient(circle at 15% 10%, var(--visual-accent-soft), transparent 44%),
+    #e8ecf5;
+}
+
+.visual::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(23 32 57 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(23 32 57 / 5%) 1px, transparent 1px);
+  background-size: 28px 28px;
+  content: "";
+  mask-image: linear-gradient(to bottom right, #000, transparent 80%);
+}
+
+.visual svg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(94%, 680px);
+  height: auto;
+  max-height: 94%;
+  overflow: visible;
+}
+
+.detail svg {
+  width: min(80%, 700px);
+  max-height: 88%;
+}
+
+.glow {
+  position: absolute;
+  z-index: 0;
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--visual-accent) 18%, transparent);
+  filter: blur(48px);
+  animation: glowDrift 7s ease-in-out infinite alternate;
+}
+
+.property-flow {
+  --visual-accent: #1e55d9;
+  --visual-accent-soft: #a8c8ff;
+}
+
+.guide,
+.flowLine {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.guide {
+  stroke: rgb(23 32 57 / 14%);
+}
+
+.flowLine {
+  stroke: var(--visual-accent);
+  stroke-dasharray: 2 15;
+  animation: dashFlow 1.8s linear infinite;
+}
+
+.flowStep rect {
+  fill: rgb(255 255 255 / 86%);
+  stroke: rgb(23 32 57 / 14%);
+  stroke-width: 2;
+}
+
+.flowStep circle,
+.flowStep path {
+  fill: none;
+  stroke: var(--visual-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.flowStepTwo rect {
+  fill: var(--visual-ink);
+  stroke: var(--visual-ink);
+}
+
+.flowStepTwo path {
+  stroke: #ffffff;
+}
+
+.flowStep .approval {
+  stroke: #7cf29a;
+}
+
+.flowStep {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: cardBreathe 4s ease-in-out infinite;
+}
+
+.flowStepTwo {
+  animation-delay: -1.3s;
+}
+
+.flowStepThree {
+  animation-delay: -2.6s;
+}
+
+.packet {
+  fill: #ffffff;
+  stroke: var(--visual-accent);
+  stroke-width: 4;
+  animation: packetTravel 3.2s ease-in-out infinite;
+}
+
+.packetTwo {
+  animation-delay: -1.6s;
+}
+
+.red-black-tree {
+  --visual-accent: #ed4b55;
+  --visual-accent-soft: #ffc2c6;
+  --visual-ink: #171820;
+}
+
+.treeEdges path {
+  fill: none;
+  stroke: rgb(23 24 32 / 30%);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 340;
+  animation: drawTree 4.8s ease-in-out infinite;
+}
+
+.treeNode {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nodePulse 4.8s ease-in-out infinite;
+}
+
+.treeNode circle:first-child {
+  fill: var(--visual-ink);
+  stroke: rgb(255 255 255 / 88%);
+  stroke-width: 4;
+}
+
+.treeNode circle + circle {
+  fill: #ffffff;
+}
+
+.treeRedLeft,
+.treeRedRight {
+  animation-name: nodeShift;
+}
+
+.treeRedLeft circle:first-child,
+.treeRedRight circle:first-child {
+  fill: var(--visual-accent);
+}
+
+.treeRedRight,
+.treeLeafTwo,
+.treeLeafFour {
+  animation-delay: -2.4s;
+}
+
+.treeLeafOne,
+.treeLeafTwo,
+.treeLeafThree,
+.treeLeafFour {
+  opacity: 0.78;
+}
+
+.treeCursor {
+  fill: #ffffff;
+  stroke: var(--visual-ink);
+  stroke-linejoin: round;
+  stroke-width: 3;
+  animation: cursorMove 4.8s ease-in-out infinite;
+}
+
+.quiz-network {
+  --visual-accent: #7255e9;
+  --visual-accent-soft: #d5c9ff;
+  --visual-ink: #262044;
+}
+
+.networkLine {
+  fill: none;
+  stroke: var(--visual-accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 7 12;
+  animation: dashFlow 1.4s linear infinite;
+}
+
+.player circle,
+.player path {
+  fill: none;
+  stroke: var(--visual-ink);
+  stroke-linecap: round;
+  stroke-width: 6;
+}
+
+.player {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: playerReady 3s ease-in-out infinite;
+}
+
+.playerTwo {
+  animation-delay: -1.5s;
+}
+
+.questionCard rect {
+  fill: var(--visual-ink);
+  stroke: rgb(255 255 255 / 62%);
+  stroke-width: 3;
+}
+
+.questionCard path,
+.questionCard circle {
+  fill: none;
+  stroke: #ffffff;
+  stroke-linecap: round;
+  stroke-width: 6;
+}
+
+.questionCard {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: questionFlip 6s ease-in-out infinite;
+}
+
+.scorePills rect {
+  fill: rgb(255 255 255 / 82%);
+  stroke: rgb(38 32 68 / 14%);
+  stroke-width: 2;
+}
+
+.scorePills path {
+  stroke: var(--visual-accent);
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.networkPacket {
+  fill: #ffffff;
+  stroke: var(--visual-accent);
+  stroke-width: 4;
+  animation: quizPacket 2.6s ease-in-out infinite;
+}
+
+.networkPacketTwo {
+  animation-delay: -1.3s;
+}
+
+.game-board {
+  --visual-accent: #0a9f89;
+  --visual-accent-soft: #a8ead9;
+  --visual-ink: #153c42;
+}
+
+.board rect {
+  fill: rgb(255 255 255 / 72%);
+  stroke: rgb(21 60 66 / 12%);
+  stroke-width: 2;
+}
+
+.board .boardCellAlt {
+  fill: rgb(21 60 66 / 12%);
+}
+
+.gamePiece circle {
+  fill: var(--visual-accent);
+  stroke: #ffffff;
+  stroke-width: 4;
+}
+
+.gamePiece path {
+  stroke: var(--visual-ink);
+  stroke-linecap: round;
+  stroke-width: 7;
+}
+
+.gamePiece {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.gamePieceBlue {
+  animation: blueMove 5s ease-in-out infinite;
+}
+
+.gamePieceRed {
+  animation: redMove 5s ease-in-out infinite;
+}
+
+.gameRoute {
+  fill: none;
+  stroke: var(--visual-accent);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 7 11;
+  animation: dashFlow 1.4s linear infinite;
+}
+
+.flag {
+  fill: rgb(255 255 255 / 76%);
+  stroke: var(--visual-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 5;
+  animation: flagWave 2.5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+.finance-dashboard {
+  --visual-accent: #e97d28;
+  --visual-accent-soft: #ffd1a5;
+  --visual-ink: #383229;
+}
+
+.metricCards rect {
+  fill: rgb(255 255 255 / 82%);
+  stroke: rgb(56 50 41 / 12%);
+  stroke-width: 2;
+}
+
+.metricCards path {
+  fill: none;
+  stroke: var(--visual-ink);
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.metricCards rect,
+.metricCards path {
+  animation: metricGlow 4s ease-in-out infinite;
+}
+
+.chartBars rect {
+  fill: var(--visual-accent);
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: barRise 2.8s ease-in-out infinite alternate;
+}
+
+.chartBars rect:nth-child(2) {
+  animation-delay: -0.7s;
+}
+
+.chartBars rect:nth-child(3) {
+  animation-delay: -1.4s;
+}
+
+.chartBars rect:nth-child(4) {
+  animation-delay: -2.1s;
+}
+
+.chartBars rect:nth-child(5) {
+  animation-delay: -2.8s;
+}
+
+.sparkArea {
+  fill: color-mix(in srgb, var(--visual-accent) 17%, transparent);
+}
+
+.sparkLine {
+  fill: none;
+  stroke: var(--visual-ink);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 6;
+  stroke-dasharray: 240;
+  animation: sparkDraw 3.8s ease-in-out infinite;
+}
+
+.sparkPoint {
+  fill: var(--visual-accent);
+  stroke: #ffffff;
+  stroke-width: 4;
+  animation: pointPulse 1.9s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes glowDrift {
+  from { transform: translate(-36%, -12%) scale(0.8); }
+  to { transform: translate(46%, 18%) scale(1.18); }
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -34; }
+}
+
+@keyframes cardBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes packetTravel {
+  0% { opacity: 0; transform: translateX(0); }
+  12%, 88% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(288px); }
+}
+
+@keyframes drawTree {
+  0%, 18% { stroke-dashoffset: 340; }
+  52%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes nodePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes nodeShift {
+  0%, 100% { transform: translate(0) scale(1); }
+  48% { transform: translate(8px, -4px) scale(1.12); }
+  70% { transform: translate(-4px, 3px) scale(1); }
+}
+
+@keyframes cursorMove {
+  0%, 100% { transform: translate(-78px, 96px); }
+  48% { transform: translate(26px, 14px); }
+  70% { transform: translate(-52px, 36px); }
+}
+
+@keyframes playerReady {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes questionFlip {
+  0%, 42%, 100% { transform: rotateY(0deg); }
+  50% { transform: rotateY(12deg) scale(1.04); }
+  58% { transform: rotateY(0deg); }
+}
+
+@keyframes quizPacket {
+  0% { opacity: 0; transform: translateX(0); }
+  18%, 82% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(248px); }
+}
+
+@keyframes blueMove {
+  0%, 22%, 100% { transform: translate(0); }
+  50%, 70% { transform: translate(96px, 48px); }
+}
+
+@keyframes redMove {
+  0%, 22%, 100% { transform: translate(0); }
+  50%, 70% { transform: translate(-48px, -48px); }
+}
+
+@keyframes flagWave {
+  0%, 100% { transform: skewY(0deg); }
+  50% { transform: skewY(6deg); }
+}
+
+@keyframes metricGlow {
+  0%, 100% { opacity: 0.68; }
+  50% { opacity: 1; }
+}
+
+@keyframes barRise {
+  from { transform: scaleY(0.42); opacity: 0.6; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes sparkDraw {
+  0%, 15% { stroke-dashoffset: 240; }
+  60%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pointPulse {
+  0%, 100% { transform: scale(0.85); }
+  50% { transform: scale(1.3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual *,
+  .visual::before {
+    animation: none !important;
+  }
+}

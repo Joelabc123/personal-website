@@ -4,7 +4,7 @@ import StandaloneShell from "@/components/detail/StandaloneShell";
 import { ProjectOverview } from "@/components/projects/ProjectContent";
 import JsonLd from "@/components/seo/JsonLd";
 import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
-import { publishedProjects } from "@/lib/projects";
+import { projects } from "@/lib/projects";
 import { projectsPageJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata({
@@ -47,7 +47,7 @@ export default async function ProjectsPage({
             name: metadata("title"),
             description: metadata("description"),
           },
-          publishedProjects,
+          projects,
         )}
       />
       <ProjectOverview />

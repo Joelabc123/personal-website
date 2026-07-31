@@ -396,12 +396,24 @@
     margin-top: 0;
   }
 
-  .section {
+  .section,
+  .detailDocument .section,
+  .printDocument .section {
     grid-template-columns: 1fr;
+    gap: var(--p-spacing-md);
   }
 
-  .section {
-    gap: var(--p-spacing-md);
+  .printDocument {
+    gap: var(--p-spacing-xl);
+  }
+
+  .printDocument .hero {
+    gap: var(--p-spacing-base);
+    padding-bottom: var(--p-spacing-base);
+  }
+
+  .printDocument .hero h1 {
+    font-size: clamp(2.5rem, 13vw, 3.5rem);
   }
 
   .sectionHeading {
@@ -457,7 +469,7 @@
   }
 
   .detailDocument .primaryAction {
-    min-height: 40px;
+    min-height: 44px;
   }
 
   .detailDocument .entryCard {
@@ -521,6 +533,10 @@
   }
 
   .detailDocument .educationGroup .bullets {
+    margin-left: 0;
+  }
+
+  .detailDocument .bullets {
     margin-left: 0;
   }
 

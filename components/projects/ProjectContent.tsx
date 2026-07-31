@@ -1,22 +1,18 @@
-import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
-import type { CSSProperties } from "react";
 import LocalizedRouteLink from "@/components/detail/LocalizedRouteLink";
 import {
   ProjectModalController,
   ProjectModalEntry,
   ProjectModalLink,
 } from "@/components/projects/ProjectModalController";
+import ProjectVisual from "@/components/projects/ProjectVisual";
 import type { Locale } from "@/lib/cv";
 import {
   localizeProjectText,
-  projectPlaceholderSources,
   projects,
-  publishedProjects,
   type Project,
   type ProjectLinkKind,
-  type ProjectMedia,
 } from "@/lib/projects";
 import styles from "./ProjectContent.module.css";
 
@@ -27,7 +23,10 @@ type ProjectLabels = {
   comingSoon: string;
   published: string;
   descriptionHeading: string;
-  mediaHeading: string;
+  highlightHeading: string;
+  projectNumber: string;
+  projectType: string;
+  technologiesHeading: string;
   linksHeading: string;
   noPublicLink: string;
   backToProjects: string;
@@ -38,83 +37,30 @@ export function projectTitleId(slug: string) {
   return `detail-title-project-${slug}`;
 }
 
-type MediaLayout = "featured-card" | "card" | "hero" | "gallery";
-
-type ProjectMediaStyle = CSSProperties & {
-  "--project-card-position"?: string;
-  "--project-card-position-mobile"?: string;
-  "--project-media-background"?: string;
-};
-
-const mediaSizes: Record<MediaLayout, string> = {
-  "featured-card": "(max-width: 760px) 100vw, 64vw",
-  card: "(max-width: 760px) 100vw, 26vw",
-  hero: "(max-width: 760px) 100vw, 896px",
-  gallery: "(max-width: 760px) 100vw, 448px",
-};
-
-function Media({
-  media,
-  locale,
-  layout,
-  preload = false,
+function ProjectStatus({
+  labels,
+  status,
 }: {
-  media: ProjectMedia;
-  locale: Locale;
-  layout: MediaLayout;
-  preload?: boolean;
+  labels: ProjectLabels;
+  status: Project["status"];
 }) {
-  const alt = localizeProjectText(media.alt, locale);
-
-  if (media.type === "video") {
-    return (
-      <video
-        className={styles.media}
-        controls
-        playsInline
-        poster={media.poster}
-        aria-label={alt}
-      >
-        <source src={media.src} />
-      </video>
-    );
-  }
-
-  const src =
-    media.type === "placeholder"
-      ? projectPlaceholderSources[media.variant]
-      : media.src;
-  const rasterProps =
-    media.type === "placeholder"
-      ? {
-          height: 900,
-          unoptimized: true,
-          width: 1600,
-        }
-      : {
-          height: media.height,
-          quality: 90,
-          width: media.width,
-        };
-  const positionStyle: ProjectMediaStyle | undefined =
-    media.type === "placeholder"
-      ? undefined
-      : {
-          "--project-card-position": media.cardPosition,
-          "--project-card-position-mobile": media.cardPositionMobile,
-          "--project-media-background": media.frameBackground,
-        };
-
   return (
-    <Image
-      className={styles.media}
-      src={src}
-      alt={alt}
-      sizes={mediaSizes[layout]}
-      preload={preload}
-      style={positionStyle}
-      {...rasterProps}
-    />
+    <span
+      className={`${styles.status} ${status === "coming-soon" ? styles.statusUpcoming : ""}`}
+    >
+      <span aria-hidden="true" />
+      {status === "coming-soon" ? labels.comingSoon : labels.published}
+    </span>
+  );
+}
+
+function TechnologyTags({ technologies }: { technologies: readonly string[] }) {
+  return (
+    <ul className={styles.technologies} aria-label={technologies.join(", ")}>
+      {technologies.map((technology) => (
+        <li key={technology}>{technology}</li>
+      ))}
+    </ul>
   );
 }
 
@@ -130,7 +76,10 @@ function ProjectCard({
   locale: Locale;
 }) {
   const title = localizeProjectText(project.title, locale);
-  const description = localizeProjectText(project.description, locale);
+  const summary = localizeProjectText(project.summary, locale);
+  const type = localizeProjectText(project.type, locale);
+  const highlight = localizeProjectText(project.highlight, locale);
+  const number = String(index + 1).padStart(2, "0");
   const className = [
     styles.card,
     project.featured ? styles.featured : "",
@@ -138,49 +87,6 @@ function ProjectCard({
   ]
     .filter(Boolean)
     .join(" ");
-  const content = (
-    <>
-      <div className={styles.cardMedia}>
-        <Media
-          media={project.media[0]!}
-          locale={locale}
-          layout={project.featured ? "featured-card" : "card"}
-          preload={project.featured}
-        />
-        <span className={styles.cardIndex} aria-hidden="true">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-      </div>
-      <div className={styles.cardBody}>
-        <div className={styles.cardHeading}>
-          <h2 id={`project-card-${project.slug}`}>{title}</h2>
-          <span className={styles.status}>
-            {project.status === "coming-soon"
-              ? labels.comingSoon
-              : labels.published}
-          </span>
-        </div>
-        <p>{description}</p>
-        {project.status === "published" ? (
-          <span className={styles.openLabel}>
-            {labels.openProject}
-            <ArrowUpRight aria-hidden="true" />
-          </span>
-        ) : null}
-      </div>
-    </>
-  );
-
-  if (project.status === "coming-soon") {
-    return (
-      <article
-        className={className}
-        aria-labelledby={`project-card-${project.slug}`}
-      >
-        {content}
-      </article>
-    );
-  }
 
   return (
     <ProjectModalLink
@@ -188,7 +94,29 @@ function ProjectCard({
       slug={project.slug}
       className={className}
     >
-      {content}
+      <div className={styles.cardMedia}>
+        <ProjectVisual kind={project.motif} />
+      </div>
+
+      <div className={styles.cardBody}>
+        <div className={styles.cardMeta}>
+          <span className={styles.cardIndex}>{number}</span>
+          <ProjectStatus labels={labels} status={project.status} />
+        </div>
+
+        <p className={styles.projectType}>{type}</p>
+        <h2 id={`project-card-${project.slug}`}>{title}</h2>
+        <p className={styles.cardDescription}>{summary}</p>
+        <TechnologyTags technologies={project.technologies} />
+
+        <div className={styles.cardFooter}>
+          <span className={styles.highlight}>{highlight}</span>
+          <span className={styles.openLabel}>
+            {labels.openProject}
+            <ArrowUpRight aria-hidden="true" />
+          </span>
+        </div>
+      </div>
     </ProjectModalLink>
   );
 }
@@ -212,7 +140,10 @@ async function getLabels(): Promise<{
       comingSoon: t("comingSoon"),
       published: t("published"),
       descriptionHeading: t("descriptionHeading"),
-      mediaHeading: t("mediaHeading"),
+      highlightHeading: t("highlightHeading"),
+      projectNumber: t("projectNumber"),
+      projectType: t("projectType"),
+      technologiesHeading: t("technologiesHeading"),
       linksHeading: t("linksHeading"),
       noPublicLink: t("noPublicLink"),
       backToProjects: t("backToProjects"),
@@ -245,7 +176,7 @@ export async function ProjectOverview() {
         </section>
       </div>
 
-      {publishedProjects.map((project) => (
+      {projects.map((project) => (
         <ProjectModalEntry
           key={project.slug}
           slug={project.slug}
@@ -253,11 +184,7 @@ export async function ProjectOverview() {
           returnFocusHref={`${localizedProjectsPath}/${project.slug}`}
           titleId={projectTitleId(project.slug)}
         >
-          <ProjectDetail
-            project={project}
-            showBackLink={false}
-            preloadMedia={false}
-          />
+          <ProjectDetail project={project} showBackLink={false} />
         </ProjectModalEntry>
       ))}
     </ProjectModalController>
@@ -267,15 +194,20 @@ export async function ProjectOverview() {
 export async function ProjectDetail({
   project,
   showBackLink = false,
-  preloadMedia = true,
 }: {
   project: Project;
   showBackLink?: boolean;
-  preloadMedia?: boolean;
 }) {
   const { labels, locale } = await getLabels();
   const title = localizeProjectText(project.title, locale);
+  const type = localizeProjectText(project.type, locale);
+  const summary = localizeProjectText(project.summary, locale);
   const description = localizeProjectText(project.description, locale);
+  const highlight = localizeProjectText(project.highlight, locale);
+  const number = String(projects.findIndex((item) => item.slug === project.slug) + 1).padStart(
+    2,
+    "0",
+  );
 
   return (
     <div className={`${styles.projectDetail} project-detail-view`}>
@@ -287,79 +219,87 @@ export async function ProjectDetail({
           className={styles.visuallyHidden}
           id={`project-media-${project.slug}`}
         >
-          {labels.mediaHeading}
+          {title}
         </h2>
-        <figure>
-          <Media
-            media={project.media[0]!}
-            locale={locale}
-            layout="hero"
-            preload={preloadMedia}
-          />
-        </figure>
+        <ProjectVisual kind={project.motif} detail />
       </section>
 
       <div className={styles.detailBody}>
         <header className={styles.detailHeader}>
-          <span className={styles.detailStatus}>{labels.published}</span>
+          <div className={styles.detailMetaLine}>
+            <span className={styles.detailIndex}>{number}</span>
+            <ProjectStatus labels={labels} status={project.status} />
+            <span className={styles.detailType}>{type}</span>
+          </div>
           <h1 id={projectTitleId(project.slug)}>{title}</h1>
+          <p>{summary}</p>
         </header>
 
-        <div className={styles.detailDivider} aria-hidden="true" />
+        <div className={styles.detailGrid}>
+          <aside className={styles.factCard}>
+            <dl className={styles.facts}>
+              <div>
+                <dt>{labels.projectNumber}</dt>
+                <dd>{number}</dd>
+              </div>
+              <div>
+                <dt>{labels.projectType}</dt>
+                <dd>{type}</dd>
+              </div>
+              <div>
+                <dt>{labels.technologiesHeading}</dt>
+                <dd>
+                  <TechnologyTags technologies={project.technologies} />
+                </dd>
+              </div>
+            </dl>
+          </aside>
 
-        <section
-          className={styles.descriptionSection}
-          aria-labelledby={`project-description-${project.slug}`}
-        >
-          <h2
-            className={styles.visuallyHidden}
-            id={`project-description-${project.slug}`}
-          >
-            {labels.descriptionHeading}
-          </h2>
-          <p>{description}</p>
-        </section>
-
-        {project.media.length > 1 ? (
           <section
-            className={styles.additionalMedia}
-            aria-label={labels.mediaHeading}
+            className={styles.storyCard}
+            aria-labelledby={`project-description-${project.slug}`}
           >
-            {project.media.slice(1).map((media, index) => (
-              <figure key={`${project.slug}-media-${index + 1}`}>
-                <Media media={media} locale={locale} layout="gallery" />
-              </figure>
-            ))}
+            <div>
+              <h2 id={`project-description-${project.slug}`}>
+                {labels.descriptionHeading}
+              </h2>
+              <p>{description}</p>
+            </div>
+
+            <div className={styles.detailHighlight}>
+              <h2>{labels.highlightHeading}</h2>
+              <p>{highlight}</p>
+            </div>
+
+            <footer className={styles.detailFooter}>
+              <p className={styles.cardLabel}>{labels.linksHeading}</p>
+              {project.links.length > 0 ? (
+                <span className={styles.externalLinks}>
+                  {project.links.map((link) => (
+                    <a
+                      key={`${link.kind}-${link.href}`}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {labels.links[link.kind]}
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  ))}
+                </span>
+              ) : (
+                <p className={styles.noPublicLink}>{labels.noPublicLink}</p>
+              )}
+
+              {showBackLink ? (
+                <LocalizedRouteLink className={styles.backLink} href="/projects">
+                  <ArrowLeft aria-hidden="true" />
+                  {labels.backToProjects}
+                </LocalizedRouteLink>
+              ) : null}
+            </footer>
           </section>
-        ) : null}
-
-        <footer className={styles.detailFooter}>
-          <p className={styles.cardLabel}>{labels.linksHeading}</p>
-          {project.links.length > 0 ? (
-            <span className={styles.externalLinks}>
-              {project.links.map((link) => (
-                <a
-                  key={`${link.kind}-${link.href}`}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {labels.links[link.kind]}
-                  <ArrowUpRight aria-hidden="true" />
-                </a>
-              ))}
-            </span>
-          ) : (
-            <p className={styles.noPublicLink}>{labels.noPublicLink}</p>
-          )}
-
-          {showBackLink ? (
-            <LocalizedRouteLink className={styles.backLink} href="/projects">
-              <ArrowLeft aria-hidden="true" />
-              {labels.backToProjects}
-            </LocalizedRouteLink>
-          ) : null}
-        </footer>
+        </div>
       </div>
     </div>
   );

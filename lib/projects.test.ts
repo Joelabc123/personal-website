@@ -14,7 +14,7 @@ test("finds a published project by its stable slug", () => {
   assert.equal(project?.status, "published");
 });
 
-test("keeps coming-soon projects in the overview without publishing a detail", () => {
+test("keeps coming-soon projects distinguishable from published work", () => {
   const project = getProjectBySlug("finance-management-platform");
 
   assert.equal(project?.status, "coming-soon");
@@ -31,4 +31,14 @@ test("returns undefined for an unknown project slug", () => {
 test("exposes four published details and five overview projects", () => {
   assert.equal(publishedProjects.length, 4);
   assert.equal(projects.length, 5);
+});
+
+test("provides the card content and animated motif for every project", () => {
+  for (const project of projects) {
+    assert.ok(project.type.de);
+    assert.ok(project.summary.de);
+    assert.ok(project.highlight.de);
+    assert.ok(project.technologies.length >= 3);
+    assert.ok(project.motif);
+  }
 });

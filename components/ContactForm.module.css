@@ -132,6 +132,7 @@
 
 .consentNotice button {
   flex: none;
+  min-height: 44px;
   padding: 6px 10px;
   border: 1px solid var(--p-color-hairline-muted);
   border-radius: var(--p-radius-full);

@@ -92,7 +92,10 @@
 
 .footer {
   flex: none;
-  padding: 18px var(--p-spacing-fluid-md);
+  padding:
+    10px
+    var(--p-spacing-fluid-md)
+    calc(10px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--p-color-hairline);
   background: var(--p-color-canvas);
 }
@@ -110,7 +113,10 @@
 
 .footerNavigation a,
 .footerNavigation button {
-  padding: 0;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 var(--p-spacing-2xs);
   border: 0;
   background: transparent;
   color: inherit;

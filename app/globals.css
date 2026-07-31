@@ -274,6 +274,7 @@ section[id] {
   color: var(--p-color-ink-muted);
   font-size: var(--p-typescale-sm);
   line-height: var(--p-leading-small);
+  overflow-wrap: anywhere;
 }
 
 .legal-card > * + * {
@@ -383,6 +384,7 @@ section[id] {
 
 .detail-surface__content {
   width: 100%;
+  min-width: 0;
   margin-inline: auto;
   padding:
     clamp(3rem, 9vh, 7rem)
@@ -494,10 +496,10 @@ section[id] {
 }
 
 .cv-print-page {
-  width: 210mm;
-  min-height: 297mm;
-  margin: 24px auto;
-  padding: 14mm;
+  width: min(210mm, calc(100% - (2 * var(--p-spacing-md))));
+  min-height: 0;
+  margin: var(--p-spacing-md) auto;
+  padding: clamp(20px, 5vw, 14mm);
   background: #ffffff;
   box-shadow: var(--p-shadow-lg);
   color: #111111;
@@ -572,6 +574,19 @@ section[id] {
     box-shadow: none;
   }
 
+  .cv-print-page {
+    width: 100%;
+    margin: 0;
+    padding: 24px var(--p-spacing-md);
+    box-shadow: none;
+  }
+
+}
+
+@media (max-height: 600px) {
+  .detail-dialog:has(.project-detail-view) .detail-surface__topbar {
+    top: 12px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

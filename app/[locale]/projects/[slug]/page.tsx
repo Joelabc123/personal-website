@@ -7,16 +7,16 @@ import JsonLd from "@/components/seo/JsonLd";
 import type { Locale } from "@/lib/cv";
 import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
 import {
-  getPublishedProjectBySlug,
+  getProjectBySlug,
   localizeProjectText,
-  publishedProjects,
+  projects,
 } from "@/lib/projects";
 import { projectPageJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return publishedProjects.map((project) => ({ slug: project.slug }));
+  return projects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
@@ -26,7 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
   const locale = asLocale(rawLocale);
-  const project = getPublishedProjectBySlug(slug);
+  const project = getProjectBySlug(slug);
 
   if (!project) notFound();
 
@@ -50,7 +50,7 @@ export default async function ProjectPage({
 }) {
   const { locale: rawLocale, slug } = await params;
   const locale: Locale = asLocale(rawLocale);
-  const project = getPublishedProjectBySlug(slug);
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     notFound();
