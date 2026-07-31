@@ -235,26 +235,26 @@ export const projects: readonly Project[] = [
   {
     slug: "finance-management-platform",
     title: {
-      de: "Finanzplattform",
-      en: "Finance Platform",
+      de: "Agentic-RAG-Finanzplattform",
+      en: "Agentic RAG Finance Platform",
     },
     type: {
-      de: "FinTech-Plattform",
-      en: "FinTech platform",
+      de: "KI-gestützte FinTech-Plattform",
+      en: "AI-powered FinTech platform",
     },
     summary: {
-      de: "Finanzdaten, Trends und zentrale Kennzahlen in einer klaren Übersicht.",
-      en: "Financial data, trends, and key metrics in one clear overview.",
+      de: "Ein Multi-Layer Agentic RAG verbindet Finance Papers mit Live-Daten für fundierte Portfolioanalysen und konkrete Handlungsempfehlungen.",
+      en: "A multi-layer agentic RAG system combines finance papers with live data to deliver informed portfolio analysis and actionable recommendations.",
     },
     description: {
-      de: "Eine derzeit entstehende Plattform, die Finanzdaten in verständliche Verläufe, Balkendiagramme und kompakte Kennzahlen übersetzt. Der Fokus liegt auf einer schnellen, visuellen Einordnung komplexer Entwicklungen.",
-      en: "A platform currently in development that translates financial data into clear trends, bar charts, and compact metrics. Its focus is fast visual interpretation of complex developments.",
+      de: "Ein Multi-Layer Agentic-RAG-System nutzt Finance Papers als kuratierte Wissensbasis und reichert dieses Fachwissen mit aktuellen Marktdaten an. Mehrere spezialisierte Agenten bewerten Portfolios, ordnen Chancen und Risiken ein und leiten daraus nachvollziehbare, konkrete Handlungsempfehlungen zur Unterstützung finanzieller Entscheidungen ab.",
+      en: "A multi-layer agentic RAG system uses finance papers as a curated knowledge base and enriches this expertise with live market data. Multiple specialized agents evaluate portfolios, assess opportunities and risks, and turn their findings into transparent, actionable recommendations that support financial decision-making.",
     },
     highlight: {
-      de: "Kennzahlen und Trends auf einen Blick",
-      en: "Metrics and trends at a glance",
+      de: "Von Finance Papers und Live-Daten zur konkreten Handlungsempfehlung",
+      en: "From finance papers and live data to actionable recommendations",
     },
-    technologies: ["Data Visualization", "Analytics", "Web App"],
+    technologies: ["Agentic RAG", "LLM Agents", "Live Market Data", "Portfolio Analytics"],
     motif: "finance-dashboard",
     status: "coming-soon",
     featured: false,
@@ -263,8 +263,8 @@ export const projects: readonly Project[] = [
         type: "placeholder",
         variant: "finance",
         alt: {
-          de: "Abstrakte Vorschau der Finanzplattform mit Diagrammen und Kennzahlen",
-          en: "Abstract preview of the finance platform with charts and metrics",
+          de: "Abstrakte Vorschau der Agentic-RAG-Finanzplattform mit Portfolioanalyse und Live-Marktdaten",
+          en: "Abstract preview of the agentic RAG finance platform with portfolio analysis and live market data",
         },
       },
     ],

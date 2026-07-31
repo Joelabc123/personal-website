@@ -85,7 +85,10 @@
     "languages": "Languages",
     "present": "Present",
     "from": "from",
-    "pdf": "CV as PDF"
+    "pdf": "Download CV",
+    "location": "Munich, Germany",
+    "links": "Links",
+    "projects": "View projects"
   },
   "projects": {
     "title": "Projects",

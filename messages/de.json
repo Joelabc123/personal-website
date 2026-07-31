@@ -85,7 +85,10 @@
     "languages": "Sprachkenntnisse",
     "present": "Heute",
     "from": "ab",
-    "pdf": "Lebenslauf als PDF"
+    "pdf": "Lebenslauf als PDF",
+    "location": "München, Deutschland",
+    "links": "Links",
+    "projects": "Projekte ansehen"
   },
   "projects": {
     "title": "Projekte",
