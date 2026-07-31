@@ -1,0 +1,35 @@
+services:
+  web:
+    image: "${APP_IMAGE:-ghcr.io/joelabc123/personal-website:latest}"
+    pull_policy: always
+    restart: unless-stopped
+    expose:
+      - "3000"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/de"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+      NEXT_PUBLIC_SITE_URL: "${NEXT_PUBLIC_SITE_URL:-https://joelbakirel.de}"
+      NEXT_PUBLIC_RECAPTCHA_SITE_KEY: "${NEXT_PUBLIC_RECAPTCHA_SITE_KEY:-}"
+      RECAPTCHA_SECRET_KEY: "${RECAPTCHA_SECRET_KEY:-}"
+      SMTP_HOST: "${SMTP_HOST:-}"
+      SMTP_PORT: "${SMTP_PORT:-587}"
+      SMTP_SECURE: "${SMTP_SECURE:-false}"
+      SMTP_USER: "${SMTP_USER:-}"
+      SMTP_PASSWORD: "${SMTP_PASSWORD:-}"
+      SMTP_FROM: "${SMTP_FROM:-}"
+      CONTACT_ADMIN_EMAIL: "${CONTACT_ADMIN_EMAIL:-}"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.${COOLIFY_CONTAINER_NAME:-personal-website}.loadbalancer.server.port=3000"
+      - "traefik.http.routers.${COOLIFY_CONTAINER_NAME:-personal-website}.service=${COOLIFY_CONTAINER_NAME:-personal-website}"
+      - "traefik.http.routers.${COOLIFY_CONTAINER_NAME:-personal-website}.rule=Host(`${APP_HOST:-joelbakirel.de}`)"
+      - "traefik.http.routers.${COOLIFY_CONTAINER_NAME:-personal-website}.entrypoints=https"
+      - "traefik.http.routers.${COOLIFY_CONTAINER_NAME:-personal-website}.tls=true"
+      - "traefik.http.routers.${COOLIFY_CONTAINER_NAME:-personal-website}.tls.certresolver=letsencrypt"

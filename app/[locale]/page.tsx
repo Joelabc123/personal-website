@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import BentoHome from "@/components/home/BentoHome";
 import JsonLd from "@/components/seo/JsonLd";
 import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
-import { personJsonLd } from "@/lib/structured-data";
+import { profilePageJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -28,10 +28,17 @@ export default async function Home({
 }) {
   const { locale: rawLocale } = await params;
   const locale = asLocale(rawLocale);
+  const t = await getTranslations({ locale, namespace: "metadata.home" });
 
   return (
     <>
-      <JsonLd data={personJsonLd(locale)} />
+      <JsonLd
+        data={profilePageJsonLd({
+          locale,
+          name: t("title"),
+          description: t("description"),
+        })}
+      />
       <BentoHome />
     </>
   );

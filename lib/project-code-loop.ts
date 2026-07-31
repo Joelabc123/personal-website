@@ -28,7 +28,7 @@ projects.forEach(project => {
 });`,
   `await portfolio.deploy({
   environment: "production",
-  domain: "joel-bakirel.de"
+  domain: "joelbakirel.de"
 });
 
 console.log("Portfolio is live.");`,

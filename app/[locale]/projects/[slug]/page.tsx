@@ -11,7 +11,7 @@ import {
   localizeProjectText,
   publishedProjects,
 } from "@/lib/projects";
-import { projectJsonLd } from "@/lib/structured-data";
+import { projectPageJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -57,6 +57,8 @@ export default async function ProjectPage({
   }
 
   const t = await getTranslations("projects");
+  const name = localizeProjectText(project.title, locale);
+  const description = localizeProjectText(project.description, locale);
 
   return (
     <StandaloneShell
@@ -64,7 +66,17 @@ export default async function ProjectPage({
       homeHref={`/${locale}/projects`}
       homeLabel={t("backToProjects")}
     >
-      <JsonLd data={projectJsonLd(project, locale)} />
+      <JsonLd
+        data={projectPageJsonLd(
+          {
+            locale,
+            path: `/projects/${project.slug}`,
+            name,
+            description,
+          },
+          project,
+        )}
+      />
       <ProjectDetail project={project} showBackLink={false} />
     </StandaloneShell>
   );

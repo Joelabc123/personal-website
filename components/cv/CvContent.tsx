@@ -99,6 +99,16 @@ function EntryCard({
 
 function CvView({ locale, labels, variant }: CvViewProps) {
   const dateLabels = { present: labels.present, from: labels.from };
+  const pdf =
+    locale === "de"
+      ? {
+          href: "/lebenslauf_de.pdf",
+          download: "Lebenslauf-Joel-Bakirel-DE.pdf",
+        }
+      : {
+          href: "/lebenslauf_en.pdf",
+          download: "CV-Joel-Bakirel-EN.pdf",
+        };
 
   return (
     <div
@@ -115,8 +125,8 @@ function CvView({ locale, labels, variant }: CvViewProps) {
           <div className={styles.actions}>
             <a
               className={styles.primaryAction}
-              href="/Lebenslaufneu.pdf"
-              download="Lebenslauf-Joel-Bakirel.pdf"
+              href={pdf.href}
+              download={pdf.download}
             >
               <ArrowDownToLine aria-hidden="true" />
               {labels.pdf}

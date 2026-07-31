@@ -12,7 +12,23 @@
     "sending": "Wird gesendet …",
     "success": "Danke! Deine Nachricht wurde gesendet.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
+    "recaptchaConsentRequired": "Für das Kontaktformular wird Google reCAPTCHA benötigt. Aktiviere optionale Dienste über die Cookie-Einstellungen oder nutze den direkten E-Mail-Kontakt.",
+    "openCookieSettings": "Cookie-Einstellungen öffnen",
     "recaptchaNotice": "Dieses Formular ist durch reCAPTCHA geschützt. Es gelten die <privacy>Datenschutzerklärung</privacy> und die <terms>Nutzungsbedingungen</terms> von Google."
+  },
+  "cookies": {
+    "eyebrow": "Datenschutz",
+    "title": "Deine Privatsphäre",
+    "description": "Diese Website verwendet notwendige Funktionen. Google reCAPTCHA wird erst mit deiner Zustimmung geladen und schützt das Kontaktformular.",
+    "privacyLink": "Mehr in der Datenschutzerklärung.",
+    "rejectAll": "Alle ablehnen",
+    "acceptAll": "Alle annehmen"
+  },
+  "footer": {
+    "label": "Rechtliches und Cookie-Einstellungen",
+    "privacy": "Datenschutz",
+    "legalNotice": "Impressum",
+    "resetCookies": "Cookie-Auswahl zurücksetzen"
   },
   "utility": {
     "label": "Sprache",
@@ -210,11 +226,14 @@
       "contactFormText1": "Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.",
       "contactFormText2": "Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse (Art. 6 Abs. 1 lit. f DSGVO) an der effektiven Bearbeitung von Anfragen.",
       "contactFormText3": "Für den technischen Versand der E-Mails aus unserem System nutzen wir den Dienstleister NUXOA GmbH, Hauptstraße 20a, 82216 Maisach, Deutschland. Mit diesem Anbieter wurde ein Vertrag zur Auftragsverarbeitung geschlossen.",
+      "consentManagementHeading": "Cookie- und Einwilligungseinstellungen",
+      "consentManagementText1": "Wir speichern Ihre Auswahl „alle annehmen“ oder „alle ablehnen“ ausschließlich im lokalen Speicher Ihres Browsers. Die Auswahl wird nicht an unseren Server übertragen.",
+      "consentManagementText2": "Sie können die gespeicherte Auswahl jederzeit über „Cookie-Auswahl zurücksetzen“ im Footer löschen. Danach wird der Cookie-Banner erneut angezeigt.",
       "pluginsToolsHeading": "Plugins und Tools",
       "recaptchaHeading": "Google reCAPTCHA",
       "recaptchaText1": "Wir nutzen „Google reCAPTCHA“ (im Folgenden „reCAPTCHA“) auf dieser Website. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.",
       "recaptchaText2": "Mit reCAPTCHA soll überprüft werden, ob die Dateneingabe auf dieser Website (z. B. in einem Kontaktformular) durch einen Menschen oder durch ein automatisiertes Programm (Bot) erfolgt. Hierzu analysiert reCAPTCHA das Verhalten des Websitebesuchers anhand verschiedener Merkmale (z. B. IP-Adresse, Verweildauer oder Mausbewegungen). Die bei der Analyse erfassten Daten werden an Google weitergeleitet.",
-      "recaptchaText3": "Die Datenverarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Wir haben ein berechtigtes Interesse daran, unsere Webangebote vor missbräuchlicher automatisierter Ausspähung und vor SPAM zu schützen."
+      "recaptchaText3": "reCAPTCHA wird erst geladen, nachdem Sie im Cookie-Banner eingewilligt haben. Die Verarbeitung erfolgt auf Grundlage Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Sie können die Auswahl jederzeit über den Footer zurücksetzen; ohne Einwilligung wird reCAPTCHA nicht geladen."
     }
   }
 }

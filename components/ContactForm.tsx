@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import Script from "next/script";
 import { useLocale, useTranslations } from "next-intl";
+import {
+  resetCookieConsent,
+  useCookieConsent,
+} from "@/lib/cookie-consent";
 import styles from "./ContactForm.module.css";
 
 type ContactFormData = {
@@ -57,8 +61,11 @@ async function submitContactForm(data: ContactFormData) {
 export default function ContactForm() {
   const t = useTranslations("contact");
   const locale = useLocale();
+  const cookieConsent = useCookieConsent();
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const statusRef = useRef<HTMLParagraphElement>(null);
+  const recaptchaNeedsConsent =
+    Boolean(RECAPTCHA_SITE_KEY) && cookieConsent !== "accepted";
 
   useEffect(() => {
     if (status === "success" || status === "error") {
@@ -95,7 +102,7 @@ export default function ContactForm() {
 
   return (
     <>
-      {RECAPTCHA_SITE_KEY && (
+      {RECAPTCHA_SITE_KEY && cookieConsent === "accepted" && (
         <Script
           id="contact-recaptcha-v3"
           src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
@@ -154,7 +161,7 @@ export default function ContactForm() {
         <div className={styles.actions}>
           <button
             type="submit"
-            disabled={status === "sending"}
+            disabled={status === "sending" || recaptchaNeedsConsent}
             className={styles.submit}
           >
             {status === "sending" ? t("sending") : t("submit")}
@@ -184,7 +191,7 @@ export default function ContactForm() {
           </p>
         </div>
 
-        {RECAPTCHA_SITE_KEY && (
+        {RECAPTCHA_SITE_KEY && cookieConsent === "accepted" ? (
           <p className={styles.recaptchaNotice}>
             {t.rich("recaptchaNotice", {
               privacy: (chunks) => (
@@ -207,7 +214,14 @@ export default function ContactForm() {
               ),
             })}
           </p>
-        )}
+        ) : RECAPTCHA_SITE_KEY ? (
+          <div className={styles.consentNotice}>
+            <p>{t("recaptchaConsentRequired")}</p>
+            <button type="button" onClick={resetCookieConsent}>
+              {t("openCookieSettings")}
+            </button>
+          </div>
+        ) : null}
       </form>
     </>
   );

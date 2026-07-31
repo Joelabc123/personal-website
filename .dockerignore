@@ -1,0 +1,13 @@
+.git
+.github
+.next
+node_modules
+coverage
+*.tsbuildinfo
+npm-debug.log*
+.env*
+.agents
+.codex
+notes
+content/gallery-upload
+content/projects-upload

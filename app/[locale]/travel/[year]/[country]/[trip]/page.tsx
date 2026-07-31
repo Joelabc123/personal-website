@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import StandaloneShell from "@/components/detail/StandaloneShell";
 import { TravelDetail } from "@/components/travel/TravelContent";
+import JsonLd from "@/components/seo/JsonLd";
 import type { Locale } from "@/lib/cv";
 import {
   getGalleryStaticParams,
@@ -10,6 +11,7 @@ import {
 } from "@/lib/gallery";
 import { localizeGalleryText } from "@/lib/gallery-types";
 import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
+import { travelTripPageJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -65,10 +67,18 @@ export default async function TravelTripPage({
 
   if (!trip) notFound();
 
-  const [locale, t] = await Promise.all([
+  const [rawLocale, t] = await Promise.all([
     getLocale(),
     getTranslations("travel"),
   ]);
+  const locale: Locale = asLocale(rawLocale);
+  const metadata = await getTranslations({
+    locale,
+    namespace: "metadata.travel",
+  });
+  const place = localizeGalleryText(trip.meta.place, locale);
+  const countryName = localizeGalleryText(trip.meta.country, locale);
+  const path = `/travel/${trip.year}/${trip.countrySlug}/${trip.tripSlug}`;
 
   return (
     <StandaloneShell
@@ -76,6 +86,21 @@ export default async function TravelTripPage({
       homeHref={`/${locale}/travel`}
       documentNavigation
     >
+      <JsonLd
+        data={travelTripPageJsonLd(
+          {
+            locale,
+            path,
+            name: metadata("tripTitle", { place, year: trip.year }),
+            description: metadata("tripDescription", {
+              place,
+              country: countryName,
+              year: trip.year,
+            }),
+          },
+          trip,
+        )}
+      />
       <TravelDetail trip={trip} showBackLink={false} />
     </StandaloneShell>
   );

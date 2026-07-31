@@ -11,7 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --no-warnings --test --experimental-strip-types \"lib/*.test.ts\" \"lib/*.test.mjs\""
+    "test": "node --env-file=.env.example --no-warnings --test --experimental-strip-types \"lib/*.test.ts\" \"lib/*.test.mjs\""
   },
   "dependencies": {
     "handlebars": "^4.7.9",

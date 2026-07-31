@@ -12,7 +12,23 @@
     "sending": "Sending …",
     "success": "Thanks! Your message has been sent.",
     "error": "Something went wrong. Please try again later.",
+    "recaptchaConsentRequired": "Google reCAPTCHA is required for the contact form. Enable optional services through the cookie settings or use direct email contact.",
+    "openCookieSettings": "Open cookie settings",
     "recaptchaNotice": "This form is protected by reCAPTCHA and the Google <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms> apply."
+  },
+  "cookies": {
+    "eyebrow": "Privacy",
+    "title": "Your privacy",
+    "description": "This website uses necessary functionality. Google reCAPTCHA is loaded only with your consent and protects the contact form.",
+    "privacyLink": "Learn more in the Privacy Policy.",
+    "rejectAll": "Reject all",
+    "acceptAll": "Accept all"
+  },
+  "footer": {
+    "label": "Legal information and cookie settings",
+    "privacy": "Privacy Policy",
+    "legalNotice": "Legal Notice",
+    "resetCookies": "Reset cookie choice"
   },
   "utility": {
     "label": "Language",
@@ -211,11 +227,14 @@
       "contactFormText1": "If you send us inquiries via the contact form, the information you provide in the inquiry form, including the contact details you provide there, will be stored by us for the purpose of processing the inquiry and in case of follow-up questions. We will not share this data without your consent.",
       "contactFormText2": "The processing of this data is based on Art. 6 (1)(b) GDPR, provided your request is related to the performance of a contract. In all other cases, processing is based on our legitimate interest (Art. 6 (1)(f) GDPR) in the effective handling of inquiries.",
       "contactFormText3": "For the technical delivery of emails from our system, we use the service provider NUXOA GmbH, Hauptstraße 20a, 82216 Maisach, Germany. A data processing agreement has been concluded with this provider.",
+      "consentManagementHeading": "Cookie and Consent Settings",
+      "consentManagementText1": "We store your “accept all” or “reject all” choice exclusively in your browser's local storage. The choice is not transmitted to our server.",
+      "consentManagementText2": "You can delete the stored choice at any time using “Reset cookie choice” in the footer. The cookie banner will then be displayed again.",
       "pluginsToolsHeading": "Plugins and Tools",
       "recaptchaHeading": "Google reCAPTCHA",
       "recaptchaText1": "We use \"Google reCAPTCHA\" (hereinafter \"reCAPTCHA\") on this website. The provider is Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland.",
       "recaptchaText2": "reCAPTCHA is used to check whether data entered on this website (e.g. in a contact form) is being provided by a human or by an automated program (bot). To do this, reCAPTCHA analyzes the website visitor's behavior based on various characteristics (e.g. IP address, time spent on the site, or mouse movements). The data collected during this analysis is forwarded to Google.",
-      "recaptchaText3": "This processing is based on Art. 6 (1)(f) GDPR. We have a legitimate interest in protecting our online offerings from abusive automated snooping and from spam."
+      "recaptchaText3": "reCAPTCHA is loaded only after you have consented in the cookie banner. Processing is based on your consent pursuant to Art. 6 (1)(a) GDPR and Section 25 (1) TDDDG. You can reset your choice at any time through the footer; without consent, reCAPTCHA is not loaded."
     }
   }
 }

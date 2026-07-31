@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import LocaleProvider, {
   type AppLocale,
 } from "@/components/LocaleProvider";
+import CookieConsent from "@/components/privacy/CookieConsent";
+import SiteFooter from "@/components/privacy/SiteFooter";
 import { routing } from "@/i18n/routing";
 import { siteConfig } from "@/lib/siteConfig";
 import UtilityDock from "@/components/UtilityDock";
@@ -57,6 +59,8 @@ export default async function LocaleLayout({
         >
           <UtilityDock />
           {children}
+          <SiteFooter />
+          <CookieConsent />
         </LocaleProvider>
       </body>
     </html>

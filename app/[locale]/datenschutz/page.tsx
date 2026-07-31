@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import JsonLd from "@/components/seo/JsonLd";
 import { Link } from "@/i18n/navigation";
 import { asLocale, createLocalizedMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/siteConfig";
+import { webPageJsonLd } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -42,13 +44,33 @@ function LegalSection({
   );
 }
 
-export default async function DatenschutzPage() {
-  const t = await getTranslations("legal");
-  const td = await getTranslations("legal.datenschutz");
-  const shell = await getTranslations("detailRoutes.shell");
+export default async function DatenschutzPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: rawLocale } = await params;
+  const locale = asLocale(rawLocale);
+  const [t, td, shell, metadata] = await Promise.all([
+    getTranslations("legal"),
+    getTranslations("legal.datenschutz"),
+    getTranslations("detailRoutes.shell"),
+    getTranslations({ locale, namespace: "metadata.datenschutz" }),
+  ]);
 
   return (
     <main className="legal-page">
+      <JsonLd
+        data={webPageJsonLd(
+          {
+            locale,
+            path: "/datenschutz",
+            name: metadata("title"),
+            description: metadata("description"),
+          },
+          "website",
+        )}
+      />
       <Link href="/" className="detail-home-link legal-home-link">
         <ArrowLeft aria-hidden="true" />
         <span>{shell("backHome")}</span>
@@ -130,6 +152,11 @@ export default async function DatenschutzPage() {
         <p>{td("contactFormText1")}</p>
         <p>{td("contactFormText2")}</p>
         <p>{td("contactFormText3")}</p>
+      </LegalSection>
+
+      <LegalSection heading={td("consentManagementHeading")}>
+        <p>{td("consentManagementText1")}</p>
+        <p>{td("consentManagementText2")}</p>
       </LegalSection>
 
       <h2 className="legal-divider-title">{td("pluginsToolsHeading")}</h2>

@@ -42,3 +42,22 @@ Generated WebP files under `public/generated/gallery` and
 `lib/generated/gallery-manifest.json` are deployment artifacts, not source
 files. A server or CI runner therefore needs the private photo sync before each
 build. See `content/gallery/README.md` for the authoring contract.
+
+## Container deployment
+
+Pull requests and pushes to `main` run the quality checks in
+`.github/workflows/docker-publish.yml`. A successful `main` run builds the
+production image and publishes `latest` plus an immutable `sha-...` tag to
+`ghcr.io/<owner>/<repository>`.
+
+Set the GitHub Actions repository variable `NEXT_PUBLIC_SITE_URL` when the
+canonical URL differs from `https://joelbakirel.de`. Add
+`NEXT_PUBLIC_RECAPTCHA_SITE_KEY` as a repository secret so the public key is
+available during the Next.js build.
+
+For Coolify, select `docker-compose.coolify.yml` as the Compose file and set the
+runtime variables shown in `.env.example`. `APP_IMAGE` can override the default
+GHCR image and `APP_HOST` controls the Traefik host rule. The Compose file keeps
+port 3000 internal and routes HTTPS traffic through Coolify's Traefik proxy.
+If the GHCR package is private, authenticate the Coolify server with a token
+that has `read:packages` access before deploying.
