@@ -53,7 +53,10 @@ production image and publishes `latest` plus an immutable `sha-...` tag to
 Set the GitHub Actions repository variable `NEXT_PUBLIC_SITE_URL` when the
 canonical URL differs from `https://joelbakirel.de`. Add
 `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` as a repository secret so the public key is
-available during the Next.js build.
+available during the Next.js build. To deploy after the image was pushed, also
+add the Coolify deploy webhook as `COOLIFY_WEBHOOK` and a Coolify API token with
+the `deploy` permission as `COOLIFY_TOKEN`. If either secret is absent, the
+workflow publishes the image and skips only the Coolify redeployment.
 
 For Coolify, select `docker-compose.coolify.yml` as the Compose file and set the
 runtime variables shown in `.env.example`. `APP_IMAGE` can override the default
