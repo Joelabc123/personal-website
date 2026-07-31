@@ -25,7 +25,15 @@ ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
-RUN npm run build
+ARG GALLERY_BUILD_MODE=validate
+
+RUN if [ "$GALLERY_BUILD_MODE" = "empty" ]; then \
+      rm -rf /app/content/gallery; \
+    elif [ "$GALLERY_BUILD_MODE" != "validate" ]; then \
+      echo "Unsupported GALLERY_BUILD_MODE: $GALLERY_BUILD_MODE" >&2; \
+      exit 1; \
+    fi \
+  && npm run build
 
 # Keep only files required by the production server.
 FROM node:22-alpine AS runner

@@ -43,6 +43,12 @@ Generated WebP files under `public/generated/gallery` and
 files. A server or CI runner therefore needs the private photo sync before each
 build. See `content/gallery/README.md` for the authoring contract.
 
+The public GHCR workflow intentionally sets `GALLERY_BUILD_MODE=empty`, because
+GitHub only receives the tracked metadata and not the private source images.
+That image displays the travel placeholder instead of failing on metadata-only
+trips. Change the build argument back to `validate` only after adding a secure
+private-photo sync step to the workflow.
+
 ## Container deployment
 
 Pull requests and pushes to `main` run the quality checks in
