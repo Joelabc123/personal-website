@@ -259,54 +259,96 @@
   --visual-ink: #262044;
 }
 
-.quizCard {
-  filter: drop-shadow(0 10px 12px rgb(38 32 68 / 16%));
+.quizCardShadow {
+  fill: rgb(38 32 68 / 14%);
+  filter: blur(5px);
   transform-box: fill-box;
   transform-origin: center;
+  animation: quizShadow 7.2s ease-in-out infinite;
 }
 
-.quizCard rect {
+.quizFlipCard {
+  filter: drop-shadow(0 13px 14px rgb(38 32 68 / 20%));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: quizFlip 7.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.quizCardFrame {
   fill: rgb(255 255 255 / 92%);
   stroke: var(--visual-accent);
   stroke-width: 3;
 }
 
-.quizCard path {
-  fill: none;
-  stroke: var(--visual-accent);
-  stroke-linecap: round;
-  stroke-width: 6;
+.quizCardBack {
+  opacity: 0;
+  animation: quizShowBack 7.2s linear infinite;
 }
 
-.quizCard circle {
+.quizCardBack rect {
   fill: var(--visual-accent);
 }
 
-.quizCardLeft {
-  transform: translate(-58px, 12px) rotate(-12deg);
-  animation: deckShuffleLeft 5.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-
-.quizCardRight {
-  transform: translate(58px, 12px) rotate(12deg);
-  animation: deckShuffleRight 5.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-
-.quizCardCenter {
-  transform: translateY(-7px);
-  animation: deckShuffleCenter 5.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-
-.quizCardCenter rect {
-  fill: var(--visual-ink);
-  stroke: rgb(255 255 255 / 74%);
-}
-
-.quizCardCenter path {
+.quizCardBack path:not(.quizBackPattern),
+.quizCardBack circle {
+  fill: none;
   stroke: #ffffff;
+  stroke-linecap: round;
+  stroke-width: 7;
 }
 
-.quizCardCenter circle {
+.quizCardBack circle {
+  fill: #ffffff;
+  stroke: none;
+}
+
+.quizCardBack .quizBackPattern {
+  fill: none;
+  stroke: rgb(255 255 255 / 42%);
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.quizCardFront {
+  opacity: 1;
+  animation: quizShowFront 7.2s linear infinite;
+}
+
+.quizEyebrow,
+.quizQuestion,
+.quizAnswers text {
+  fill: var(--visual-ink);
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.quizEyebrow {
+  fill: var(--visual-accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.quizQuestion {
+  font-size: 30px;
+  font-weight: 760;
+}
+
+.quizAnswers rect {
+  fill: color-mix(in srgb, var(--visual-accent) 9%, white);
+  stroke: color-mix(in srgb, var(--visual-accent) 40%, transparent);
+  stroke-width: 2;
+}
+
+.quizAnswers rect:last-of-type {
+  fill: var(--visual-accent);
+}
+
+.quizAnswers text {
+  font-size: 18px;
+  font-weight: 760;
+}
+
+.quizAnswers text:last-child {
   fill: #ffffff;
 }
 
@@ -316,120 +358,207 @@
   --visual-ink: #153c42;
 }
 
-.board rect {
-  fill: rgb(255 255 255 / 72%);
-  stroke: rgb(21 60 66 / 12%);
-  stroke-width: 2;
+.gameGround {
+  fill: none;
+  stroke: rgb(21 60 66 / 24%);
+  stroke-linecap: round;
+  stroke-width: 5;
 }
 
-.board .boardCellAlt {
-  fill: rgb(21 60 66 / 12%);
+.captureRoute {
+  fill: none;
+  stroke: var(--visual-accent);
+  stroke-dasharray: 5 11;
+  stroke-linecap: round;
+  stroke-width: 3;
+  animation: captureRouteFlow 1.4s linear infinite;
 }
 
-.gamePiece circle {
-  fill: var(--visual-accent);
+.gamePawn {
+  filter: drop-shadow(0 10px 10px rgb(21 60 66 / 18%));
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.gamePawn circle,
+.gamePawn > path:not(.pawnHighlight),
+.gamePawn rect {
+  fill: currentColor;
   stroke: #ffffff;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.pawnHighlight {
+  fill: none;
+  stroke: rgb(255 255 255 / 62%);
+  stroke-linecap: round;
   stroke-width: 4;
 }
 
-.gamePiece path {
+.gamePawnLeft {
+  color: #2f6fec;
+  animation: pawnAdvanceLeft 4.8s ease-in-out infinite;
+}
+
+.gamePawnRight {
+  color: #ef5f58;
+  animation: pawnAdvanceRight 4.8s ease-in-out infinite;
+}
+
+.gameFlag {
+  filter: drop-shadow(0 10px 12px rgb(21 60 66 / 17%));
+}
+
+.flagPole {
+  fill: none;
   stroke: var(--visual-ink);
   stroke-linecap: round;
-  stroke-width: 7;
+  stroke-width: 8;
 }
 
-.gamePiece {
-  transform-box: fill-box;
-  transform-origin: center;
+.flagFinial {
+  fill: var(--visual-accent);
+  stroke: #ffffff;
+  stroke-width: 3;
 }
 
-.gamePieceBlue {
-  animation: blueMove 5s ease-in-out infinite;
-}
-
-.gamePieceRed {
-  animation: redMove 5s ease-in-out infinite;
-}
-
-.flag {
-  fill: rgb(255 255 255 / 76%);
+.flagFabric {
+  fill: rgb(255 255 255 / 92%);
   stroke: var(--visual-ink);
-  stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 5;
-  animation: flagWave 2.5s ease-in-out infinite;
+  stroke-width: 4;
   transform-box: fill-box;
   transform-origin: left center;
+  animation: flagWave 2.4s ease-in-out infinite;
 }
 
 .finance-dashboard {
-  --visual-accent: #e97d28;
-  --visual-accent-soft: #ffd1a5;
-  --visual-ink: #383229;
+  --visual-accent: #1687c7;
+  --visual-accent-soft: #b8dcf3;
+  --visual-ink: #172039;
 }
 
-.metricCards rect {
+.marketPanel {
   fill: rgb(255 255 255 / 82%);
-  stroke: rgb(56 50 41 / 12%);
+  stroke: rgb(23 32 57 / 13%);
   stroke-width: 2;
 }
 
-.metricCards path {
+.marketChrome circle {
+  fill: #516077;
+}
+
+.marketChrome circle:first-child {
+  fill: #ef5f58;
+}
+
+.marketChrome circle:nth-child(2) {
+  fill: #f4ba45;
+}
+
+.marketChrome circle:nth-child(3) {
+  fill: #35c58a;
+}
+
+.marketChrome > text {
+  fill: #596579;
+  font-family: var(--font-geist-mono), Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.marketChrome rect {
+  fill: rgb(53 197 138 / 16%);
+  stroke: rgb(53 197 138 / 56%);
+  stroke-width: 1;
+}
+
+.marketChrome .liveLabel {
+  fill: #16865e;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.marketGrid path {
   fill: none;
-  stroke: var(--visual-ink);
-  stroke-linecap: round;
-  stroke-width: 5;
+  stroke: rgb(23 32 57 / 10%);
+  stroke-width: 1;
 }
 
-.metricCards rect,
-.metricCards path {
-  animation: metricGlow 4s ease-in-out infinite;
+.marketArea {
+  fill: color-mix(in srgb, var(--visual-accent) 10%, transparent);
 }
 
-.chartBars rect {
-  fill: var(--visual-accent);
-  transform-box: fill-box;
-  transform-origin: center bottom;
-  animation: barRise 2.8s ease-in-out infinite alternate;
-}
-
-.chartBars rect:nth-child(2) {
-  animation-delay: -0.7s;
-}
-
-.chartBars rect:nth-child(3) {
-  animation-delay: -1.4s;
-}
-
-.chartBars rect:nth-child(4) {
-  animation-delay: -2.1s;
-}
-
-.chartBars rect:nth-child(5) {
-  animation-delay: -2.8s;
-}
-
-.sparkArea {
-  fill: color-mix(in srgb, var(--visual-accent) 17%, transparent);
-}
-
-.sparkLine {
+.marketLine {
   fill: none;
-  stroke: var(--visual-ink);
+  stroke: var(--visual-accent);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 6;
-  stroke-dasharray: 240;
-  animation: sparkDraw 3.8s ease-in-out infinite;
+  stroke-width: 3;
+  stroke-dasharray: 520;
+  filter: drop-shadow(0 0 5px rgb(56 189 248 / 55%));
+  animation: marketLineDraw 5.4s ease-in-out infinite;
 }
 
-.sparkPoint {
-  fill: var(--visual-accent);
-  stroke: #ffffff;
-  stroke-width: 4;
-  animation: pointPulse 1.9s ease-in-out infinite;
+.candle {
   transform-box: fill-box;
-  transform-origin: center;
+  transform-origin: center bottom;
+  animation: candleTrade 2.8s ease-in-out infinite alternate;
+}
+
+.candle path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.candle rect {
+  fill: currentColor;
+}
+
+.candleRising {
+  color: #35c58a;
+}
+
+.candleFalling {
+  color: #ef5f58;
+}
+
+.candle:nth-child(2),
+.candle:nth-child(7) {
+  animation-delay: -0.5s;
+}
+
+.candle:nth-child(3),
+.candle:nth-child(8) {
+  animation-delay: -1s;
+}
+
+.candle:nth-child(4),
+.candle:nth-child(9) {
+  animation-delay: -1.5s;
+}
+
+.candle:nth-child(5),
+.candle:nth-child(10) {
+  animation-delay: -2s;
+}
+
+.priceGuide {
+  fill: none;
+  stroke: rgb(56 189 248 / 52%);
+  stroke-dasharray: 4 6;
+  stroke-width: 1;
+}
+
+.chartScanner {
+  fill: none;
+  stroke: rgb(23 32 57 / 24%);
+  stroke-width: 1;
+  filter: drop-shadow(0 0 4px rgb(22 135 199 / 42%));
+  animation: chartScan 5.4s linear infinite;
 }
 
 @keyframes glowDrift {
@@ -484,57 +613,64 @@
   70% { transform: translate(-52px, 36px); }
 }
 
-@keyframes deckShuffleLeft {
-  0%, 30%, 72%, 100% { transform: translate(-58px, 12px) rotate(-12deg); }
-  48% { transform: translate(10px, 5px) rotate(3deg); }
-  60% { transform: translate(-68px, 8px) rotate(-15deg); }
+@keyframes quizFlip {
+  0%, 34%, 84%, 100% { transform: translateY(0) scaleX(1); }
+  42%, 76% { transform: translateY(-8px) scaleX(0.035); }
+  50%, 68% { transform: translateY(0) scaleX(1); }
 }
 
-@keyframes deckShuffleRight {
-  0%, 30%, 72%, 100% { transform: translate(58px, 12px) rotate(12deg); }
-  48% { transform: translate(-10px, 5px) rotate(-3deg); }
-  60% { transform: translate(68px, 8px) rotate(15deg); }
+@keyframes quizShowBack {
+  0%, 42% { opacity: 1; }
+  43%, 75% { opacity: 0; }
+  76%, 100% { opacity: 1; }
 }
 
-@keyframes deckShuffleCenter {
-  0%, 30%, 72%, 100% { transform: translateY(-7px); }
-  48% { transform: translateY(-18px) scale(1.04); }
-  60% { transform: translateY(-4px); }
+@keyframes quizShowFront {
+  0%, 42% { opacity: 0; }
+  43%, 75% { opacity: 1; }
+  76%, 100% { opacity: 0; }
 }
 
-@keyframes blueMove {
-  0%, 22%, 100% { transform: translate(0); }
-  50%, 70% { transform: translate(96px, 48px); }
+@keyframes quizShadow {
+  0%, 34%, 84%, 100% { opacity: 1; transform: scaleX(1); }
+  42%, 76% { opacity: 0.42; transform: scaleX(0.58); }
 }
 
-@keyframes redMove {
-  0%, 22%, 100% { transform: translate(0); }
-  50%, 70% { transform: translate(-48px, -48px); }
+@keyframes captureRouteFlow {
+  to { stroke-dashoffset: -32; }
+}
+
+@keyframes pawnAdvanceLeft {
+  0%, 20%, 100% { transform: translate(0); }
+  46% { transform: translate(18px, -9px) rotate(2deg); }
+  58%, 72% { transform: translate(23px, 0); }
+}
+
+@keyframes pawnAdvanceRight {
+  0%, 20%, 100% { transform: translate(0); }
+  46% { transform: translate(-18px, -9px) rotate(-2deg); }
+  58%, 72% { transform: translate(-23px, 0); }
 }
 
 @keyframes flagWave {
-  0%, 100% { transform: skewY(0deg); }
-  50% { transform: skewY(6deg); }
+  0%, 100% { transform: skewY(-1deg) scaleX(0.98); }
+  50% { transform: skewY(4deg) scaleX(1.03); }
 }
 
-@keyframes metricGlow {
-  0%, 100% { opacity: 0.68; }
-  50% { opacity: 1; }
+@keyframes marketLineDraw {
+  0%, 8% { opacity: 0.45; stroke-dashoffset: 520; }
+  48%, 100% { opacity: 1; stroke-dashoffset: 0; }
 }
 
-@keyframes barRise {
-  from { transform: scaleY(0.42); opacity: 0.6; }
-  to { transform: scaleY(1); opacity: 1; }
+@keyframes candleTrade {
+  from { opacity: 0.65; transform: scaleY(0.76); }
+  to { opacity: 1; transform: scaleY(1); }
 }
 
-@keyframes sparkDraw {
-  0%, 15% { stroke-dashoffset: 240; }
-  60%, 100% { stroke-dashoffset: 0; }
-}
-
-@keyframes pointPulse {
-  0%, 100% { transform: scale(0.85); }
-  50% { transform: scale(1.3); }
+@keyframes chartScan {
+  0% { opacity: 0; transform: translateX(0); }
+  8%, 92% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(344px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -192,78 +192,135 @@ function RedBlackTree() {
 function QuizDeck() {
   return (
     <svg viewBox="0 0 480 260" role="presentation">
-      <g className={`${styles.quizCard} ${styles.quizCardLeft}`}>
-        <rect x="180" y="48" width="120" height="166" rx="22" />
-        <path d="M219 105c0-28 43-27 43 1 0 19-22 18-22 39" />
-        <circle cx="240" cy="172" r="5" />
-      </g>
-      <g className={`${styles.quizCard} ${styles.quizCardRight}`}>
-        <rect x="180" y="48" width="120" height="166" rx="22" />
-        <path d="M219 105c0-28 43-27 43 1 0 19-22 18-22 39" />
-        <circle cx="240" cy="172" r="5" />
-      </g>
-      <g className={`${styles.quizCard} ${styles.quizCardCenter}`}>
-        <rect x="180" y="48" width="120" height="166" rx="22" />
-        <path d="M219 105c0-28 43-27 43 1 0 19-22 18-22 39" />
-        <circle cx="240" cy="172" r="5" />
+      <ellipse className={styles.quizCardShadow} cx="240" cy="225" rx="82" ry="12" />
+      <g className={styles.quizFlipCard}>
+        <rect
+          className={styles.quizCardFrame}
+          x="154"
+          y="27"
+          width="172"
+          height="202"
+          rx="25"
+        />
+        <g className={styles.quizCardBack}>
+          <rect x="164" y="37" width="152" height="182" rx="18" />
+          <path d="M211 99c0-39 59-38 59 1 0 27-30 25-30 54" />
+          <circle cx="240" cy="184" r="7" />
+          <path className={styles.quizBackPattern} d="m179 58 18-10m86 160 18-10" />
+        </g>
+        <g className={styles.quizCardFront}>
+          <text className={styles.quizEyebrow} x="240" y="66" textAnchor="middle">
+            QUIZ
+          </text>
+          <text className={styles.quizQuestion} x="240" y="113" textAnchor="middle">
+            2 + 2 = ?
+          </text>
+          <g className={styles.quizAnswers}>
+            <rect x="174" y="145" width="58" height="42" rx="12" />
+            <rect x="248" y="145" width="58" height="42" rx="12" />
+            <text x="203" y="172" textAnchor="middle">3</text>
+            <text x="277" y="172" textAnchor="middle">4</text>
+          </g>
+        </g>
       </g>
     </svg>
   );
 }
 
 function GameBoard() {
-  const cells = Array.from({ length: 24 }, (_, index) => {
-    const column = index % 6;
-    const row = Math.floor(index / 6);
-
-    return (
-      <rect
-        key={index}
-        x={92 + column * 48}
-        y={34 + row * 48}
-        width="44"
-        height="44"
-        rx="8"
-        className={(column + row) % 2 === 0 ? styles.boardCellAlt : undefined}
-      />
-    );
-  });
-
   return (
     <svg viewBox="0 0 480 260" role="presentation">
-      <g className={styles.board}>{cells}</g>
-      <g className={`${styles.gamePiece} ${styles.gamePieceBlue}`}>
-        <circle cx="162" cy="79" r="17" />
-        <path d="M148 104h28" />
+      <path className={styles.gameGround} d="M43 219H437" />
+      <path className={styles.captureRoute} d="M127 190C164 150 185 137 211 133M353 190c-36-40-58-53-84-57" />
+
+      <g className={`${styles.gamePawn} ${styles.gamePawnLeft}`}>
+        <circle cx="96" cy="103" r="22" />
+        <path d="M77 132h38c-3 13 0 27 15 43H62c15-16 18-30 15-43Z" />
+        <rect x="54" y="173" width="84" height="20" rx="9" />
+        <rect x="45" y="190" width="102" height="25" rx="10" />
+        <path className={styles.pawnHighlight} d="M77 145c-1 8-4 14-9 21" />
       </g>
-      <g className={`${styles.gamePiece} ${styles.gamePieceRed}`}>
-        <circle cx="354" cy="175" r="17" />
-        <path d="M340 200h28" />
+
+      <g className={`${styles.gamePawn} ${styles.gamePawnRight}`}>
+        <circle cx="384" cy="103" r="22" />
+        <path d="M365 132h38c-3 13 0 27 15 43h-68c15-16 18-30 15-43Z" />
+        <rect x="342" y="173" width="84" height="20" rx="9" />
+        <rect x="333" y="190" width="102" height="25" rx="10" />
+        <path className={styles.pawnHighlight} d="M365 145c-1 8-4 14-9 21" />
       </g>
-      <path className={styles.flag} d="M306 62v58m0-53 45 13-45 15" />
+
+      <g className={styles.gameFlag}>
+        <path className={styles.flagPole} d="M185 39v178" />
+        <circle className={styles.flagFinial} cx="185" cy="35" r="7" />
+        <path
+          className={styles.flagFabric}
+          d="M190 48c37-19 73 16 116-2v85c-43 18-79-17-116 2Z"
+        />
+      </g>
     </svg>
   );
 }
 
 function FinanceDashboard() {
+  const candles = [
+    { x: 72, high: 107, low: 180, open: 133, close: 160 },
+    { x: 106, high: 98, low: 166, open: 148, close: 118 },
+    { x: 140, high: 111, low: 177, open: 127, close: 153 },
+    { x: 174, high: 85, low: 155, open: 138, close: 104 },
+    { x: 208, high: 76, low: 139, open: 112, close: 91 },
+    { x: 242, high: 91, low: 154, open: 105, close: 133 },
+    { x: 276, high: 66, low: 142, open: 121, close: 83 },
+    { x: 310, high: 57, low: 120, open: 92, close: 72 },
+    { x: 344, high: 68, low: 132, open: 79, close: 108 },
+    { x: 378, high: 48, low: 116, open: 101, close: 65 },
+  ];
+
   return (
     <svg viewBox="0 0 480 260" role="presentation">
-      <g className={styles.metricCards}>
-        <rect x="38" y="38" width="122" height="62" rx="17" />
-        <rect x="174" y="38" width="122" height="62" rx="17" />
-        <rect x="310" y="38" width="132" height="62" rx="17" />
-        <path d="M58 59h35M58 78h71M194 59h35M194 78h71M330 59h35M330 78h80" />
+      <rect className={styles.marketPanel} x="24" y="18" width="432" height="224" rx="22" />
+      <g className={styles.marketChrome}>
+        <circle cx="46" cy="39" r="4" />
+        <circle cx="60" cy="39" r="4" />
+        <circle cx="74" cy="39" r="4" />
+        <text x="91" y="44">PORTFOLIO / EUR</text>
+        <rect x="377" y="30" width="58" height="20" rx="10" />
+        <text className={styles.liveLabel} x="406" y="44" textAnchor="middle">LIVE</text>
       </g>
-      <g className={styles.chartBars}>
-        <rect x="50" y="178" width="30" height="42" rx="7" />
-        <rect x="91" y="150" width="30" height="70" rx="7" />
-        <rect x="132" y="163" width="30" height="57" rx="7" />
-        <rect x="173" y="126" width="30" height="94" rx="7" />
-        <rect x="214" y="139" width="30" height="81" rx="7" />
+
+      <g className={styles.marketGrid}>
+        <path d="M47 73H433M47 111H433M47 149H433M47 187H433M47 225H433" />
+        <path d="M82 62V225M150 62V225M218 62V225M286 62V225M354 62V225M422 62V225" />
       </g>
-      <path className={styles.sparkArea} d="m270 205 35-35 32 12 35-53 54-23v114H270z" />
-      <path className={styles.sparkLine} d="m270 205 35-35 32 12 35-53 54-23" />
-      <circle className={styles.sparkPoint} cx="372" cy="129" r="7" />
+
+      <path
+        className={styles.marketArea}
+        d="M72 160 106 118 140 153 174 104 208 91 242 133 276 83 310 72 344 108 378 65 416 82V225H72Z"
+      />
+      <path
+        className={styles.marketLine}
+        d="M72 160 106 118 140 153 174 104 208 91 242 133 276 83 310 72 344 108 378 65 416 82"
+      />
+
+      <g className={styles.candlesticks}>
+        {candles.map((candle) => {
+          const rising = candle.close < candle.open;
+          const bodyY = Math.min(candle.open, candle.close);
+          const bodyHeight = Math.max(8, Math.abs(candle.close - candle.open));
+
+          return (
+            <g
+              className={`${styles.candle} ${rising ? styles.candleRising : styles.candleFalling}`}
+              key={candle.x}
+            >
+              <path d={`M${candle.x} ${candle.high}V${candle.low}`} />
+              <rect x={candle.x - 6} y={bodyY} width="12" height={bodyHeight} rx="2" />
+            </g>
+          );
+        })}
+      </g>
+
+      <path className={styles.priceGuide} d="M47 82H433" />
+      <path className={styles.chartScanner} d="M69 63V224" />
     </svg>
   );
 }
