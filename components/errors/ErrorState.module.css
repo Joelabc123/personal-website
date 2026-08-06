@@ -1,0 +1,324 @@
+.page {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+  flex: 1;
+  padding: clamp(12px, 1.5vw, 24px);
+  background: var(--p-color-canvas);
+}
+
+.languageDe,
+.languageEn {
+  display: contents;
+}
+
+.languageEn {
+  display: none;
+}
+
+:global(html[lang="en"]) .languageDe {
+  display: none;
+}
+
+:global(html[lang="en"]) .languageEn {
+  display: contents;
+}
+
+.surface {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  min-height: calc(100dvh - clamp(24px, 3vw, 48px));
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: clamp(10px, 1vw, 16px);
+  margin-inline: auto;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--p-color-hairline) 78%, transparent);
+  border-radius: var(--p-radius-4xl);
+  color: var(--p-color-ink);
+}
+
+.copyCard {
+  display: flex;
+  min-height: 540px;
+  flex-direction: column;
+  padding: clamp(28px, 5vw, 76px);
+  background:
+    radial-gradient(circle at 88% 8%, rgb(26 68 234 / 8%), transparent 33%),
+    var(--p-color-canvas-elevated);
+}
+
+.copyCard::after {
+  position: absolute;
+  width: clamp(180px, 24vw, 340px);
+  height: clamp(180px, 24vw, 340px);
+  border: 1px solid var(--p-color-hairline);
+  border-radius: 50%;
+  content: "";
+  inset: auto -10% -31% auto;
+  opacity: 0.55;
+}
+
+.eyebrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: var(--p-spacing-xs);
+  color: var(--p-color-ink-muted);
+  font-size: var(--p-typescale-2xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.eyebrowDot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--p-color-focus);
+  box-shadow: 0 0 0 4px rgb(26 68 234 / 10%);
+}
+
+.eyebrowDot[data-code="500"] {
+  background: var(--p-color-error);
+  box-shadow: 0 0 0 4px rgb(186 23 31 / 10%);
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin-top: auto;
+}
+
+.copy h1 {
+  max-width: 12ch;
+  font-size: clamp(2.55rem, 5.8vw, 6.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.97;
+}
+
+.copy > p {
+  max-width: 57ch;
+  margin-top: clamp(20px, 2.4vw, 32px);
+  color: var(--p-color-ink-muted);
+  font-size: var(--p-typescale-lg);
+  line-height: var(--p-leading-body);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--p-spacing-sm);
+  margin-top: clamp(28px, 3.5vw, 48px);
+}
+
+.action {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: var(--p-spacing-xs);
+  padding: 11px 20px;
+  border: 1px solid var(--p-color-hairline);
+  border-radius: var(--p-radius-full);
+  cursor: pointer;
+  font-size: var(--p-typescale-sm);
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color var(--p-motion-duration-fast) var(--p-motion-easing-base),
+    border-color var(--p-motion-duration-fast) var(--p-motion-easing-base),
+    color var(--p-motion-duration-fast) var(--p-motion-easing-base),
+    transform var(--p-motion-duration-fast) var(--p-motion-easing-base);
+}
+
+.action svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+.primaryAction {
+  border-color: var(--p-color-primary);
+  background: var(--p-color-primary);
+  color: var(--p-color-canvas-elevated);
+}
+
+.secondaryAction {
+  background: var(--p-color-canvas-elevated);
+  color: var(--p-color-ink);
+}
+
+.action:hover,
+.action:focus-visible {
+  border-color: var(--p-color-focus);
+  transform: translateY(-2px);
+}
+
+.primaryAction:hover,
+.primaryAction:focus-visible {
+  background: var(--p-color-focus);
+}
+
+.secondaryAction:hover,
+.secondaryAction:focus-visible {
+  background: var(--p-color-canvas-soft);
+}
+
+.codeCard {
+  display: grid;
+  min-height: 540px;
+  place-items: center;
+  padding: clamp(24px, 3vw, 44px);
+  background:
+    linear-gradient(rgb(17 19 24 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(17 19 24 / 3%) 1px, transparent 1px),
+    radial-gradient(circle at 50% 42%, rgb(26 68 234 / 12%), transparent 47%),
+    var(--p-color-canvas-soft);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+}
+
+.codeCard[data-code="500"] {
+  background:
+    linear-gradient(rgb(17 19 24 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(17 19 24 / 3%) 1px, transparent 1px),
+    radial-gradient(circle at 50% 42%, rgb(186 23 31 / 10%), transparent 47%),
+    var(--p-color-canvas-soft);
+  background-size: 32px 32px, 32px 32px, auto, auto;
+}
+
+.orbit {
+  position: relative;
+  display: grid;
+  width: min(31vw, 380px);
+  min-width: 230px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--p-color-hairline-muted) 70%, transparent);
+  border-radius: 50%;
+}
+
+.orbit::before,
+.orbit::after,
+.orbitInner {
+  position: absolute;
+  border: 1px solid color-mix(in srgb, var(--p-color-hairline-muted) 64%, transparent);
+  border-radius: 50%;
+  content: "";
+}
+
+.orbit::before {
+  inset: 11%;
+}
+
+.orbit::after {
+  inset: 24%;
+}
+
+.orbitInner {
+  inset: -7%;
+  border-style: dashed;
+  opacity: 0.55;
+}
+
+.orbit strong {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(4.6rem, 8.5vw, 8.8rem);
+  font-weight: 400;
+  letter-spacing: -0.08em;
+  line-height: 1;
+}
+
+.status {
+  position: absolute;
+  right: clamp(20px, 2vw, 32px);
+  bottom: clamp(20px, 2vw, 32px);
+  left: clamp(20px, 2vw, 32px);
+  display: flex;
+  align-items: center;
+  gap: var(--p-spacing-xs);
+  color: var(--p-color-ink-muted);
+  font-size: var(--p-typescale-2xs);
+  text-transform: uppercase;
+}
+
+.status span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--p-color-focus);
+}
+
+.codeCard[data-code="500"] .status span {
+  background: var(--p-color-error);
+}
+
+@media (max-width: 840px) {
+  .surface {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .copyCard {
+    min-height: min(64dvh, 600px);
+  }
+
+  .codeCard {
+    min-height: 330px;
+  }
+
+  .orbit {
+    width: min(58vw, 290px);
+    min-width: 210px;
+  }
+}
+
+@media (max-width: 520px) {
+  .page {
+    padding: var(--p-spacing-xs);
+  }
+
+  .surface {
+    min-height: calc(100dvh - (2 * var(--p-spacing-xs)));
+    gap: var(--p-spacing-xs);
+  }
+
+  .card {
+    border-radius: var(--p-radius-3xl);
+  }
+
+  .copyCard {
+    min-height: 520px;
+    padding: 26px 22px;
+  }
+
+  .copy h1 {
+    font-size: clamp(2.45rem, 13vw, 4rem);
+  }
+
+  .copy > p {
+    font-size: var(--p-typescale-md);
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .action {
+    width: 100%;
+  }
+
+  .codeCard {
+    min-height: 280px;
+  }
+}

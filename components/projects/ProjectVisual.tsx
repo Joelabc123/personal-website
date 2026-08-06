@@ -6,28 +6,150 @@ type ProjectVisualProps = {
   kind: ProjectMotif;
 };
 
-function PropertyFlow() {
+function PropertyBuilding() {
+  const windowColumns = [
+    { x: 58, width: 27 },
+    { x: 183, width: 24 },
+    { x: 218, width: 24 },
+    { x: 333, width: 16 },
+    { x: 438, width: 24 },
+    { x: 548, width: 22 },
+    { x: 577, width: 15 },
+  ];
+  const windowRows = [
+    { y: 75, height: 29 },
+    { y: 120, height: 29 },
+    { y: 166, height: 37 },
+  ];
+  const balconyColumns = [
+    { x: 96, width: 70 },
+    { x: 254, width: 66 },
+    { x: 470, width: 64 },
+  ];
+  const balconyRows = [
+    { y: 73, height: 38 },
+    { y: 117, height: 39 },
+    { y: 162, height: 48 },
+  ];
+
   return (
-    <svg viewBox="0 0 480 260" role="presentation">
-      <path className={styles.guide} d="M96 130H384" />
-      <path className={styles.flowLine} d="M96 130H384" />
-      <g className={`${styles.flowStep} ${styles.flowStepOne}`}>
-        <rect x="42" y="78" width="108" height="104" rx="22" />
-        <circle cx="96" cy="111" r="13" />
-        <path d="M72 153c7-15 39-15 47 0" />
-        <path d="M66 164h60" />
+    <svg viewBox="0 0 640 260" role="presentation">
+      <path className={styles.buildingGround} d="M26 218H614" />
+      <g className={styles.propertyBuilding}>
+        <path className={styles.buildingShell} d="M42 61 598 68v144H42Z" />
+        <path className={styles.buildingRoofline} d="M42 61 598 68" />
+        <path
+          className={styles.buildingFloorLines}
+          d="M42 113h312m71 0h173M42 159h312m71 0h173"
+        />
+        <path className={styles.buildingCore} d="M354 65 425 66v146h-71Z" />
+        <path
+          className={styles.buildingCoreGrid}
+          d="M378 65v147m24-147v147M354 113h71M354 159h71"
+        />
+
+        <g>
+          {windowColumns.flatMap((column, columnIndex) =>
+            windowRows.map((row, rowIndex) => {
+              const middleX = column.x + column.width / 2;
+              const crossY = row.y + row.height * 0.56;
+
+              return (
+                <g
+                  className={styles.buildingWindow}
+                  key={`${columnIndex}-${rowIndex}`}
+                >
+                  <rect
+                    x={column.x}
+                    y={row.y}
+                    width={column.width}
+                    height={row.height}
+                    rx="2"
+                  />
+                  <path
+                    d={`M${middleX} ${row.y + 1}v${row.height - 2}M${column.x + 1} ${crossY}h${column.width - 2}`}
+                  />
+                </g>
+              );
+            }),
+          )}
+        </g>
+
+        <g>
+          {balconyColumns.flatMap((column, columnIndex) =>
+            balconyRows.map((row, rowIndex) => {
+              const doorWidth = (column.width - 24) / 2;
+              const railY = row.y + Math.min(27, row.height - 11);
+              const railDepth = row.y + row.height - railY - 2;
+              const railPosts = [8, 18, 28, 38, 48, 58].filter(
+                (offset) => offset < column.width - 5,
+              );
+
+              return (
+                <g
+                  className={styles.buildingBalcony}
+                  key={`${columnIndex}-${rowIndex}`}
+                >
+                  <rect
+                    className={styles.buildingBalconyNiche}
+                    x={column.x}
+                    y={row.y}
+                    width={column.width}
+                    height={row.height}
+                    rx="2"
+                  />
+                  <rect
+                    className={styles.buildingBalconyDoor}
+                    x={column.x + 8}
+                    y={row.y + 5}
+                    width={doorWidth}
+                    height={row.height - 8}
+                    rx="1"
+                  />
+                  <rect
+                    className={styles.buildingBalconyDoor}
+                    x={column.x + 16 + doorWidth}
+                    y={row.y + 5}
+                    width={doorWidth}
+                    height={row.height - 8}
+                    rx="1"
+                  />
+                  {rowIndex < 2 ? (
+                    <path
+                      className={styles.buildingBalconyRailing}
+                      d={`M${column.x + 2} ${railY}h${column.width - 4}${railPosts
+                        .map(
+                          (offset) =>
+                            `M${column.x + offset} ${railY}v${railDepth}`,
+                        )
+                        .join("")}`}
+                    />
+                  ) : null}
+                  <path
+                    className={styles.buildingBalconySlab}
+                    d={`M${column.x - 1} ${row.y + row.height}h${column.width + 2}`}
+                  />
+                  {rowIndex < 2 && (columnIndex + rowIndex) % 2 === 0 ? (
+                    <path
+                      className={styles.buildingBalconyPlant}
+                      d={`M${column.x + column.width - 12} ${railY}v-9m0 4-5-5m5 5 5-5`}
+                    />
+                  ) : null}
+                </g>
+              );
+            }),
+          )}
+        </g>
       </g>
-      <g className={`${styles.flowStep} ${styles.flowStepTwo}`}>
-        <rect x="186" y="60" width="108" height="140" rx="22" />
-        <path d="M218 94h44M218 112h32M218 145h44M218 163h27" />
-        <path className={styles.approval} d="m252 177 7 7 15-18" />
+
+      <g className={styles.buildingShrubs}>
+        <circle cx="68" cy="210" r="11" />
+        <circle cx="177" cy="211" r="13" />
+        <circle cx="239" cy="213" r="9" />
+        <circle cx="334" cy="211" r="12" />
+        <circle cx="448" cy="212" r="10" />
+        <circle cx="555" cy="211" r="14" />
       </g>
-      <g className={`${styles.flowStep} ${styles.flowStepThree}`}>
-        <rect x="330" y="78" width="108" height="104" rx="22" />
-        <path d="M354 126h18v31h-18zM378 108h18v49h-18zM402 92h12v65h-12z" />
-      </g>
-      <circle className={`${styles.packet} ${styles.packetOne}`} cx="96" cy="130" r="6" />
-      <circle className={`${styles.packet} ${styles.packetTwo}`} cx="96" cy="130" r="6" />
     </svg>
   );
 }
@@ -67,33 +189,24 @@ function RedBlackTree() {
   );
 }
 
-function QuizNetwork() {
+function QuizDeck() {
   return (
     <svg viewBox="0 0 480 260" role="presentation">
-      <path className={styles.networkLine} d="M116 132H364" />
-      <g className={`${styles.player} ${styles.playerOne}`}>
-        <circle cx="91" cy="105" r="22" />
-        <path d="M54 171c4-32 69-32 74 0" />
-        <path d="M66 197h50" />
+      <g className={`${styles.quizCard} ${styles.quizCardLeft}`}>
+        <rect x="180" y="48" width="120" height="166" rx="22" />
+        <path d="M219 105c0-28 43-27 43 1 0 19-22 18-22 39" />
+        <circle cx="240" cy="172" r="5" />
       </g>
-      <g className={`${styles.player} ${styles.playerTwo}`}>
-        <circle cx="389" cy="105" r="22" />
-        <path d="M352 171c4-32 69-32 74 0" />
-        <path d="M364 197h50" />
+      <g className={`${styles.quizCard} ${styles.quizCardRight}`}>
+        <rect x="180" y="48" width="120" height="166" rx="22" />
+        <path d="M219 105c0-28 43-27 43 1 0 19-22 18-22 39" />
+        <circle cx="240" cy="172" r="5" />
       </g>
-      <g className={styles.questionCard}>
-        <rect x="183" y="54" width="114" height="150" rx="26" />
-        <path d="M220 102c0-26 41-25 41 1 0 19-21 17-21 36" />
-        <circle cx="240" cy="166" r="5" />
-        <path d="M211 76h58" />
+      <g className={`${styles.quizCard} ${styles.quizCardCenter}`}>
+        <rect x="180" y="48" width="120" height="166" rx="22" />
+        <path d="M219 105c0-28 43-27 43 1 0 19-22 18-22 39" />
+        <circle cx="240" cy="172" r="5" />
       </g>
-      <g className={styles.scorePills}>
-        <rect x="52" y="48" width="78" height="28" rx="14" />
-        <rect x="350" y="48" width="78" height="28" rx="14" />
-        <path d="M76 62h30M374 62h30" />
-      </g>
-      <circle className={`${styles.networkPacket} ${styles.networkPacketOne}`} cx="116" cy="132" r="7" />
-      <circle className={`${styles.networkPacket} ${styles.networkPacketTwo}`} cx="116" cy="132" r="5" />
     </svg>
   );
 }
@@ -127,7 +240,6 @@ function GameBoard() {
         <circle cx="354" cy="175" r="17" />
         <path d="M340 200h28" />
       </g>
-      <path className={styles.gameRoute} d="M162 79c78 4 38 96 192 96" />
       <path className={styles.flag} d="M306 62v58m0-53 45 13-45 15" />
     </svg>
   );
@@ -157,9 +269,9 @@ function FinanceDashboard() {
 }
 
 const visuals: Record<ProjectMotif, () => React.ReactNode> = {
-  "property-flow": PropertyFlow,
+  "property-building": PropertyBuilding,
   "red-black-tree": RedBlackTree,
-  "quiz-network": QuizNetwork,
+  "quiz-deck": QuizDeck,
   "game-board": GameBoard,
   "finance-dashboard": FinanceDashboard,
 };

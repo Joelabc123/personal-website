@@ -3,9 +3,9 @@ import type { Locale, LocalizedText } from "@/lib/cv";
 export type ProjectStatus = "published" | "coming-soon";
 export type ProjectLinkKind = "repository" | "demo" | "documentation";
 export type ProjectMotif =
-  | "property-flow"
+  | "property-building"
   | "red-black-tree"
-  | "quiz-network"
+  | "quiz-deck"
   | "game-board"
   | "finance-dashboard";
 
@@ -80,7 +80,7 @@ export const projects: readonly Project[] = [
       en: "One workflow for applications, contracts, and management",
     },
     technologies: ["TypeScript", "Web App", "Automation"],
-    motif: "property-flow",
+    motif: "property-building",
     status: "published",
     featured: true,
     media: [
@@ -165,7 +165,7 @@ export const projects: readonly Project[] = [
       en: "Synchronous data exchange between two players",
     },
     technologies: ["Java", "TCP Sockets", "Client–Server"],
-    motif: "quiz-network",
+    motif: "quiz-deck",
     status: "published",
     featured: false,
     media: [
@@ -235,26 +235,26 @@ export const projects: readonly Project[] = [
   {
     slug: "finance-management-platform",
     title: {
-      de: "Agentic-RAG-Finanzplattform",
-      en: "Agentic RAG Finance Platform",
+      de: "Agent-Loop-Finanzplattform",
+      en: "Agent Loop Finance Platform",
     },
     type: {
       de: "KI-gestützte FinTech-Plattform",
       en: "AI-powered FinTech platform",
     },
     summary: {
-      de: "Ein Multi-Layer Agentic RAG verbindet Finance Papers mit Live-Daten für fundierte Portfolioanalysen und konkrete Handlungsempfehlungen.",
-      en: "A multi-layer agentic RAG system combines finance papers with live data to deliver informed portfolio analysis and actionable recommendations.",
+      de: "Ein Agent Loop verbindet eine Finanzwissensbasis aus Finance Papers und etablierter Finanztheorie mit Live-Daten für fundierte Portfolioanalysen.",
+      en: "An agent loop combines a financial knowledge base of finance papers and established theory with live data for informed portfolio analysis.",
     },
     description: {
-      de: "Ein Multi-Layer Agentic-RAG-System nutzt Finance Papers als kuratierte Wissensbasis und reichert dieses Fachwissen mit aktuellen Marktdaten an. Mehrere spezialisierte Agenten bewerten Portfolios, ordnen Chancen und Risiken ein und leiten daraus nachvollziehbare, konkrete Handlungsempfehlungen zur Unterstützung finanzieller Entscheidungen ab.",
-      en: "A multi-layer agentic RAG system uses finance papers as a curated knowledge base and enriches this expertise with live market data. Multiple specialized agents evaluate portfolios, assess opportunities and risks, and turn their findings into transparent, actionable recommendations that support financial decision-making.",
+      de: "Ein KI-Agent analysiert Portfolios in einem iterativen Agent Loop. Dabei verbindet er eine kuratierte Finanzwissensbasis aus Finance Papers und etablierter Finanztheorie mit aktuellen Marktdaten, bewertet Chancen und Risiken und leitet daraus nachvollziehbare Handlungsempfehlungen ab.",
+      en: "An AI agent analyzes portfolios in an iterative agent loop. It combines a curated financial knowledge base of finance papers and established financial theory with live market data, evaluates opportunities and risks, and derives transparent, actionable recommendations.",
     },
     highlight: {
-      de: "Von Finance Papers und Live-Daten zur konkreten Handlungsempfehlung",
-      en: "From finance papers and live data to actionable recommendations",
+      de: "Finanzwissen und Live-Daten in einem iterativen Agent Loop",
+      en: "Financial knowledge and live data in an iterative agent loop",
     },
-    technologies: ["Agentic RAG", "LLM Agents", "Live Market Data", "Portfolio Analytics"],
+    technologies: ["Agent Loop", "LLM Agent", "Live Market Data", "Portfolio Analytics"],
     motif: "finance-dashboard",
     status: "coming-soon",
     featured: false,
@@ -263,8 +263,8 @@ export const projects: readonly Project[] = [
         type: "placeholder",
         variant: "finance",
         alt: {
-          de: "Abstrakte Vorschau der Agentic-RAG-Finanzplattform mit Portfolioanalyse und Live-Marktdaten",
-          en: "Abstract preview of the agentic RAG finance platform with portfolio analysis and live market data",
+          de: "Abstrakte Vorschau der Agent-Loop-Finanzplattform mit Portfolioanalyse und Live-Marktdaten",
+          en: "Abstract preview of the agent loop finance platform with portfolio analysis and live market data",
         },
       },
     ],
